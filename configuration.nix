@@ -137,10 +137,9 @@
 
   programs.git = {
     enable = true;
-    package = pkgs.git.override { withLibsecret = true; };
     config = {
       core.askpass = "";
-      credential.helper = "libsecret";
+      credential.helper = "store";
       push = { autoSetupRemote = true; };
     };
   };
