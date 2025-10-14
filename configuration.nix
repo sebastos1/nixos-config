@@ -116,7 +116,6 @@
   nixpkgs.config.chromium.enableWideVine = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
-    git
     wget
     curl
     unzip
@@ -135,6 +134,17 @@
     openrazer-daemon
     polychromatic
   ];
+
+  programs.git = {
+    enable = true;
+    package = pkgs.git.override { withLibsecret = true; };
+    config = {
+      core.askpass = "";
+      credential.helper = "libsecret";
+      push = { autoSetupRemote = true; };
+    };
+  };
+  services.gnome.gnome-keyring.enable = true;
 
   hardware.openrazer.enable = true;
 
