@@ -121,7 +121,6 @@
     unzip
     zip
     file
-    killall
     # piper
     protonup-qt
     protontricks
@@ -135,6 +134,8 @@
     polychromatic
   ];
 
+  hardware.openrazer.enable = true;
+
   programs.git = {
     enable = true;
     config = {
@@ -143,9 +144,6 @@
       push = { autoSetupRemote = true; };
     };
   };
-  services.gnome.gnome-keyring.enable = true;
-
-  hardware.openrazer.enable = true;
 
   # audio
   security.rtkit.enable = true;

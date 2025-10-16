@@ -1,0 +1,21 @@
+[aliases.class]
+Brave = "brave"
+Chromium = "chrome"
+Nicotine = "nicotine"
+vesktop = "discord"
+
+[general]
+separator = ", "
+empty_label = "new"
+
+[options]
+remove_duplicates = true
+
+[icons] # most of these are clos enuf
+"brave" = "󰇧"
+"Cursor" = ""
+"kitty" = ""
+"steam" = ""
+"discord" = ""
+"chrome" = "(!)"
+"nicotine" = ""

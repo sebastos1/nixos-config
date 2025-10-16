@@ -9,11 +9,34 @@
     arandr
     dunst
     networkmanagerapplet
+    alttab
+    i3wsr
+
     htop
+    xclip
 
     # font
+    font-awesome
     nerd-fonts.meslo-lg
   ];
+
+  home.pointerCursor = {
+    name = "material_light_cursors";
+    package = pkgs.material-cursors;
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    vSync = true;
+    settings = {
+      unredir-if-possible = true;
+      use-damage = true;
+    };
+  };
 
   # ig this can be here
   programs.kitty = {
@@ -34,11 +57,10 @@
   };
 
   home.file = {
-    ".config/i3/config".source = ../i3/config;
-    ".config/i3status-rust/config.toml".source = ../i3/status.toml;
-    ".config/i3status-rust/mullvad-check.sh" = {
-      source = ../i3/mullvad-check.sh;
-      executable = true;
-    };
+    ".config/i3/config".source = ../i3/i3config;
+    ".config/rofi/config.rasi".source = ../i3/rofi.rasi;
+    ".config/i3status-rust/config.toml".source = ../i3/i3status-rust.toml;
+    ".config/i3status-rust/mullvad-check.sh" = { source = ../i3/mullvad-check.sh; executable = true; };
+    ".config/i3wsr/config.toml".source = ../i3/wsr.toml;
   };
 }

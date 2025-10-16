@@ -37,6 +37,13 @@
     };
     functions = {
       fish_greeting = "";
+      fish_title = ''
+        if set -q argv[1]
+          echo $argv[1] (prompt_pwd)
+        else
+          echo (prompt_pwd)
+        end
+      '';
     };
     plugins = [
       {
