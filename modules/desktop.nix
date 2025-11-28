@@ -18,7 +18,18 @@
     # font
     font-awesome
     nerd-fonts.meslo-lg
+
+    # pws
+    bitwarden-desktop
+    rbw
+    rofi-rbw-x11
+    pinentry-curses
+    xdotool
   ];
+
+  services.picom = {
+    enable = true;
+  };
 
   home.pointerCursor = {
     name = "material_light_cursors";
@@ -28,15 +39,15 @@
     x11.enable = true;
   };
 
-  services.picom = {
-    enable = true;
-    backend = "glx";
-    vSync = true;
-    settings = {
-      unredir-if-possible = true;
-      use-damage = true;
-    };
-  };
+  #services.picom = {
+  #  enable = true;
+  #  backend = "glx";
+  #  vSync = true;
+  #  settings = {
+  #    unredir-if-possible = true;
+  #    use-damage = true;
+  #  };
+  #};
 
   # ig this can be here
   programs.kitty = {

@@ -48,6 +48,7 @@ bar {
 }
 
 bindsym $mod+d exec rofi -show drun
+bindsym $mod+p exec rofi-rbw
 
 # close
 bindsym $mod+w kill

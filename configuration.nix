@@ -30,6 +30,15 @@
     #dedicatedServer.openFirewall = true;
   };
 
+  # map keyboard buttons fast
+  services.input-remapper.enable = true;
+
+  # old ahh motherboard doesnt support the modern apic pstate control, used by gamemode
+  boot.kernelParams = [
+    "initcall_blacklist=amd_pstate_init"
+    "intel_pstate=disable"
+  ];
+  boot.kernelModules = [ "acpi-cpufreq" ];
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -124,15 +133,19 @@
     # piper
     protonup-qt
     protontricks
-    #wine64
-    #wine
-    #lutris
+    wine64
+    wine
+    lutris
     nix-your-shell
+    winetricks
 
     # razer (FUCK YOUUUUUUUUUUUUUUUU)
     openrazer-daemon
     polychromatic
   ];
+
+  # virtualisation.waydroid.enable = true;
+  # networking.firewall.trustedInterfaces = [ "waydroid0" ];
 
   hardware.openrazer.enable = true;
 
@@ -149,10 +162,10 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    lowLatency.enable = true;
+    #alsa.enable = true;
+    #alsa.support32Bit = true;
+    #pulse.enable = true;
+    #lowLatency.enable = true;
     #jack.enable = true;
   };
 
@@ -161,14 +174,19 @@
     enable = true;
     mouse = {
       accelProfile = "flat";
+      middleEmulation = false;
     };
   };
   # services.ratbagd.enable = true;
 
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd = {
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
 
   system.stateVersion = "25.05";
 }

@@ -8,6 +8,8 @@
     ungoogled-chromium # no vpn on this one
     osu-lazer-bin
     prismlauncher
+    jdk21
+    mangohud
 
     # music
     mpc
@@ -18,6 +20,11 @@
     name = "Chromium (no vpn, ungoogled)";
     exec = "mullvad-exclude chromium";
     icon = "chromium";
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    package = pkgs.obs-studio.override { cudaSupport = true; };
   };
 
   services.mpd = {
@@ -68,14 +75,14 @@
       plugins = {
         noTypingAnimation.enable = true;
         consoleJanitor.enable = true;
-        noTrack.enable = true;
+        # noTrack.enable = true;
         clearURLs.enable = true;
         anonymiseFileNames.enable = true;
         noDevtoolsWarning.enable = true;
         silentTyping.enable = true;
-        noDeepLinks.enable = true;
+        # noDeepLinks.enable = true;
         noSystemBadge.enable = true;
-        noRPC.enable = true;
+        # noRpc.enable = true;
         noMosaic.enable = true;
         noPendingCount.enable = true;
         noOnboardingDelay.enable = true;
