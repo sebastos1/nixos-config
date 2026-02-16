@@ -28,6 +28,9 @@
     gamescopeSession.enable = false;
     #remotePlay.openFirewall = true;
     #dedicatedServer.openFirewall = true;
+    extraPackages = with pkgs; [
+      python3
+    ];
   };
 
   # map keyboard buttons fast
@@ -55,6 +58,15 @@
     VKD3D_CONFIG = "dxr";
     PROTON_ENABLE_NGX_UPDATER = "1";
     PROTON_ENABLE_NVAPI = "1";
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    # extraPackages = with pkgs; [
+    #   vaapiVdpau
+    #   libvdpau-va-gl
+    # ];
   };
 
   swapDevices = [
@@ -102,6 +114,9 @@
   };
   console.keyMap = "no";
 
+  # wayland (sway)
+  security.polkit.enable = true;
+
   # i3
   services.xserver = {
     enable = true;
@@ -129,15 +144,11 @@
     curl
     unzip
     zip
+    unrar
     file
     # piper
-    protonup-qt
-    protontricks
-    wine64
-    wine
-    lutris
     nix-your-shell
-    winetricks
+    nautilus
 
     # razer (FUCK YOUUUUUUUUUUUUUUUU)
     openrazer-daemon

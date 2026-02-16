@@ -7,9 +7,24 @@
     brave
     ungoogled-chromium # no vpn on this one
     osu-lazer-bin
-    prismlauncher
-    jdk21
+    # prismlauncher
+    jemalloc # for minecraft
+    (prismlauncher.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ makeWrapper ];
+      postInstall = (oldAttrs.postInstall or "") + ''
+        wrapProgram $out/bin/prismlauncher \
+          --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
+      '';
+    }))
+    jdk21 # for minecraft
     mangohud
+    wineWowPackages.stable
+    winetricks
+    protonup-qt
+    protontricks
+    lutris
+    heroic
+    (blender.override { cudaSupport = true; })
 
     # music
     mpc
@@ -20,6 +35,15 @@
     name = "Chromium (no vpn, ungoogled)";
     exec = "mullvad-exclude chromium";
     icon = "chromium";
+  };
+
+  programs.obsidian = {
+    enable = true;
+    defaultSettings = {
+      communityPlugins = [
+        "obsidian-day-planner"
+      ];
+    };
   };
 
   programs.obs-studio = {
@@ -73,6 +97,10 @@
       useQuickCss = false;
       themeLinks = ["https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"];
       plugins = {
+        volumeBooster = {
+          enable = true;
+          multiplier = 2.0;
+        };
         noTypingAnimation.enable = true;
         consoleJanitor.enable = true;
         # noTrack.enable = true;

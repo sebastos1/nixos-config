@@ -22,4 +22,5 @@ block = "sound"
 
 [[block]]
 block = "time"
-format = "$icon $timestamp.datetime(f:'%a %d/%m %R') "
+interval = 1
+format = "$icon $timestamp.datetime(f:'%a %d/%m %T') "

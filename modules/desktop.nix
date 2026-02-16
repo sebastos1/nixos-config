@@ -11,6 +11,7 @@
     networkmanagerapplet
     alttab
     i3wsr
+    i3-resurrect
 
     htop
     xclip
@@ -25,6 +26,8 @@
     rofi-rbw-x11
     pinentry-curses
     xdotool
+
+
   ];
 
   services.picom = {
