@@ -1,7 +1,0 @@
-configuration {
-    matching: "fuzzy";
-    sorting-method: "fzf";
-    show-icons: true;
-}
-
-@theme "gruvbox-dark-hard"

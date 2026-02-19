@@ -4,21 +4,10 @@
   ...
 }: {
   home.packages = with pkgs; [
-    rofi
-    i3status-rust
-    arandr
-    dunst
-    networkmanagerapplet
-    alttab
     i3wsr
-    i3-resurrect
 
     htop
     xclip
-
-    # font
-    font-awesome
-    nerd-fonts.meslo-lg
 
     # pws
     bitwarden-desktop
@@ -27,54 +16,44 @@
     pinentry-curses
     xdotool
 
+    sway
+    waybar
+    # wofi
+    yad
+    rofi
+    rofi-calc
+    ghostty
 
+    # font
+    font-awesome
+    nerd-fonts.roboto-mono
+    nerd-fonts.meslo-lg
+
+
+    wl-clipboard # copy/paste
   ];
-
-  services.picom = {
-    enable = true;
-  };
 
   home.pointerCursor = {
     name = "material_light_cursors";
     package = pkgs.material-cursors;
     size = 24;
     gtk.enable = true;
-    x11.enable = true;
+    sway.enable = true;
   };
 
-  #services.picom = {
-  #  enable = true;
-  #  backend = "glx";
-  #  vSync = true;
-  #  settings = {
-  #    unredir-if-possible = true;
-  #    use-damage = true;
-  #  };
-  #};
-
-  # ig this can be here
-  programs.kitty = {
+  fonts.fontconfig = {
     enable = true;
-    themeFile = "GruvboxMaterialDarkHard";
-    font = {
-      name = "MesloLGSDZ Nerd Font Mono";
-      size = 12;
-    };
-    settings = {
-      scrollback_lines = 10000;
-      window_padding_width = "6";
-      tab_bar_style = "powerline";
-      tab_powerline_style = "slanted";
-      sync_to_monitor = true;
-    };
-    shellIntegration.enableFishIntegration = true;
+    antialiasing = true;
+    hinting = "slight";
+    subpixelRendering = "rgb";
   };
 
   home.file = {
-    ".config/i3/config".source = ../i3/i3config;
-    ".config/rofi/config.rasi".source = ../i3/rofi.rasi;
-    ".config/i3status-rust/config.toml".source = ../i3/i3status-rust.toml;
-    ".config/i3status-rust/mullvad-check.sh" = { source = ../i3/mullvad-check.sh; executable = true; };
-    ".config/i3wsr/config.toml".source = ../i3/wsr.toml;
+    ".config/sway/config".source = ../sway/config;
+    ".config/waybar/config".source = ../sway/waybar/config;
+    ".config/waybar/style.css".source = ../sway/waybar/style.css;
+    ".config/sway/mullvad-check.sh" = { source = ../sway/mullvad-check.sh; executable = true; };
+    ".config/rofi/config.rasi".source = ../sway/rofi/config.rasi;
+    ".config/rofi/style.rasi".source = ../sway/rofi/style.rasi;
   };
 }

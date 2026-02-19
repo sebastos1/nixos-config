@@ -1,9 +1,5 @@
 {
-  config,
-  pkgs,
-  lib,
-  nix-gaming,
-  ...
+  config, pkgs, lib, nix-gaming, ...
 }: {
   nix.settings = {
     substituters = ["https://nix-gaming.cachix.org"];
@@ -18,7 +14,6 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   programs.gamemode.enable = true;
   programs.steam = {
@@ -33,6 +28,9 @@
     ];
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   # map keyboard buttons fast
   services.input-remapper.enable = true;
 
@@ -42,10 +40,11 @@
     "intel_pstate=disable"
   ];
   boot.kernelModules = [ "acpi-cpufreq" ];
+
+  # nvidia
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
-    #forceFullCompositionPipeline = true;
     powerManagement.enable = true;
     package = config.boot.kernelPackages.nvidiaPackages.beta;
     nvidiaSettings = true;
@@ -58,15 +57,12 @@
     VKD3D_CONFIG = "dxr";
     PROTON_ENABLE_NGX_UPDATER = "1";
     PROTON_ENABLE_NVAPI = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    # extraPackages = with pkgs; [
-    #   vaapiVdpau
-    #   libvdpau-va-gl
-    # ];
   };
 
   swapDevices = [
@@ -81,12 +77,16 @@
     description = "seb";
     extraGroups = ["networkmanager" "wheel" "input" "openrazer"];
   };
-  services.getty.autologinUser = "seb";
+  # auto login
+  #services.getty.autologinUser = "seb";
+  #environment.loginShellInit = ''
+  #  [[ "$(tty)" == /dev/tty1 ]] && sway
+  #'';
 
   # networking
   services.mullvad-vpn.enable = true;
   networking = {
-    hostName = "sebus";
+    hostName = "CarPlay_9814";
     networkmanager.enable = true;
     # firewall = {
     #   enable = true;
@@ -116,29 +116,20 @@
 
   # wayland (sway)
   security.polkit.enable = true;
+  #services.xserver.enable = true;
 
-  # i3
-  services.xserver = {
+  services.greetd = {
     enable = true;
-    windowManager.i3.enable = true;
-    displayManager.sessionCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --mode 1680x1050 --pos 3840x0 --rotate normal --output DP-0 --off --output DP-1 --off --output DP-2 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-3 --off --output DP-4 --mode 1920x1200 --pos 0x0 --rotate normal --output DP-5 --off
-    '';
-  };
-  services.displayManager = {
-    defaultSession = "none+i3";
-    autoLogin = {
-      enable = true;
-      user = "seb";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.sway}/bin/sway --unsupported-gpu";
+        user = "seb";
+      };
+      default_session = initial_session;
     };
   };
-  # for auto login
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enableWideVine = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
     wget
     curl
@@ -152,43 +143,13 @@
 
     # razer (FUCK YOUUUUUUUUUUUUUUUU)
     openrazer-daemon
-    polychromatic
   ];
-
-  # virtualisation.waydroid.enable = true;
-  # networking.firewall.trustedInterfaces = [ "waydroid0" ];
 
   hardware.openrazer.enable = true;
 
-  programs.git = {
-    enable = true;
-    config = {
-      core.askpass = "";
-      credential.helper = "store";
-      push = { autoSetupRemote = true; };
-    };
-  };
-
   # audio
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    #alsa.enable = true;
-    #alsa.support32Bit = true;
-    #pulse.enable = true;
-    #lowLatency.enable = true;
-    #jack.enable = true;
-  };
-
-  # mouse
-  services.libinput = {
-    enable = true;
-    mouse = {
-      accelProfile = "flat";
-      middleEmulation = false;
-    };
-  };
-  # services.ratbagd.enable = true;
+  services.pipewire.enable = true;
 
   systemd = {
     targets = {

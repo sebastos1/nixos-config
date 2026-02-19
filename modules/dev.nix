@@ -14,6 +14,15 @@
     alejandra
   ];
 
+  programs.git = {
+    enable = true;
+    settings = {
+      core.askpass = "";
+      credential.helper = "store";
+      push.autoSetupRemote = true;
+    };
+  };
+
   programs.vscode = {
     enable = true;
     package = pkgs.code-cursor;

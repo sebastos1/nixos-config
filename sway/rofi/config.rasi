@@ -1,0 +1,17 @@
+configuration {
+    modi: "combi,filebrowser";
+    combi-modes: "drun,run";
+    combi-hide-mode-prefix: true;
+    font: "Roboto Mono 12, MesloLGSDZ Nerd Font 12";
+    show-icons: true;
+    icon-theme: "Papirus";
+    drun-display-format: "{name}";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    click-to-exit: true;
+    display-run: "";
+    display-drun: "";
+    display-filebrowser: "";
+}
+@theme "~/.config/rofi/style.rasi"
