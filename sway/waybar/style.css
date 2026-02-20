@@ -1,162 +1,151 @@
+@define-color fg #A1BDCE;
+@define-color bg #0F0F17;
+@define-color border rgba(255, 255, 255, 0.1);
+
 * {
-    font-family: 'Inter', sans-serif;
+    font-family: "JetBrains Mono Nerd Font";
+    font-weight: bold;
+    font-size: 15px;
+    color: @fg;
+}
+
+window#waybar {
+    background: @bg;
+    border: 3px solid @border;
+    border-radius: 10px;
+}
+
+/* tooltip {
     font-size: 13px;
-    min-height: 0;
-    padding: 0;
-}
+    border-radius: 7px;
+    border: 2px solid @border;
+} */
 
-#waybar {
-    background: transparent;
-    color: #c6d0f5;
-    font-weight: 500;
-}
 
-/* --- Workspaces --- */
-#workspaces {
-    background-color: #1a1b26;
-    padding: 2px;
-    margin: 5px 5px 5px 7px;
-    border-radius: 6px;
-}
-
-#workspaces button {
-    color: #babbf1;
-    border-radius: 5px;
-    padding: 0.3rem 0.6rem;
-    background: transparent;
-    transition: all 0.2s ease-in-out;
+/* right side  */
+#clock {
+    font-size: 15px;
+    font-weight: 900;
+    background: rgba(23, 23, 23, 0.0);
+    opacity: 1;
+    margin: 3px 0px 0px 0px;
+    /* padding-left: 10px; */
+    padding-right: 10px;
     border: none;
-    outline: none;
 }
 
-#workspaces button.focused {
-    color: #99d1db;
-    background-color: rgba(153, 209, 219, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(153, 209, 219, 0.2);
-}
-
-#workspaces button:hover {
-    background: rgb(41, 42, 53);
-    color: #c6d0f5;
-}
-
-/* --- Taskbar --- */
-#taskbar {
-    background: transparent;
-    padding: 0;
-    margin: 0;
-}
-
-#taskbar button {
-    background-color: #1a1b26;
-    color: #babbf1;
-    /* text color here */
-    padding: 0 10px;
-    margin: 5px 3px;
-    border: none;
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-}
-
-#taskbar button:hover {
-    background: rgb(41, 42, 53);
-    color: #c6d0f5;
-}
-
-#taskbar button.active {
-    background-color: rgba(153, 209, 219, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(153, 209, 219, 0.2);
-    color: #99d1db;
-}
-
-/* --- Mullvad (own box) --- */
-#custom-mullvad {
-    background-color: #1a1b26;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 5px 5px 0px;
-    border-radius: 6px;
-    color: #a6e3a1;
-    transition: background-color 0.2s ease-in-out;
-}
-
-#custom-mullvad.connected {
-    color: #a6e3a1;
-}
-
-#custom-mullvad.disconnected {
-    color: #e78284;
-}
-
-/* --- Seamless block: CPU + Volume --- */
-#cpu,
-#pulseaudio {
-    background-color: #1a1b26;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 0px;
-    border-radius: 0;
-    transition: background-color 0.2s ease-in-out;
-}
-
-#cpu:hover,
-#pulseaudio:hover {
-    background-color: rgb(41, 42, 53);
+#custom-spacer {
+    color: @border;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #cpu {
-    color: #c6d0f5;
-    margin-left: 0px;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    margin-right: 0px;
+    color: #915CAF;
+}
+
+#memory {
+    color: #e0b994;
 }
 
 #pulseaudio {
-    color: #c6d0f5;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-    margin-right: 5px;
+    color: #6F8FDB;
 }
 
-#pulseaudio.muted {
-    color: #6c7086;
+/* todo  */
+#tray menu * {
+    min-height: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    background: @bg;
 }
 
-/* --- Date block --- */
-#custom-date {
-    background-color: #1a1b26;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 5px 5px 0px;
-    border-radius: 6px;
-    color: #babbf1;
-    transition: background-color 0.2s ease-in-out;
+#tray menu separator {
+    background: @border;
+    min-height: 1px;
 }
 
-#custom-date:hover {
-    background-color: rgb(41, 42, 53);
+
+
+/* left side  */
+#workspaces {
+    font-size: 20px;
+    box-shadow: none;
+    text-shadow: none;
+    transition: 0.2s ease;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
-/* --- Clock --- */
-#clock {
-    background-color: #1a1b26;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 7px 5px 0px;
-    border-radius: 6px;
-    color: #99d1db;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(153, 209, 219, 0.2);
-    transition: background-color 0.2s ease-in-out;
+#taskbar button.active label {
+    color: #ffffff;
 }
 
-#clock:hover {
-    background-color: rgba(153, 209, 219, 0.1);
+/* button {
+    border: 3px solid @border;
+    background: @border;
+    border-radius: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+}
+ */
+
+
+
+
+
+
+/* #network {
+    font-weight: normal;
+    font-size: 19px;
+    padding-right: 0px;
+    padding-left: 4px
 }
 
-/* --- Tooltip --- */
-tooltip {
-    background-color: #1a1b26;
-    color: #dddddd;
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 12px;
+#custom-spotify,
+#taskbar,
+#custom-theme,
+#custom-menu {
+    color: #E8EDF0;
+    background: rgba(23, 23, 23, 0.0);
+    margin: 0px 0px 0px 0px;
+    padding-left: 1px;
+    padding-right: 1px;
+    opacity: 0.1
 }
+
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#cava,
+#upower#headset,
+#upower {
+    color: #a6d189;
+}
+
+#mpris {
+    font-size: 15px;
+    font-weight: bold
+}
+
+#custom-rr_end {
+    font-weight: normal;
+    color: #E8EDF0;
+    background: rgba(23, 23, 23, 0.0);
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    ;
+
+}
+
+
+#taskbar {
+    padding: 1px;
+} */

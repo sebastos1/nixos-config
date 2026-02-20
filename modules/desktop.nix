@@ -26,6 +26,7 @@
 
     # font
     font-awesome
+    nerd-fonts.jetbrains-mono
     nerd-fonts.roboto-mono
     nerd-fonts.meslo-lg
 
