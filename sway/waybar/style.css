@@ -3,7 +3,7 @@
 @define-color border rgba(255, 255, 255, 0.1);
 
 * {
-    font-family: "JetBrains Mono Nerd Font";
+    font-family: "JetbrainsMono Nerd Font";
     font-weight: bold;
     font-size: 15px;
     color: @fg;
@@ -21,23 +21,52 @@ window#waybar {
     border: 2px solid @border;
 } */
 
+/* account for font icons */
+#custom-keybinds,
+#memory,
+#cpu,
+#pulseaudio,
+#group-vpn,
+#clock,
+#tray {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#network {
+    padding-right: 10px;
+}
+
+#custom-vpn {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 
 /* right side  */
 #clock {
-    font-size: 15px;
     font-weight: 900;
-    background: rgba(23, 23, 23, 0.0);
-    opacity: 1;
-    margin: 3px 0px 0px 0px;
-    /* padding-left: 10px; */
     padding-right: 10px;
-    border: none;
+}
+
+#pulseaudio {
+    color: #6F8FDB;
+}
+
+/* #network {
+    color: #a6e3a1;
+}
+
+#custom-mullvad.connected {
+    color: #a6e3a1;
+} */
+
+#custom-mullvad.disconnected {
+    color: #e78284;
 }
 
 #custom-spacer {
     color: @border;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
 #cpu {
@@ -45,11 +74,13 @@ window#waybar {
 }
 
 #memory {
-    color: #e0b994;
+    color: #94e094;
 }
 
-#pulseaudio {
-    color: #6F8FDB;
+
+
+#custom-keybinds {
+    color: #e0b994;
 }
 
 /* todo  */
@@ -69,30 +100,57 @@ window#waybar {
 
 /* left side  */
 #workspaces {
-    font-size: 20px;
     box-shadow: none;
     text-shadow: none;
     transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#workspaces * {
+    font-size: 24px;
+}
+
+#workspaces button {
+    padding: 0;
+    /* 5+5 for left one since workspace padding */
+    padding-left: 5px;
+}
+
+button {
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+    border: none;
+}
+
+button:hover {
+    background: none;
+    text-shadow: none;
+    box-shadow: none;
+    transition: none;
+    border: none;
+}
+
+button:hover * {
+    box-shadow: none;
+    -gtk-icon-shadow: none;
+}
+
+button:hover label,
+#taskbar button.active:hover label {
+    color: #e05858;
+}
+
+#taskbar button {
+    padding-left: 20px;
 }
 
 #taskbar button.active label {
     color: #ffffff;
 }
-
-/* button {
-    border: 3px solid @border;
-    background: @border;
-    border-radius: 10px;
-    padding-left: 3px;
-    padding-right: 3px;
-    box-shadow: none;
-    text-shadow: none;
-    transition: none;
-}
- */
-
 
 
 

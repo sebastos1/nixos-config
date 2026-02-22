@@ -1,12 +1,13 @@
 {
     "layer": "top",
+    "height": 35,
     "position": "bottom",
     "margin-left": 10,
     "margin-right": 10,
     "margin-bottom": 7,
     "margin-top": 0,
-    "spacing": 10,
-    "reload_style_on_change": true,
+    "spacing": 0,
+    "reload_style_on_change": false,
     "modules-left": [
         "sway/workspaces",
         "wlr/taskbar"
@@ -15,23 +16,54 @@
     "modules-right": [
         "tray",
         "custom/keybinds",
-        "custom/mullvad",
         "custom/spacer",
         "memory",
         "cpu",
+        "custom/spacer",
         "pulseaudio",
+        "custom/vpn",
+        "network",
         "custom/spacer",
         "clock"
     ],
     "sway/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "default": "",
-            "focused": ""
+            "focused": "\uf444",
+            "default": "\uf4c3"
+        },
+        "persistent-workspaces": {
+            "1": [
+                "DP-2"
+            ],
+            "2": [
+                "DP-2"
+            ],
+            "3": [
+                "DP-2"
+            ],
+            "4": [
+                "DP-3"
+            ],
+            "5": [
+                "DP-3"
+            ],
+            "6": [
+                "DP-3"
+            ],
+            "7": [
+                "HDMI-A-1"
+            ],
+            "8": [
+                "HDMI-A-1"
+            ],
+            "9": [
+                "HDMI-A-1"
+            ]
         }
     },
     "wlr/taskbar": {
-        "format": "{icon} {title:.20}",
+        "format": "{icon} {title:.12}",
         "icon-size": 22,
         "on-click": "activate",
         "on-click-right": "close",
@@ -39,28 +71,21 @@
         "ignore-list": []
     },
     "custom/keybinds": {
-        "format": "󰌌 Keys",
-        "on-click": "~/.config/sway/keys.sh"
-    },
-    "custom/mullvad": {
-        "format": "{}",
-        "exec": "~/.config/sway/mullvad-check.sh",
-        "return-type": "json",
-        "interval": 10
+        "format": "󰌌",
+        "on-click": "keylist",
+        "tooltip": false
     },
     "memory": {
-        "interval": 1,
-        "format": " {used}G",
+        "format": "{used}G ",
         "on-click": "ghostty -e htop"
     },
     "cpu": {
-        "interval": 1,
-        "format": " {usage}%",
+        "format": "{usage}% ",
         "on-click": "ghostty -e htop"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟 muted",
+        "format": "{volume}% {icon}",
+        "format-muted": "󰝟",
         "format-icons": {
             "default": [
                 "󰕿",
@@ -80,12 +105,37 @@
     },
     "clock": {
         "format": "{:%d/%m %H:%M:%S}",
-        "interval": 1
+        "interval": 1,
+        "tooltip": false
     },
     "custom/spacer": {
-        "format": "|"
+        "format": "|",
+        "tooltip": false
     },
     "tray": {
-        "icon-size": 16
+        "icon-size": 18,
+        "spacing": 5
+    },
+    "custom/vpn": {
+        "format": "{}",
+        "exec": "~/.config/sway/mullvad-check.sh",
+        "return-type": "json",
+        "interval": 10
+    },
+    "network": {
+        "format": "",
+        "format-ethernet": "\udb83\udc9d",
+        "format-wifi": "{icon} ",
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": [
+            "\udb82\udd2f",
+            "\udb82\udd1f",
+            "\udb82\udd22",
+            "\udb82\udd25",
+            "\udb82\udd28"
+        ],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected"
     }
 }

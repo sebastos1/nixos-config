@@ -13,6 +13,10 @@
       url = "github:MercuryTechnologies/nix-your-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    keylist = {
+      url = "github:sebastos1/keylist";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -22,6 +26,7 @@
     nix-gaming,
     nixcord,
     nix-your-shell,
+    keylist,
   } @ attrs: {
     nixosConfigurations.seb = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

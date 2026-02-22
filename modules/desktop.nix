@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs; [
     i3wsr
-
     htop
     xclip
 
@@ -16,13 +15,16 @@
     pinentry-curses
     xdotool
 
-    sway
+    ghostty
+
+
+    swayfx
     waybar
     # wofi
     yad
     rofi
     rofi-calc
-    ghostty
+    keylist
 
     # font
     font-awesome
@@ -54,7 +56,9 @@
     ".config/waybar/config".source = ../sway/waybar/config;
     ".config/waybar/style.css".source = ../sway/waybar/style.css;
     ".config/sway/mullvad-check.sh" = { source = ../sway/mullvad-check.sh; executable = true; };
+    ".config/sway/keys.sh" = { source = ../sway/keys.sh; executable = true; };
     ".config/rofi/config.rasi".source = ../sway/rofi/config.rasi;
     ".config/rofi/style.rasi".source = ../sway/rofi/style.rasi;
+    ".config/keylist/config.yaml".source = ../sway/keybinds.yaml;
   };
 }

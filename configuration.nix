@@ -1,5 +1,5 @@
 {
-  config, pkgs, lib, nix-gaming, ...
+  config, pkgs, lib, nix-gaming, keylist, ...
 }: {
   nix.settings = {
     substituters = ["https://nix-gaming.cachix.org"];
@@ -30,6 +30,9 @@
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  # by me
+  nixpkgs.overlays = [ keylist.overlays.default ];
 
   # map keyboard buttons fast
   services.input-remapper.enable = true;
@@ -122,7 +125,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.sway}/bin/sway --unsupported-gpu";
+        command = "${pkgs.swayfx}/bin/sway --unsupported-gpu";
         user = "seb";
       };
       default_session = initial_session;

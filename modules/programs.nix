@@ -18,13 +18,13 @@
     }))
     jdk21 # for minecraft
     mangohud
-    wineWowPackages.stable
+    wineWow64Packages.stable
     winetricks
     protonup-qt
     protontricks
     lutris
     heroic
-    (blender.override { cudaSupport = true; })
+    # (blender.override { cudaSupport = true; })
 
     # music
     mpc
@@ -107,7 +107,7 @@
         noTypingAnimation.enable = true;
         consoleJanitor.enable = true;
         # noTrack.enable = true;
-        clearURLs.enable = true;
+        # clearURLs.enable = true;
         anonymiseFileNames.enable = true;
         noDevtoolsWarning.enable = true;
         silentTyping.enable = true;

@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set the font
-font="JetBrainsMono"
+font="JetBrains Mono Nerd Font"
 
 cheat=(
-    --title="EndeavourOS Sway keybindings:"
+    --title="Keybindings"
     --no-buttons
     --geometry=1200x680
     --list
@@ -100,4 +100,4 @@ cheat=(
     ""
 )
 
-yad "${cheat[@]}"
+GTK_THEME=Adwaita:dark yad "${cheat[@]}"
