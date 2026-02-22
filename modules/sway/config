@@ -4,7 +4,7 @@ bindsym $mod+Return exec ghostty
 bindsym $mod+d exec rofi -show drun
 
 # sway
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+c reload
 
 bar {
     swaybar_command waybar

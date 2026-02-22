@@ -6,12 +6,14 @@
   home.packages = with pkgs; [
     rustup
     clang
-    direnv
 
     pastel
     xcolor
 
     alejandra
+
+    lazygit
+    delta
   ];
 
   programs.git = {
@@ -28,7 +30,7 @@
     package = pkgs.code-cursor;
     profiles.default = {
       userSettings = {
-        "editor.fontFamily" = "MesloLGL Nerd Font Mono";
+        "editor.fontFamily" = "JetBrains Mono Nerd Font";
         "editor.fontLigatures" = true;
         "editor.formatOnSave" = true;
         "editor.formatOnPaste" = true;

@@ -1,48 +1,37 @@
 {
   config, pkgs, lib, nix-gaming, keylist, ...
 }: {
-  nix.settings = {
-    substituters = ["https://nix-gaming.cachix.org"];
-    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
-  };
-
   imports = [
     ./hardware-configuration.nix
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    platformOptimizations.enable = true;
-    protontricks.enable = true;
-    gamescopeSession.enable = false;
-    #remotePlay.openFirewall = true;
-    #dedicatedServer.openFirewall = true;
-    extraPackages = with pkgs; [
-      python3
-    ];
+  nix.settings = {
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
   };
-
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # by me
-  nixpkgs.overlays = [ keylist.overlays.default ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    # old ahh motherboard doesnt support the modern apic pstate control, used by gamemode
+    kernelModules = [ "acpi-cpufreq" ];
+    kernelParams = [
+      "initcall_blacklist=amd_pstate_init"
+      "intel_pstate=disable"
+    ];
+  };
 
-  # map keyboard buttons fast
-  services.input-remapper.enable = true;
-
-  # old ahh motherboard doesnt support the modern apic pstate control, used by gamemode
-  boot.kernelParams = [
-    "initcall_blacklist=amd_pstate_init"
-    "intel_pstate=disable"
-  ];
-  boot.kernelModules = [ "acpi-cpufreq" ];
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   # nvidia
   services.xserver.videoDrivers = ["nvidia"];
@@ -63,11 +52,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
   swapDevices = [
     {
       device = "/swapfile";
@@ -75,27 +59,11 @@
     }
   ];
 
-  users.users.seb = {
-    isNormalUser = true;
-    description = "seb";
-    extraGroups = ["networkmanager" "wheel" "input" "openrazer"];
-  };
-  # auto login
-  #services.getty.autologinUser = "seb";
-  #environment.loginShellInit = ''
-  #  [[ "$(tty)" == /dev/tty1 ]] && sway
-  #'';
-
   # networking
   services.mullvad-vpn.enable = true;
   networking = {
     hostName = "CarPlay_9814";
     networkmanager.enable = true;
-    # firewall = {
-    #   enable = true;
-    #   allowedTCPPorts = [ 22 80 443 ];
-    #   allowedUDPPorts = [ 51820 ];
-    # }
   };
 
   # locale
@@ -117,10 +85,31 @@
   };
   console.keyMap = "no";
 
+  # audio
+  security.rtkit.enable = true;
+  services.pipewire.enable = true;
+
+  users.users.seb = {
+    isNormalUser = true;
+    description = "seb";
+    extraGroups = ["networkmanager" "wheel" "input" "openrazer"];
+  };
+
+  systemd = {
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
+
+  security.sudo.extraConfig = "Defaults pwfeedback"; # show asterisks when typing sudo password
+  services.gnome.gnome-keyring.enable = true;
+
   # wayland (sway)
   security.polkit.enable = true;
   #services.xserver.enable = true;
-
   services.greetd = {
     enable = true;
     settings = rec {
@@ -132,35 +121,34 @@
     };
   };
 
+  # by me
+  nixpkgs.overlays = [ keylist.overlays.default ];
+
   nixpkgs.config.chromium.enableWideVine = true;
+  hardware.openrazer.enable = true;
   environment.systemPackages = with pkgs; [
     wget
-    curl
-    unzip
-    zip
-    unrar
-    file
-    # piper
-    nix-your-shell
-    nautilus
-
-    # razer (FUCK YOUUUUUUUUUUUUUUUU)
-    openrazer-daemon
+    openrazer-daemon # razer sucks never buy
   ];
 
-  hardware.openrazer.enable = true;
+  # services.input-remapper.enable = true; # map keyboard buttons fast
+  programs.gamemode.enable = true;
+  programs.steam = {
+    enable = true;
+    platformOptimizations.enable = true;
+    protontricks.enable = true;
+    gamescopeSession.enable = false;
+    #remotePlay.openFirewall = true;
+    #dedicatedServer.openFirewall = true;
+    extraPackages = with pkgs; [
+      python3 # used by elden ring
+    ];
+  };
 
-  # audio
-  security.rtkit.enable = true;
-  services.pipewire.enable = true;
-
-  systemd = {
-    targets = {
-      sleep.enable = false;
-      suspend.enable = false;
-      hibernate.enable = false;
-      hybrid-sleep.enable = false;
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +7d";
   };
 
   system.stateVersion = "25.05";

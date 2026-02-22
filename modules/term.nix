@@ -4,12 +4,71 @@
   ...
 }: {
   home.packages = with pkgs; [
-    bat
-    eza
+    ghostty
+
+    # terminal things that idk where to put
+    curl
+    nh
+
+    zoxide # cd
+    eza # ls
+    ripgrep # grep
+    tealdeer # tldr
+    fd # find
+    httpie # curl
+    ouch # zips
+
+    duf # df
+    dust # du
+    btop # htop
+    # bottom
+    fastfetch
+
     fzf
-    grc
-    tlrc
+    grc # colors some commands
+
+
+
+    file
+
+    direnv
+    nix-your-shell
+
+    # nautilus
+
+    #yazi previews
+    ffmpeg
+    poppler
+    imagemagick
+    p7zip
+    jq
+    glow
   ];
+
+  # cat
+  programs.bat = {
+    enable = true;
+    extraPackages = with pkgs.bat-extras; [
+      batman
+      batpipe
+    ];
+  };
+
+  # tui files
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      search_mode = "fuzzy";
+      filter_mode = "global";
+      show_preview = true;
+    };
+  };
 
   programs.bash = {
     enable = true;
@@ -25,14 +84,16 @@
   programs.fish = {
     enable = true;
     shellAliases = {
+      cd = "z";
       ls = "eza --icons=always";
       ll = "eza --icons=always -l";
       la = "eza --icons=always -la";
       tree = "eza --icons=always --tree";
       cat = "bat --paging=never --theme=ansi";
-      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#seb";
-      copy = "xclip -selection clipboard";
-      ssh = "kitty +kitten ssh";
+      # rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#seb";
+      rebuild = "nh os switch /etc/nixos --hostname seb";
+      copy = "wl-copy";
+      # ssh = "kitty +kitten ssh";
       music = "ncmpcpp"; # I can NOT remember this sequence of letters
     };
     functions = {
@@ -46,10 +107,6 @@
       '';
     };
     plugins = [
-      {
-        name = "fzf-fish";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
       {
         name = "autopair";
         src = pkgs.fishPlugins.autopair.src;
@@ -66,21 +123,14 @@
         name = "sponge";
         src = pkgs.fishPlugins.sponge.src;
       }
-      {
-        name = "colored-man-pages";
-        src = pkgs.fetchFromGitHub {
-          owner = "PatrickF1";
-          repo = "colored_man_pages.fish";
-          rev = "f885c2507128b70d6c41b043070a8f399988bc7a";
-          sha256 = "ii9gdBPlC1/P1N9xJzqomrkyDqIdTg+iCg0mwNVq2EU=";
-        };
-      }
     ];
     interactiveShellInit = ''
+      set fzf_history_opts --disabled
       # make fish work nicely with nix shells
       nix-your-shell fish | source
       # direnv
       direnv hook fish | source
+      zoxide init fish | source
     '';
   };
 

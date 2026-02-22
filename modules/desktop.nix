@@ -4,20 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    i3wsr
-    htop
-    xclip
-
-    # pws
-    bitwarden-desktop
-    rbw
-    rofi-rbw-x11
-    pinentry-curses
-    xdotool
-
-    ghostty
-
-
     swayfx
     waybar
     # wofi
@@ -31,7 +17,24 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.roboto-mono
     nerd-fonts.meslo-lg
+    # maple?
 
+    # imv, mpv
+
+
+    i3wsr
+    htop
+    xclip
+
+    # pws
+    bitwarden-desktop
+    rbw
+    rofi-rbw-x11
+    pinentry-curses
+    xdotool
+
+    # grim
+    # slurp
 
     wl-clipboard # copy/paste
   ];
@@ -51,14 +54,13 @@
     subpixelRendering = "rgb";
   };
 
-  home.file = {
-    ".config/sway/config".source = ../sway/config;
-    ".config/waybar/config".source = ../sway/waybar/config;
-    ".config/waybar/style.css".source = ../sway/waybar/style.css;
-    ".config/sway/mullvad-check.sh" = { source = ../sway/mullvad-check.sh; executable = true; };
-    ".config/sway/keys.sh" = { source = ../sway/keys.sh; executable = true; };
-    ".config/rofi/config.rasi".source = ../sway/rofi/config.rasi;
-    ".config/rofi/style.rasi".source = ../sway/rofi/style.rasi;
-    ".config/keylist/config.yaml".source = ../sway/keybinds.yaml;
+  xdg.configFile = {
+    "sway/config".source = ./sway/config;
+    "waybar/config".source = ./sway/waybar/config;
+    "waybar/style.css".source = ./sway/waybar/style.css;
+    "keylist/config.yaml".source = ./sway/keybinds.yaml;
+    "rofi/config.rasi".source = ./sway/rofi/config.rasi;
+    "rofi/style.rasi".source = ./sway/rofi/style.rasi;
+    "sway/mullvad-check.sh" = { source = ./sway/mullvad-check.sh; executable = true; };
   };
 }

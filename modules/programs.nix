@@ -6,17 +6,14 @@
   home.packages = with pkgs; [
     brave
     ungoogled-chromium # no vpn on this one
-    osu-lazer-bin
-    # prismlauncher
-    jemalloc # for minecraft
-    (prismlauncher.overrideAttrs (oldAttrs: {
-      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ makeWrapper ];
-      postInstall = (oldAttrs.postInstall or "") + ''
-        wrapProgram $out/bin/prismlauncher \
-          --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
-      '';
-    }))
-    jdk21 # for minecraft
+
+    # music
+    mpc
+    nicotine-plus
+
+    # (blender.override { cudaSupport = true; })
+
+    # leisure
     mangohud
     wineWow64Packages.stable
     winetricks
@@ -24,26 +21,25 @@
     protontricks
     lutris
     heroic
-    # (blender.override { cudaSupport = true; })
 
-    # music
-    mpc
-    nicotine-plus
+    # minecraft
+    jemalloc
+    (prismlauncher.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ makeWrapper ];
+      postInstall = (oldAttrs.postInstall or "") + ''
+        wrapProgram $out/bin/prismlauncher \
+          --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
+      '';
+    }))
+    jdk21
+
+    osu-lazer-bin
   ];
 
   xdg.desktopEntries.chromium-novpn = {
     name = "Chromium (no vpn, ungoogled)";
     exec = "mullvad-exclude chromium";
     icon = "chromium";
-  };
-
-  programs.obsidian = {
-    enable = true;
-    defaultSettings = {
-      communityPlugins = [
-        "obsidian-day-planner"
-      ];
-    };
   };
 
   programs.obs-studio = {
