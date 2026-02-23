@@ -106,6 +106,8 @@
 
   security.sudo.extraConfig = "Defaults pwfeedback"; # show asterisks when typing sudo password
   services.gnome.gnome-keyring.enable = true;
+  nix.settings.trusted-users = [ "seb" ];
+  security.sudo.wheelNeedsPassword = false;
 
   # wayland (sway)
   security.polkit.enable = true;

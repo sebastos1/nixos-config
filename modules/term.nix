@@ -4,11 +4,12 @@
   ...
 }: {
   home.packages = with pkgs; [
-    ghostty
-
     # terminal things that idk where to put
-    curl
     nh
+    nix-output-monitor
+    direnv
+    nix-your-shell
+    grc # colors some commands
 
     zoxide # cd
     eza # ls
@@ -24,26 +25,42 @@
     # bottom
     fastfetch
 
-    fzf
-    grc # colors some commands
-
-
-
-    file
-
-    direnv
-    nix-your-shell
-
     # nautilus
 
-    #yazi previews
-    ffmpeg
-    poppler
-    imagemagick
-    p7zip
-    jq
-    glow
+    mpv
+    imv
+
+    # yazi
+    fzf
+    ffmpeg # video
+    poppler # pdf
+    imagemagick # image biz
+    p7zip # zip
+    jq # json
+    resvg # svg
+    glow # markdown
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "image/png" = "imv.desktop";
+      "image/jpeg" = "imv.desktop";
+      "image/gif" = "imv.desktop";
+      "image/webp" = "imv.desktop";
+    };
+  };
+
+  # tui files
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+    plugins = with pkgs.yaziPlugins; { inherit
+      git
+      mediainfo
+      duckdb;
+    };
+  };
 
   # cat
   programs.bat = {
@@ -54,12 +71,6 @@
     ];
   };
 
-  # tui files
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
   programs.atuin = {
     enable = true;
     enableFishIntegration = true;
@@ -67,6 +78,14 @@
       search_mode = "fuzzy";
       filter_mode = "global";
       show_preview = true;
+    };
+  };
+
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      theme = "Catppuccin Mocha";
     };
   };
 
@@ -84,6 +103,7 @@
   programs.fish = {
     enable = true;
     shellAliases = {
+      unzip = "ouch decompress";
       cd = "z";
       ls = "eza --icons=always";
       ll = "eza --icons=always -l";
@@ -137,6 +157,11 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    settings = {
+      character = {
+        success_symbol = "[\\$](bold green)";
+        error_symbol = "[\\$](bold red)";
+      };
+    };
   };
-  home.file.".config/starship.toml".source = ./starship.toml;
 }

@@ -2,17 +2,15 @@
     "layer": "top",
     "height": 35,
     "position": "bottom",
-    "margin-left": 10,
-    "margin-right": 10,
-    "margin-bottom": 7,
-    "margin-top": 0,
     "spacing": 0,
     "reload_style_on_change": false,
     "modules-left": [
         "sway/workspaces",
         "wlr/taskbar"
     ],
-    "modules-center": [],
+    "modules-center": [
+        "sway/window"
+    ],
     "modules-right": [
         "tray",
         "custom/keybinds",
@@ -26,6 +24,12 @@
         "custom/spacer",
         "clock"
     ],
+    "sway/window": {
+        "format": "",
+        "all-outputs": true,
+        "offscreen-css": true,
+        "offscreen-css-text": ""
+    },
     "sway/workspaces": {
         "format": "{icon}",
         "format-icons": {

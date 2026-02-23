@@ -14,8 +14,8 @@ keys:
 
 
   Windows:
-    Move focus: [mod, [h, j, k, l]]
-    Move window: [mod, shift, [h, j, k, l]]
+    Move focus: [mod, [i, j, k, l]]
+    Move window: [mod, shift, [i, j, k, l]]
     Move window with mouse: [mod, mouse_left]
     Resize window: [mod, mouse_right]
     Close window: [mod, shift, w]

@@ -10,9 +10,30 @@
 }
 
 window#waybar {
+    background: transparent;
+    border: none;
+}
+
+window#waybar>box {
     background: @bg;
     border: 3px solid @border;
     border-radius: 10px;
+
+    padding: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 7px;
+}
+
+window#waybar.solo>box {
+    border: 3px solid transparent;
+    border-top: 3px solid @border;
+    border-radius: 0;
+
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 7px;
 }
 
 /* tooltip {
