@@ -10,6 +10,8 @@
   nix.settings = {
     substituters = ["https://nix-gaming.cachix.org"];
     trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+    warn-dirty = false;
+    auto-optimise-store = true;
   };
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -64,7 +66,12 @@
   networking = {
     hostName = "CarPlay_9814";
     networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowPing = false;
+    };
   };
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # locale
   time.timeZone = "Europe/Oslo";
@@ -108,6 +115,7 @@
   services.gnome.gnome-keyring.enable = true;
   nix.settings.trusted-users = [ "seb" ];
   security.sudo.wheelNeedsPassword = false;
+  security.protectKernelImage = true;
 
   # wayland (sway)
   security.polkit.enable = true;
@@ -128,6 +136,10 @@
 
   nixpkgs.config.chromium.enableWideVine = true;
   hardware.openrazer.enable = true;
+
+  # remove defaults
+  environment.defaultPackages = [ ];
+  services.xserver.desktopManager.xterm.enable = false;
   environment.systemPackages = with pkgs; [
     wget
     openrazer-daemon # razer sucks never buy

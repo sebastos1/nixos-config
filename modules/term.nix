@@ -7,10 +7,10 @@
     # terminal things that idk where to put
     nh
     nix-output-monitor
-    direnv
     nix-your-shell
-    grc # colors some commands
+    nmap
 
+    grc # colors some commands
     zoxide # cd
     eza # ls
     ripgrep # grep
@@ -25,7 +25,7 @@
     # bottom
     fastfetch
 
-    # nautilus
+    nautilus
 
     mpv
     imv
@@ -41,14 +41,10 @@
     glow # markdown
   ];
 
-  xdg.mimeApps = {
+  programs.direnv = {
     enable = true;
-    defaultApplications = {
-      "image/png" = "imv.desktop";
-      "image/jpeg" = "imv.desktop";
-      "image/gif" = "imv.desktop";
-      "image/webp" = "imv.desktop";
-    };
+    nix-direnv.enable = true;
+    enableFishIntegration = true;
   };
 
   # tui files
@@ -85,7 +81,10 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      theme = "Catppuccin Mocha";
+      theme = "Gruvbox Material";
+      window-padding-x = 12;
+      window-padding-y = 12;
+      window-padding-balance = true;
     };
   };
 

@@ -5,11 +5,11 @@
 }: {
   home.packages = with pkgs; [
     brave
-    ungoogled-chromium # no vpn on this one
+    # ungoogled-chromium # no vpn on this one
 
     # music
     mpc
-    nicotine-plus
+    # nicotine-plus
 
     # (blender.override { cudaSupport = true; })
 
@@ -36,11 +36,11 @@
     osu-lazer-bin
   ];
 
-  xdg.desktopEntries.chromium-novpn = {
-    name = "Chromium (no vpn, ungoogled)";
-    exec = "mullvad-exclude chromium";
-    icon = "chromium";
-  };
+  # xdg.desktopEntries.chromium-novpn = {
+  #   name = "Chromium (no vpn, ungoogled)";
+  #   exec = "mullvad-exclude chromium";
+  #   icon = "chromium";
+  # };
 
   programs.obs-studio = {
     enable = true;
@@ -70,23 +70,23 @@
   };
   services.mpd-discord-rpc.enable = true;
 
-  programs.ncmpcpp = {
-    enable = true;
-    package = pkgs.ncmpcpp.override { visualizerSupport = true; };
-    settings = {
-      # sick visualizer
-      visualizer_data_source = "/tmp/mpd.fifo";
-      visualizer_output_name = "Visualizer";
-      visualizer_in_stereo = "yes";
-      visualizer_type = "wave";
-      visualizer_look = "●●";
-      visualizer_color = "blue, green, yellow, magenta, red";
-      visualizer_spectrum_smooth_look = "yes";
-      volume_change_step = 10;
-      user_interface = "alternative";
-      progressbar_look = "━━";
-    };
-  };
+  # programs.ncmpcpp = {
+  #   enable = true;
+  #   package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+  #   settings = {
+  #     # sick visualizer
+  #     visualizer_data_source = "/tmp/mpd.fifo";
+  #     visualizer_output_name = "Visualizer";
+  #     visualizer_in_stereo = "yes";
+  #     visualizer_type = "wave";
+  #     visualizer_look = "●●";
+  #     visualizer_color = "blue, green, yellow, magenta, red";
+  #     visualizer_spectrum_smooth_look = "yes";
+  #     volume_change_step = 10;
+  #     user_interface = "alternative";
+  #     progressbar_look = "━━";
+  #   };
+  # };
 
   programs.nixcord = {
     enable = true;

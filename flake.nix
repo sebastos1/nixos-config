@@ -17,6 +17,7 @@
       url = "github:sebastos1/keylist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zlaunch.url = "github:zortax/zlaunch/0.5.0";
   };
 
   outputs = {
@@ -27,6 +28,7 @@
     nixcord,
     nix-your-shell,
     keylist,
+    zlaunch,
   } @ attrs: {
     nixosConfigurations.seb = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

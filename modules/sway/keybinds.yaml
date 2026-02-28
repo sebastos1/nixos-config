@@ -33,13 +33,13 @@ keys:
 
 
   Screenshots:
-    Screenshot: [print]
+    Screenshot: [prtscn]
     Snipping tool: [mod, shift, s] # todo
   Clipboard manager:
     Todo: [mod, ctrl, v]
 
   Sway:
-    Reload: [mod, shift, r]
+    Reload: [mod, shift, c]
 
   MCSR:
     Thin: [h]

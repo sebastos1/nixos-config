@@ -42,7 +42,7 @@
         "editor.linkedEditing" = true;
         "editor.bracketPairColorization.enabled" = true;
         "editor.guides.bracketPairs" = true;
-        "workbench.colorTheme" = "Gruvbox Dark Hard";
+        "workbench.colorTheme" = "Gruvbox Dark";
         "workbench.iconTheme" = "material-icon-theme";
         "editor.inlayHints.enabled" = "offUnlessPressed";
       };
