@@ -1,14 +1,14 @@
 {
-  config,
   pkgs,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # terminal things that idk where to put
     nh
     nix-output-monitor
-    nix-your-shell
     nmap
+    nix-your-shell
 
     grc # colors some commands
     zoxide # cd
@@ -24,11 +24,6 @@
     btop # htop
     # bottom
     fastfetch
-
-    nautilus
-
-    mpv
-    imv
 
     # yazi
     fzf
@@ -51,11 +46,14 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    plugins = with pkgs.yaziPlugins; { inherit
-      git
-      mediainfo
-      duckdb;
+    plugins = with pkgs.yaziPlugins; {
+      inherit
+        git
+        mediainfo
+        duckdb
+        ;
     };
+    shellWrapperName = "y";
   };
 
   # cat
@@ -109,8 +107,7 @@
       la = "eza --icons=always -la";
       tree = "eza --icons=always --tree";
       cat = "bat --paging=never --theme=ansi";
-      # rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#seb";
-      rebuild = "nh os switch /etc/nixos --hostname seb";
+      rebuild = "nh os switch /etc/nixos --hostname desk";
       copy = "wl-copy";
       # ssh = "kitty +kitten ssh";
       music = "ncmpcpp"; # I can NOT remember this sequence of letters

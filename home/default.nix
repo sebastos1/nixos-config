@@ -3,11 +3,12 @@
   pkgs,
   ...
 }: {
-  home.stateVersion = "25.05";
   imports = [
-    ./modules/desktop.nix
+    ./modules/desktop
     ./modules/term.nix
     ./modules/dev.nix
     ./modules/programs.nix
   ];
+  systemd.user.startServices = "sd-switch";
+  home.stateVersion = "25.05";
 }

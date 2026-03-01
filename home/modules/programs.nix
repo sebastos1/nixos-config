@@ -1,10 +1,13 @@
 {
-  config,
   pkgs,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     brave
+    nautilus
+    mpv
+    imv
     # ungoogled-chromium # no vpn on this one
 
     # music
@@ -25,7 +28,7 @@
     # minecraft
     jemalloc
     (prismlauncher.overrideAttrs (oldAttrs: {
-      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ makeWrapper ];
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
       postInstall = (oldAttrs.postInstall or "") + ''
         wrapProgram $out/bin/prismlauncher \
           --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
@@ -94,7 +97,9 @@
     vesktop.enable = true;
     config = {
       useQuickCss = false;
-      themeLinks = ["https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"];
+      themeLinks = [
+        "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"
+      ];
       plugins = {
         volumeBooster = {
           enable = true;
