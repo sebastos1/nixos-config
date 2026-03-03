@@ -8,6 +8,7 @@
     ./hardware-config.nix
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
+    ../firejail.nix
   ];
 
   nix.settings = {

@@ -1,15 +1,18 @@
+# config
+
 ```sh
 sudo nixos-rebuild switch --flake /etc/nixos#desk
 ```
 
-vpn
-```sh
-mullvad login or whatever with id
-mullvad lockdown-mode set on
-```
+## profiles
 
-uhh putting these here cause i keep forget
+- desk
+- lap
+- server
+
+## vpn
+
 ```sh
-sudo nix-collect-garbage -d
-nh clean all
+mullvad login
+mullvad lockdown-mode set on
 ```

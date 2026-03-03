@@ -1,26 +1,4 @@
-{pkgs, ...}: let
-  secrets = import ./secrets.nix;
-in {
-  home.packages = with pkgs; [
-    rustup
-    clang
-
-    pastel
-    xcolor
-
-    lazygit
-    delta
-  ];
-
-  programs.git = {
-    enable = true;
-    settings = {
-      core.askpass = "";
-      credential.helper = "store";
-      push.autoSetupRemote = true;
-    };
-  };
-
+{pkgs, ...}: {
   programs.zed-editor = {
     enable = true;
     package = pkgs.zed-editor-fhs;
@@ -121,8 +99,6 @@ in {
           model = "deepseek/deepseek-r1:free";
         };
       };
-
-      # terminal.env.OPENROUTER_API_KEY = builtins.readFile /home/seb/.secrets/openrouter_api_key; # --impure
     };
   };
 }

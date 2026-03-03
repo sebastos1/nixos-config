@@ -2,7 +2,6 @@
   home.packages = with pkgs; [
     swayfx
     waybar
-    yad
     keylist
 
     # pws
@@ -46,6 +45,17 @@
       show-icons = true;
     };
     theme = ./sway/rofi.rasi;
+  };
+
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      theme = "Gruvbox Material";
+      window-padding-x = 12;
+      window-padding-y = 12;
+      window-padding-balance = true;
+    };
   };
 
   xdg = {

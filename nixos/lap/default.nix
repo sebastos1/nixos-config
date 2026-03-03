@@ -4,7 +4,10 @@
   pkgs,
   ...
 }: {
-  imports = [./hardware-config.nix];
+  imports = [
+    ./hardware-config.nix
+    ../firejail.nix
+  ];
 
   networking.hostName = "Mozart";
 

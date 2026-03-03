@@ -40,7 +40,12 @@
     layout = "no";
     variant = "nodeadkeys";
   };
-  console.keyMap = "no";
+  console = {
+    keyMap = "no";
+    font = "ter-v32n";
+    packages = [pkgs.terminus_font];
+    earlySetup = true;
+  };
 
   # networking
   networking = {
@@ -69,10 +74,12 @@
 
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
-  environment.defaultPackages = [];
-  environment.systemPackages = with pkgs; [
-    wget
-  ];
+  environment = {
+    defaultPackages = [];
+    systemPackages = with pkgs; [
+      wget
+    ];
+  };
 
   nix.gc = {
     automatic = true;

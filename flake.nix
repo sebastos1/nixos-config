@@ -30,71 +30,39 @@
     home-manager,
     nixcord,
     ...
-  } @ attrs: {
+  } @ attrs: let
+    mkSystem = name: {user}:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = attrs;
+        system = "x86_64-linux";
+        modules = [
+          ./nixos
+          ./nixos/${name}
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              users.${user} = {
+                imports = [
+                  ./home
+                  ./home/hosts/${name}.nix
+                ];
+              };
+              extraSpecialArgs = attrs // {hostProfile = name;};
+              sharedModules = [nixcord.homeModules.nixcord];
+            };
+          }
+        ];
+      };
+  in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    nixosConfigurations = {
-      desk = nixpkgs.lib.nixosSystem {
-        specialArgs = attrs;
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/config.nix
-          ./nixos/desk
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.seb = import ./home/desk.nix;
-              extraSpecialArgs = attrs;
-              sharedModules = [
-                nixcord.homeModules.nixcord
-              ];
-            };
-          }
-        ];
-      };
 
-      lap = nixpkgs.lib.nixosSystem {
-        specialArgs = attrs;
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/config.nix
-          ./nixos/lap
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.seb = import ./home/lap.nix;
-              extraSpecialArgs = attrs;
-              sharedModules = [
-                nixcord.homeModules.nixcord
-              ];
-            };
-          }
-        ];
-      };
-
-      server = nixpkgs.lib.nixosSystem {
-        specialArgs = attrs;
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/config.nix
-          ./nixos/server
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.seb = import ./home/lap.nix;
-              extraSpecialArgs = attrs;
-              sharedModules = [
-                nixcord.homeModules.nixcord
-              ];
-            };
-          }
-        ];
-      };
+    # each setup expects a nixos/<name> and home/hosts/<name>
+    nixosConfigurations = builtins.mapAttrs mkSystem {
+      desk = {user = "seb";};
+      lap = {user = "seb";};
+      server = {user = "dio";}; # servertop
     };
   };
 }

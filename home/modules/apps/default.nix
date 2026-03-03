@@ -4,19 +4,12 @@
   ];
 
   home.packages = with pkgs; [
-    brave
-    nautilus
-    mpv
-    imv
-    # ungoogled-chromium # no vpn on this one
-
     # music
     mpc
     # nicotine-plus
 
     # (blender.override { cudaSupport = true; })
 
-    # leisure
     mangohud
     wineWow64Packages.stable
     winetricks
@@ -27,12 +20,6 @@
 
     osu-lazer-bin
   ];
-
-  # xdg.desktopEntries.chromium-novpn = {
-  #   name = "Chromium (no vpn, ungoogled)";
-  #   exec = "mullvad-exclude chromium";
-  #   icon = "chromium";
-  # };
 
   programs.obs-studio = {
     enable = true;

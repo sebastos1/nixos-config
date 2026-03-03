@@ -1,55 +1,40 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  hostProfile,
+  ...
+}: {
   home.packages = with pkgs; [
-    # terminal things that idk where to put
-    nh
-    nix-output-monitor
-    nmap
-    nix-your-shell
-
-    grc # colors some commands
-    zoxide # cd
     eza # ls
+    zoxide # cd
     ripgrep # grep
-    tealdeer # tldr
     fd # find
+    tealdeer # tldr
+    fzf
     httpie # curl
-    ouch # zips
+    nmap
+    grc
 
+    # monitoring
     duf # df
     dust # du
     btop # htop
-    # bottom
     fastfetch
 
-    # yazi
-    fzf
-    ffmpeg # video
-    poppler # pdf
-    imagemagick # image biz
-    p7zip # zip
-    jq # json
-    resvg # svg
-    glow # markdown
+    nh
+    nix-output-monitor
+    nix-your-shell
+
+    lazygit
+    delta
   ];
 
-  programs.direnv = {
+  programs.git = {
     enable = true;
-    nix-direnv.enable = true;
-    enableFishIntegration = true;
-  };
-
-  # tui files
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-    plugins = with pkgs.yaziPlugins; {
-      inherit
-        git
-        mediainfo
-        duckdb
-        ;
+    settings = {
+      core.askpass = "";
+      credential.helper = "store";
+      push.autoSetupRemote = true;
     };
-    shellWrapperName = "y";
   };
 
   # cat
@@ -61,25 +46,10 @@
     ];
   };
 
-  programs.atuin = {
+  programs.direnv = {
     enable = true;
+    nix-direnv.enable = true;
     enableFishIntegration = true;
-    settings = {
-      search_mode = "fuzzy";
-      filter_mode = "global";
-      show_preview = true;
-    };
-  };
-
-  programs.ghostty = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = {
-      theme = "Gruvbox Material";
-      window-padding-x = 12;
-      window-padding-y = 12;
-      window-padding-balance = true;
-    };
   };
 
   programs.bash = {
@@ -103,10 +73,8 @@
       la = "eza --icons=always -la";
       tree = "eza --icons=always --tree";
       cat = "bat --paging=never --theme=ansi";
-      rebuild = "nh os switch /etc/nixos --hostname desk ";
+      rebuild = "nh os switch /etc/nixos --hostname ${hostProfile}";
       copy = "wl-copy";
-      # ssh = "kitty +kitten ssh";
-      music = "ncmpcpp"; # I can NOT remember this sequence of letters
       zed = "zeditor";
     };
     functions = {
@@ -141,7 +109,6 @@
       set fzf_history_opts --disabled
       # make fish work nicely with nix shells
       nix-your-shell fish | source
-      # direnv
       direnv hook fish | source
       zoxide init fish | source
     '';
@@ -155,6 +122,16 @@
         success_symbol = "[\\$](bold green)";
         error_symbol = "[\\$](bold red)";
       };
+    };
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      search_mode = "fuzzy";
+      filter_mode = "global";
+      show_preview = true;
     };
   };
 }

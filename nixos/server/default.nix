@@ -6,24 +6,43 @@
 }: {
   imports = [./hardware-config.nix];
 
-  networking.hostName = "Diorite";
+  networking = {
+    hostName = "Diorite";
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [22 80 443];
+    };
+  };
+
+  users.users.dio = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "networkmanager" "docker"];
+  };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+  };
+
+  services = {
+    # avahi.enable = false;
+    fail2ban.enable = true;
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = false;
+    "net.ipv6.conf.all.forwarding" = false;
+    "net.ipv4.conf.all.send_requests" = false;
+    "net.ipv4.conf.all.accept_redirects" = false;
+  };
 
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore"; # closing lid doesn't put to sleep
     HandleSuspendKey = "ignore";
     HandleHibernateKey = "ignore";
-  };
-
-  security.polkit.enable = true;
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.swayfx}/bin/sway --unsupported-gpu";
-        user = "seb";
-      };
-      default_session = initial_session;
-    };
   };
 
   systemd.targets = {
@@ -32,6 +51,9 @@
     hibernate.enable = false;
     hybrid-sleep.enable = false;
   };
+
+  # trackpad
+  services.libinput.enable = true;
 
   virtualisation.docker = {
     enable = true;
@@ -49,9 +71,9 @@
         default = "http_status:404";
         ingress = {
           "shlb.ng" = "http://localhost:3000";
-          "sjallabong.eu" = "http://localhost:3000";
-          "pool.sjallabong.eu" = "http://localhost:8080";
-          "auth.sjallabong.eu" = "http://localhost:3001";
+          "sjallabong.com" = "http://localhost:3000";
+          "pool.sjallabong.com" = "http://localhost:8080";
+          "account.sjallabong.com" = "http://localhost:3001";
         };
       };
     };
@@ -64,34 +86,6 @@
   #   enable = true;
   #   pulse.enable = true;
   # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  users.users.dio = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "docker"];
-  };
-
-  # services.openssh = {
-  #   enable = true;
-  #   settings = {
-  #     PasswordAuthentication = false; # todo?
-  #     PermitRootLogin = "no";
-  #    };
-  # };
-
-  services = {
-    avahi.enable = false;
-    fail2ban.enable = true;
-  };
-
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = false;
-    "net.ipv6.conf.all.forwarding" = false;
-    "net.ipv4.conf.all.send_requests" = false;
-    "net.ipv4.conf.all.accept_redirects" = false;
-  };
 
   system.stateVersion = "25.11";
 }

@@ -4,9 +4,10 @@
   ...
 }: {
   imports = [
-    ./modules/desktop
-    ./modules/term.nix
-    ./modules/dev.nix
+    ../modules/cli.nix
+    ../modules/desktop
+    ../modules/editors/zed.nix
+    ../modules/browser/brave.nix
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "25.05";
