@@ -20,10 +20,6 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
     # mobo doesnt support the apic pstate control that gamemode uses
     kernelModules = ["acpi-cpufreq"];
     kernelParams = [
