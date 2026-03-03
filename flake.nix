@@ -74,6 +74,27 @@
           }
         ];
       };
+
+      server = nixpkgs.lib.nixosSystem {
+        specialArgs = attrs;
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/config.nix
+          ./nixos/server
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              users.seb = import ./home/lap.nix;
+              extraSpecialArgs = attrs;
+              sharedModules = [
+                nixcord.homeModules.nixcord
+              ];
+            };
+          }
+        ];
+      };
     };
   };
 }
