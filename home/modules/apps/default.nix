@@ -1,8 +1,8 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
+  imports = [
+    ./minecraft
+  ];
+
   home.packages = with pkgs; [
     brave
     nautilus
@@ -25,17 +25,6 @@
     lutris
     heroic
 
-    # minecraft
-    jemalloc
-    (prismlauncher.overrideAttrs (oldAttrs: {
-      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
-      postInstall = (oldAttrs.postInstall or "") + ''
-        wrapProgram $out/bin/prismlauncher \
-          --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
-      '';
-    }))
-    jdk21
-
     osu-lazer-bin
   ];
 
@@ -47,7 +36,7 @@
 
   programs.obs-studio = {
     enable = true;
-    package = pkgs.obs-studio.override { cudaSupport = true; };
+    package = pkgs.obs-studio.override {cudaSupport = true;};
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
     ];

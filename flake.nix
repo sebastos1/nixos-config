@@ -17,6 +17,11 @@
       url = "github:sebastos1/keylist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mcsr-nixos = {
+      url = "https://git.uku3lig.net/uku/mcsr-nixos/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

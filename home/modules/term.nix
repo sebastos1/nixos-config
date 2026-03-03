@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # terminal things that idk where to put
     nh
@@ -107,10 +103,11 @@
       la = "eza --icons=always -la";
       tree = "eza --icons=always --tree";
       cat = "bat --paging=never --theme=ansi";
-      rebuild = "nh os switch /etc/nixos --hostname desk";
+      rebuild = "nh os switch /etc/nixos --hostname desk ";
       copy = "wl-copy";
       # ssh = "kitty +kitten ssh";
       music = "ncmpcpp"; # I can NOT remember this sequence of letters
+      zed = "zeditor";
     };
     functions = {
       fish_greeting = "";

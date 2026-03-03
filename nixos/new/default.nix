@@ -11,15 +11,15 @@
   networking.hostName = "new";
 
   # wayland (sway)
-#   security.polkit.enable = true;
-#   services.greetd = {
-#     enable = true;
-#     settings = rec {
-#       initial_session = {
-#         command = "${pkgs.swayfx}/bin/sway --unsupported-gpu";
-#         user = "seb";
-#       };
-#       default_session = initial_session;
-#     };
-#   };
+  #   security.polkit.enable = true;
+  #   services.greetd = {
+  #     enable = true;
+  #     settings = rec {
+  #       initial_session = {
+  #         command = "${pkgs.swayfx}/bin/sway --unsupported-gpu";
+  #         user = "seb";
+  #       };
+  #       default_session = initial_session;
+  #     };
+  #   };
 }

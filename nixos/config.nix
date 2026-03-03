@@ -15,7 +15,7 @@
     warn-dirty = false;
     auto-optimise-store = true;
     experimental-features = ["nix-command" "flakes"];
-    trusted-users = [ "seb" ];
+    trusted-users = ["seb"];
   };
 
   # locale
@@ -64,7 +64,7 @@
 
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
-  environment.defaultPackages = [ ];
+  environment.defaultPackages = [];
   environment.systemPackages = with pkgs; [
     wget
   ];

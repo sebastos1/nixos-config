@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     swayfx
     waybar
@@ -55,11 +51,11 @@
   xdg = {
     userDirs = {
       enable = true;
-      documents = "$HOME/other/";
-      download = "$HOME/other/";
-      videos = "$HOME/vids/";
       music = "$HOME/music/";
       pictures = "$HOME/pics/";
+      videos = "$HOME/vids/";
+      documents = "$HOME/other/";
+      download = "$HOME/other/";
       desktop = "$HOME/other/";
       publicShare = "$HOME/other/";
       templates = "$HOME/other/";
@@ -89,7 +85,7 @@
       hinting = "slight";
       subpixelRendering = "rgb";
       defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };

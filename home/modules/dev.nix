@@ -1,8 +1,6 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: let
+  secrets = import ./secrets.nix;
+in {
   home.packages = with pkgs; [
     rustup
     clang
@@ -31,6 +29,7 @@
       "toml"
       "rust"
       "charmed-icons"
+      "lua"
     ];
     extraPackages = with pkgs; [
       nil
@@ -95,6 +94,35 @@
       };
       notification_panel.dock = "left";
       outline_panel.dock = "right";
+
+      language_models = {
+        open_router = {
+          api_url = "https://openrouter.ai/api/v1";
+          available_models = [
+            {
+              name = "deepseek/deepseek-r1:free";
+              display_name = "DeepSeek R1 (Free)";
+              max_tokens = 64000;
+              supports_tools = true;
+            }
+            {
+              name = "deepseek/deepseek-r1-distill-llama-70b:free";
+              display_name = "DeepSeek R1 Distill 70B (Free)";
+              max_tokens = 64000;
+              supports_tools = true;
+            }
+          ];
+        };
+      };
+
+      agent = {
+        default_model = {
+          provider = "openrouter";
+          model = "deepseek/deepseek-r1:free";
+        };
+      };
+
+      # terminal.env.OPENROUTER_API_KEY = builtins.readFile /home/seb/.secrets/openrouter_api_key; # --impure
     };
   };
 

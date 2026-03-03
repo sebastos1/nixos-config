@@ -25,7 +25,7 @@
       efi.canTouchEfiVariables = true;
     };
     # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = [ "acpi-cpufreq" ];
+    kernelModules = ["acpi-cpufreq"];
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
