@@ -95,4 +95,6 @@
       python3 # used by elden ring
     ];
   };
+
+  system.stateVersion = "25.05";
 }
