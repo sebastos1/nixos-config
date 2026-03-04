@@ -32,13 +32,6 @@
     fail2ban.enable = true;
   };
 
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = false;
-    "net.ipv6.conf.all.forwarding" = false;
-    "net.ipv4.conf.all.send_requests" = false;
-    "net.ipv4.conf.all.accept_redirects" = false;
-  };
-
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore"; # closing lid doesn't put to sleep
     HandleSuspendKey = "ignore";
