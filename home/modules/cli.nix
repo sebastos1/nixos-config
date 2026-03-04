@@ -14,6 +14,7 @@
 
     # cargo new and such
     cargo
+    cloudflared
   ];
 
   # tui files

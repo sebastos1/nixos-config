@@ -59,13 +59,14 @@
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "67f421c8-1836-4702-82c6-304741c443a" = {
+      "67f421c8-1836-4702-82c6-304741c443ac" = {
         credentialsFile = "/etc/cloudflared/tunnel.json";
         default = "http_status:404";
         ingress = {
           "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
+          "ssh.shlb.ng" = "ssh://localhost:22";
         };
       };
     };
