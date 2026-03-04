@@ -4,7 +4,10 @@
   pkgs,
   ...
 }: {
-  imports = [./hardware-config.nix];
+  imports = [
+    ./hardware-config.nix
+    ./homepage.nix
+  ];
 
   networking = {
     hostName = "Diorite";
@@ -27,10 +30,7 @@
     };
   };
 
-  services = {
-    # avahi.enable = false;
-    fail2ban.enable = true;
-  };
+  services.fail2ban.enable = true;
 
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore"; # closing lid doesn't put to sleep
@@ -63,10 +63,12 @@
         credentialsFile = "/etc/cloudflared/tunnel.json";
         default = "http_status:404";
         ingress = {
+          "ssh.shlb.ng" = "ssh://localhost:22";
+          "dash.shlb.ng" = "http://localhost:3002";
+
           "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
-          "ssh.shlb.ng" = "ssh://localhost:22";
         };
       };
     };

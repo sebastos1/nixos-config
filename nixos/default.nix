@@ -68,12 +68,6 @@
   security.rtkit.enable = true;
   services.pipewire.enable = true;
 
-  users.users.seb = {
-    isNormalUser = true;
-    description = "seb";
-    extraGroups = ["networkmanager" "wheel" "input"];
-  };
-
   security.sudo.extraConfig = "Defaults pwfeedback"; # show asterisks when typing sudo password
   services.gnome.gnome-keyring.enable = true;
   security.sudo.wheelNeedsPassword = false;

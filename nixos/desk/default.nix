@@ -9,6 +9,8 @@
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
     ../firejail.nix
+
+    # ../server/homepage.nix
   ];
 
   nix.settings = {
@@ -18,6 +20,11 @@
 
   services.mullvad-vpn.enable = true;
   networking.hostName = "CarPlay_9814";
+
+  users.users.seb = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "networkmanager" "docker"];
+  };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
