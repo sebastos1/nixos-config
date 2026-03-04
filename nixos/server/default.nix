@@ -66,11 +66,10 @@
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "ec27b1d3-eae0-464a-a76f-a1bd9a16426a" = {
+      "67f421c8-1836-4702-82c6-304741c443a" = {
         credentialsFile = "/etc/cloudflared/tunnel.json";
         default = "http_status:404";
         ingress = {
-          "shlb.ng" = "http://localhost:3000";
           "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
