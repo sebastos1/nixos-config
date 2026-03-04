@@ -79,13 +79,5 @@
     };
   };
 
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
   system.stateVersion = "25.11";
 }
