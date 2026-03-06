@@ -19,7 +19,7 @@ window#waybar {
     border: none;
 }
 
-window#waybar>box {
+window#waybar > box {
     background: @bg;
     border: 3px solid @border;
     border-radius: 10px;
@@ -30,7 +30,7 @@ window#waybar>box {
     margin-bottom: 7px;
 }
 
-window#waybar.solo>box {
+window#waybar.solo > box {
     border: 3px solid transparent;
     border-top: 3px solid @border;
     border-radius: 0;
@@ -68,7 +68,6 @@ window#waybar.solo>box {
     padding-right: 10px;
 }
 
-
 /* right side  */
 #clock {
     font-weight: 900;
@@ -95,8 +94,6 @@ window#waybar.solo>box {
     color: @green;
 }
 
-
-
 #custom-keybinds {
     color: @peach;
 }
@@ -113,8 +110,6 @@ window#waybar.solo>box {
     background: @border;
     min-height: 1px;
 }
-
-
 
 /* left side  */
 #workspaces {

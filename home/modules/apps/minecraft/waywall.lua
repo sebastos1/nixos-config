@@ -149,6 +149,7 @@ local config = {
 
 		remaps = {
 			["MB5"] = "F3",
+			["Z"] = "0",
 		},
 	},
 	theme = {
@@ -166,12 +167,12 @@ local config = {
 		end,
 		["*-G"] = function()
 			return ModeManager:toggle("wide")
-		end,
+		end,p
 		["*-B"] = function()
 			return ModeManager:toggle("tall")
 		end,
 		["*-N"] = function()
-			show_ninjabrain(false)
+		    helpers.toggle_floating()
 			return false -- don't consume key
 		end,
 		["ctrl-O"] = function()

@@ -79,7 +79,7 @@
     ];
   };
 
-  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = [ "podman" ];
+  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = ["podman"];
 
   services.glances = {
     enable = true;

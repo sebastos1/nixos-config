@@ -1,7 +1,10 @@
 {pkgs, ...}: {
   programs.zed-editor = {
     enable = true;
-    package = pkgs.zed-editor-fhs;
+    # fixes some jank when fullscreening and scrollbar flickering by using xwayland instead
+    package = pkgs.writeShellScriptBin "zeditor" ''
+      WAYLAND_DISPLAY= exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
+    '';
     extensions = [
       "nix"
       "toml"
@@ -15,6 +18,7 @@
     ];
     userSettings = {
       # foundational
+      session.trust_all_worktrees = true;
       journal.hour_format = "hour24";
       auto_update = false;
       telemetry = {
@@ -24,81 +28,61 @@
       # visual
       theme = "Gruvbox Dark";
       icon_theme = "Warm Charmed Icons";
-      ui_font_size = 16;
-      buffer_font_size = 14;
+      ui_font_size = 18;
+      buffer_font_size = 18;
       ui_font_family = "JetBrainsMono Nerd Font";
       buffer_font_family = "JetBrainsMono Nerd Font";
       title_bar = {
         show_onboarding_banner = false;
-        # show_user_menu = false;
       };
-      toolbar = {
-        quick_actions = false;
-      };
+      toolbar.quick_actions = false;
       project_panel = {
         dock = "right";
         bold_folder_labels = true;
-        # indent_size = 16;
         hide_root = true;
         auto_fold_dirs = false;
+        indent_guides.show = "never";
       };
-      # tabs
       tabs = {
         file_icons = true;
         git_status = true;
+        show_diagnostics = "all";
       };
       tab_bar.show_nav_history_buttons = false;
       # editor
-      base_keymap = "VSCode"; # mental debt
-      vim_mode = false;
+      # vim_mode = true;
+      # relative_line_numbers = true;
       drag_and_drop_selection.enabled = false;
       extend_comment_on_newline = false;
-      indent_guides = {
-        enabled = true;
-        coloring = "indent_aware";
-      };
-      soft_wrap = "editor_width";
-      # relative_line_numbers = true;
-      format_on_save = "on";
+      indent_guides.coloring = "indent_aware"; # woke editor :D
       colorize_brackets = true;
-      scrollbar = {
-        show = "auto";
-        git_diff = true;
-      };
+      soft_wrap = "editor_width";
       gutter = {
-        min_line_number_digits = 0;
-        folds = false;
         runnables = false;
+        folds = false;
+        min_line_number_digits = 0;
       };
-      notification_panel.dock = "left";
+      sticky_scroll.enabled = true;
+      scroll_beyond_last_line = "off";
+      # bottom and panels
       outline_panel.dock = "right";
-
-      language_models = {
-        open_router = {
-          api_url = "https://openrouter.ai/api/v1";
-          available_models = [
-            {
-              name = "deepseek/deepseek-r1:free";
-              display_name = "DeepSeek R1 (Free)";
-              max_tokens = 64000;
-              supports_tools = true;
-            }
-            {
-              name = "deepseek/deepseek-r1-distill-llama-70b:free";
-              display_name = "DeepSeek R1 Distill 70B (Free)";
-              max_tokens = 64000;
-              supports_tools = true;
-            }
-          ];
-        };
+      collaboration_panel.button = false;
+      search.button = false;
+      debugger.button = false;
+      terminal.button = false;
+      agent.button = false;
+      git_panel = {
+        button = false;
+        status_style = "label_color";
       };
-
-      agent = {
-        default_model = {
-          provider = "openrouter";
-          model = "deepseek/deepseek-r1:free";
-        };
+      notification_panel = {
+        dock = "left";
+        button = false;
       };
+      line_indicator_format = "short";
+
+      # todo: completions, snippets, inlines, inlay hints
+      # https://zed.dev/docs/visual-customization#editor-inlay-hints
     };
   };
 }

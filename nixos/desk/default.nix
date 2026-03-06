@@ -10,7 +10,7 @@
     "${nix-gaming}/modules/platformOptimizations.nix"
     ../firejail.nix
 
-    # ../server/homepage.nix
+    ../server/homepage.nix
   ];
 
   nix.settings = {

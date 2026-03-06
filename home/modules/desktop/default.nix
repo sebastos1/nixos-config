@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./programs.nix
+  ];
+
   home.packages = with pkgs; [
     swayfx
     waybar
