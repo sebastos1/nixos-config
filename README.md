@@ -1,14 +1,20 @@
 # config
 
-```sh
-sudo nixos-rebuild switch --flake /etc/nixos#desk
-```
-
 ## profiles
 
-- desk
-- lap
-- server
+| profile | description |
+| - | - |
+| desk | sway, with apps and games (fat) |
+| lap | sway, and dev things |
+| server | zellij and whatever |
+
+Use:
+```sh
+git clone https://github.com/sebastos1/nixos-config
+cd nixos-config
+nixos-rebuild switch --flake .#<profile>
+```
+There's also an alias `rebuild` that rebuilds the current profile, but this assumes that the config is in `/etc/nixos`
 
 ## vpn
 

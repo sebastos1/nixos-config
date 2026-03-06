@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zed-editor = {
     enable = true;
     # fixes some jank when fullscreening and scrollbar flickering by using xwayland instead
@@ -84,5 +85,9 @@
       # todo: completions, snippets, inlines, inlay hints
       # https://zed.dev/docs/visual-customization#editor-inlay-hints
     };
+  };
+
+  programs.fish.shellAliases = {
+    zed = "zeditor";
   };
 }

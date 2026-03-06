@@ -1,11 +1,12 @@
 {
   pkgs,
-  hostProfile,
   ...
 }:
 {
   imports = [
     ./git.nix
+    ./system.nix
+    ./network.nix
   ];
 
   home.packages = with pkgs; [
@@ -13,19 +14,8 @@
     less # paging for bat
     ripgrep # grep
     fd # find
-
+    grc # fish wants this
     tealdeer # tldr
-    httpie # curl
-    nmap
-
-    # monitoring
-    duf # df
-    dust # du
-    btop # htop
-    fastfetch
-
-    nh
-    nix-output-monitor
   ];
 
   # cat
@@ -71,29 +61,6 @@
     enableFishIntegration = true;
   };
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    enableFishIntegration = true;
-  };
-
-  programs.nix-your-shell = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
-  # auto-jump into fish
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
-
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -107,10 +74,6 @@
       copy = "wl-copy"; # copy < file.txt
       grep = "rg";
       find = "fd";
-
-      unzip = "ouch decompress";
-      rebuild = "nh os switch /etc/nixos --hostname ${hostProfile}";
-      zed = "zeditor";
     };
     functions = {
       fish_greeting = "";
@@ -141,6 +104,21 @@
     '';
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableFishIntegration = true;
+
+    # make it quieter
+    silent = true;
+    config.hide_env_diff = true;
+  };
+
+  programs.nix-your-shell = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
@@ -150,5 +128,17 @@
         error_symbol = "[\\$](bold red)";
       };
     };
+  };
+
+  # auto-jump into fish
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
   };
 }

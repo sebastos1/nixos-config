@@ -17,6 +17,10 @@
     cloudflared
   ];
 
+  programs.fish.shellAliases = {
+    unzip = "ouch decompress";
+  };
+
   # tui files
   programs.yazi = {
     enable = true;
