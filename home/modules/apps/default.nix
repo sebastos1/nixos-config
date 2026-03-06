@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./minecraft
   ];
@@ -7,8 +8,6 @@
     # music
     mpc
     # nicotine-plus
-
-    # (blender.override { cudaSupport = true; })
 
     mangohud
     wineWow64Packages.stable
@@ -19,11 +18,14 @@
     heroic
 
     osu-lazer-bin
+
+    # (blender.override { cudaSupport = true; })
+
   ];
 
   programs.obs-studio = {
     enable = true;
-    package = pkgs.obs-studio.override {cudaSupport = true;};
+    package = pkgs.obs-studio.override { cudaSupport = true; };
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
     ];

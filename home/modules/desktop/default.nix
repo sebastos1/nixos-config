@@ -1,10 +1,12 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./programs.nix
   ];
 
   home.packages = with pkgs; [
     swayfx
+    autotiling-rs # open new windows in the direction with most space
     waybar
     keylist
 
@@ -51,14 +53,33 @@
     theme = ./sway/rofi.rasi;
   };
 
-  programs.ghostty = {
+  programs.alacritty = {
     enable = true;
-    enableFishIntegration = true;
+    theme = "gruvbox_dark";
     settings = {
-      theme = "Gruvbox Material";
-      window-padding-x = 12;
-      window-padding-y = 12;
-      window-padding-balance = true;
+      window.padding = {
+        x = 20;
+        y = 20;
+      };
+      font = {
+        size = 15;
+        bold = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold";
+        };
+        normal = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Regular";
+        };
+        italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Italic";
+        };
+        bold_italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold Italic";
+        };
+      };
     };
   };
 
@@ -76,8 +97,8 @@
     };
 
     configFile = {
-      "sway/config".source = ./sway/sway.cfg;
-      "waybar/config".source = ./sway/waybar/waybar.cfg;
+      "sway/config".source = ./sway/sway.conf;
+      "waybar/config".source = ./sway/waybar/waybar.conf;
       "waybar/style.css".source = ./sway/waybar/style.css;
       "keylist/config.yaml".source = ./sway/keybinds.yaml;
       "sway/mullvad-check.sh" = {
@@ -99,7 +120,7 @@
       hinting = "slight";
       subpixelRendering = "rgb";
       defaultFonts = {
-        emoji = ["Noto Color Emoji"];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
