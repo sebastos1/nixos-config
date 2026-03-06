@@ -8,16 +8,35 @@
       core.askpass = "";
       credential.helper = "store";
       push.autoSetupRemote = true;
-    };
-    extraConfig = {
-      diff.colorMoved = "default";
+      init.defaultBranch = "main";
+      pull.rebase = "true"; # must have
+      rebase = {
+        autoStash = true;
+        autosquash = true;
+      };
+      # fetch = {
+      #   prune = true; # remove remote tracking refs
+      #   prunetags = true; # remove tags
+      # };
+      commit.verbose = true; # show diff
+      diff = {
+        colorMoved = "default";
+        algorithm = "histogram";
+      };
+      rerere.enabled = true; # remember resolved conflicts
       merge.conflictStyle = "zdiff3";
-      color.ui = "auto";
-      color.status = "auto";
-      color.branch = "auto";
-    };
-    aliases = {
-      s = "status -sb";
+      log.date = "relative";
+      color = {
+        status = "auto";
+        branch = "auto";
+        interactive = "auto";
+      };
+      alias = {
+        s = "status -sb";
+        c = "commit -v";
+        l = "log --oneline --graph --decorate";
+        undo = "reset HEAD~1 --mixed";
+      };
     };
   };
 

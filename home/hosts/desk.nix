@@ -1,8 +1,7 @@
 {
-  config,
-  pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../modules/cli.nix
     ../modules/desktop
@@ -10,6 +9,4 @@
     ../modules/browser/brave.nix
     ../modules/apps
   ];
-  systemd.user.startServices = "sd-switch";
-  home.stateVersion = "25.05";
 }
