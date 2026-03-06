@@ -12,6 +12,12 @@
     extraConfig = {
       diff.colorMoved = "default";
       merge.conflictStyle = "zdiff3";
+      color.ui = "auto";
+      color.status = "auto";
+      color.branch = "auto";
+    };
+    aliases = {
+      s = "status -sb";
     };
   };
 
