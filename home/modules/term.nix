@@ -2,17 +2,21 @@
   pkgs,
   hostProfile,
   ...
-}: {
+}:
+{
+  imports = [
+    ./git.nix
+  ];
+
   home.packages = with pkgs; [
     eza # ls
-    zoxide # cd
+    less # paging for bat
     ripgrep # grep
     fd # find
+
     tealdeer # tldr
-    fzf
     httpie # curl
     nmap
-    grc
 
     # monitoring
     duf # df
@@ -22,20 +26,7 @@
 
     nh
     nix-output-monitor
-    nix-your-shell
-
-    lazygit
-    delta
   ];
-
-  programs.git = {
-    enable = true;
-    settings = {
-      core.askpass = "";
-      credential.helper = "store";
-      push.autoSetupRemote = true;
-    };
-  };
 
   # cat
   programs.bat = {
@@ -44,6 +35,40 @@
       batman
       batpipe
     ];
+    config = {
+      theme = "gruvbox-dark";
+      pager = "less -FR";
+      style = "plain";
+    };
+  };
+
+  # cd
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  # peak
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  # cmd history
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      search_mode = "fuzzy";
+      filter_mode = "global";
+      show_preview = true;
+    };
+  };
+
+  # thefuck
+  programs.pay-respects = {
+    enable = true;
+    enableFishIntegration = true;
   };
 
   programs.direnv = {
@@ -52,6 +77,12 @@
     enableFishIntegration = true;
   };
 
+  programs.nix-your-shell = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  # auto-jump into fish
   programs.bash = {
     enable = true;
     initExtra = ''
@@ -66,15 +97,19 @@
   programs.fish = {
     enable = true;
     shellAliases = {
-      unzip = "ouch decompress";
+      ls = "eza --icons";
+      ll = "eza --icons -l";
+      la = "eza --icons -la";
+      tree = "eza --icons --tree";
       cd = "z";
-      ls = "eza --icons=always";
-      ll = "eza --icons=always -l";
-      la = "eza --icons=always -la";
-      tree = "eza --icons=always --tree";
-      cat = "bat --paging=never --theme=ansi";
+      cat = "bat";
+      cats = "bat --style=numbers,changes,header";
+      copy = "wl-copy"; # copy < file.txt
+      grep = "rg";
+      find = "fd";
+
+      unzip = "ouch decompress";
       rebuild = "nh os switch /etc/nixos --hostname ${hostProfile}";
-      copy = "wl-copy";
       zed = "zeditor";
     };
     functions = {
@@ -97,20 +132,12 @@
         src = pkgs.fishPlugins.grc.src;
       }
       {
-        name = "forgit";
-        src = pkgs.fishPlugins.forgit.src;
-      }
-      {
         name = "sponge";
         src = pkgs.fishPlugins.sponge.src;
       }
     ];
     interactiveShellInit = ''
-      set fzf_history_opts --disabled
-      # make fish work nicely with nix shells
-      nix-your-shell fish | source
-      direnv hook fish | source
-      zoxide init fish | source
+      pay-respects fish --alias f | source
     '';
   };
 
@@ -122,16 +149,6 @@
         success_symbol = "[\\$](bold green)";
         error_symbol = "[\\$](bold red)";
       };
-    };
-  };
-
-  programs.atuin = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = {
-      search_mode = "fuzzy";
-      filter_mode = "global";
-      show_preview = true;
     };
   };
 }
