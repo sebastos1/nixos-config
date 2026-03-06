@@ -1,7 +1,4 @@
-{
-  ...
-}:
-{
+{...}: {
   imports = [
     ../modules/desktop
     ../modules/cli/tools.nix

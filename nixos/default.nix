@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   keylist,
   ...
@@ -14,7 +13,10 @@
   nix.settings = {
     warn-dirty = false;
     auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     trusted-users = ["seb"];
   };
 

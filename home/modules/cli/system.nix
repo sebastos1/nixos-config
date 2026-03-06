@@ -2,10 +2,8 @@
   pkgs,
   hostProfile,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
-    # monitoring
     procs # ps
     duf # df
     dust # du

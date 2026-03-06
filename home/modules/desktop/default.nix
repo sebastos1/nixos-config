@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./programs.nix
   ];
@@ -10,25 +9,23 @@
     waybar
     keylist
 
+    sway-contrib.grimshot
+    wl-clipboard # copy/paste
+
     # pws
     bitwarden-desktop
     rbw
+
+    # rofi additions
     rofi-rbw-wayland
     pinentry-curses
-
-    # emoji
-    rofimoji
-
-    sway-contrib.grimshot
-
-    wl-clipboard # copy/paste
+    rofimoji # emoji
 
     # fonts
     font-awesome
     nerd-fonts.jetbrains-mono
     nerd-fonts.roboto-mono
     nerd-fonts.meslo-lg
-
     noto-fonts # latin, greek, cyrillic, etc
     noto-fonts-cjk-sans # chinese, japanese, korean
     noto-fonts-color-emoji # emojis
@@ -100,9 +97,9 @@
       "sway/config".source = ./sway/sway.conf;
       "waybar/config".source = ./sway/waybar/waybar.conf;
       "waybar/style.css".source = ./sway/waybar/style.css;
-      "keylist/config.yaml".source = ./sway/keybinds.yaml;
+      "keylist/config.yaml".source = ./sway/waybar/keybinds.yaml;
       "sway/mullvad-check.sh" = {
-        source = ./sway/mullvad-check.sh;
+        source = ./sway/waybar/mullvad-check.sh;
         executable = true;
       };
       "rofi-rbw.rc".text = ''
@@ -120,7 +117,7 @@
       hinting = "slight";
       subpixelRendering = "rgb";
       defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };

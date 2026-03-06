@@ -22,11 +22,3 @@ There's also an alias `rebuild` that rebuilds the current profile, but this assu
 mullvad login
 mullvad lockdown-mode set on
 ```
-
-## Todo:
-workspace renamer and workspace entry ordering (IMPORTANT)
-https://github.com/swaywm/sway/wiki/Useful-add-ons-for-sway#workspaces
-sov? alt+tabbing?
-https://github.com/milgra/sov
-
-ironbar?

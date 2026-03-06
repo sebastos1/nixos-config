@@ -12,7 +12,6 @@ keys:
     Open terminal: [mod, enter]
     Open the launcher: [mod, d]
 
-
   Windows:
     Move focus: [mod, [i, j, k, l]]
     Move window: [mod, shift, [i, j, k, l]]
@@ -21,8 +20,8 @@ keys:
     Close window: [mod, shift, w]
     Toggle fullscreen: [mod, f]
   Workspaces:
-    Change workspace: [mod, [1,2,3]]
-    Send window to workspace: [mod, shift, [1,2,3]]
+    Change workspace: [mod, [1, 2, 3]]
+    Send window to workspace: [mod, shift, [1, 2, 3]]
   Layout:
     Split horizontal: [mod, h]
     Split vertical: [mod, v]
@@ -30,7 +29,6 @@ keys:
     Toggle tabbed: [mod, t]
     Toggle floating/tiling: [mod, shift, space]
     Focus floating/tiling: [mod, space]
-
 
   Screenshots:
     Screenshot: [prtscn]

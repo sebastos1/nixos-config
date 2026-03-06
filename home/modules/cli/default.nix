@@ -1,12 +1,8 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   imports = [
     ./git.nix
-    ./system.nix
     ./network.nix
+    ./system.nix
   ];
 
   home.packages = with pkgs; [

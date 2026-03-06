@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.zed-editor = {
     enable = true;
     # fixes some jank when fullscreening and scrollbar flickering by using xwayland instead
@@ -81,7 +80,6 @@
         button = false;
       };
       line_indicator_format = "short";
-
       # todo: completions, snippets, inlines, inlay hints
       # https://zed.dev/docs/visual-customization#editor-inlay-hints
     };
