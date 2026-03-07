@@ -17,8 +17,12 @@
 
   services.homepage-dashboard = {
     enable = true;
-    listenPort = 3002;
+    listenPort = 3033;
     docker.my-podman.socket = "/run/podman/podman.sock";
+
+    environmentFile = pkgs.writeText "homepage-env" ''
+      HOMEPAGE_ALLOWED_HOSTS=dash.shlb.ng
+    '';
 
     widgets = [
       {
@@ -60,7 +64,7 @@
                 type = "glances";
                 url = "http://localhost:61208";
                 version = 4;
-                metric = "network:enp4s0";
+                metric = "network:enp2s0";
               };
             };
           }

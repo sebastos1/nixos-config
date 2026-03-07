@@ -11,15 +11,24 @@
 
   networking = {
     hostName = "Diorite";
+    domain = "local";
     firewall = {
       enable = true;
-      allowedTCPPorts = [22 80 443];
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
     };
   };
 
   users.users.dio = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "docker"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+    ];
   };
 
   services.openssh = {
@@ -51,7 +60,11 @@
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
-      dns = ["192.168.1.1" "1.1.1.1" "8.8.8.8"];
+      dns = [
+        "192.168.1.1"
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
       ipv6 = false;
     };
   };
@@ -64,7 +77,7 @@
         default = "http_status:404";
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
-          "dash.shlb.ng" = "http://localhost:3002";
+          "dash.shlb.ng" = "http://localhost:3033";
 
           "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";

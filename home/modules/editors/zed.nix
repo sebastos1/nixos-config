@@ -80,6 +80,7 @@
         button = false;
       };
       line_indicator_format = "short";
+      scrollbar.show = "never";
       # todo: completions, snippets, inlines, inlay hints
       # https://zed.dev/docs/visual-customization#editor-inlay-hints
     };

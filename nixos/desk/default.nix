@@ -3,20 +3,20 @@
   pkgs,
   nix-gaming,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-config.nix
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
     ../firejail.nix
+    ../docker.nix
 
     ../server/homepage.nix
   ];
 
   nix.settings = {
-    substituters = [ "https://nix-gaming.cachix.org" ];
-    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
   };
 
   services.mullvad-vpn.enable = true;
@@ -34,7 +34,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = [ "acpi-cpufreq" ];
+    kernelModules = ["acpi-cpufreq"];
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
@@ -55,7 +55,7 @@
     enable = true; # lets apps use the gpu
     enable32Bit = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
