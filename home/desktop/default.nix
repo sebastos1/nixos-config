@@ -1,8 +1,5 @@
-{pkgs, ...}: {
-  imports = [
-    ./programs.nix
-  ];
-
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     swayfx
     autotiling-rs # open new windows in the direction with most space
@@ -29,6 +26,10 @@
     noto-fonts # latin, greek, cyrillic, etc
     noto-fonts-cjk-sans # chinese, japanese, korean
     noto-fonts-color-emoji # emojis
+
+    nautilus
+    mpv
+    oculante # images
   ];
 
   programs.rofi = {
@@ -81,18 +82,6 @@
   };
 
   xdg = {
-    userDirs = {
-      enable = true;
-      music = "$HOME/music/";
-      pictures = "$HOME/pics/";
-      videos = "$HOME/vids/";
-      documents = "$HOME/other/";
-      download = "$HOME/other/";
-      desktop = "$HOME/other/";
-      publicShare = "$HOME/other/";
-      templates = "$HOME/other/";
-    };
-
     configFile = {
       "sway/config".source = ./sway/sway.conf;
       "waybar/config".source = ./sway/waybar/waybar.conf;
@@ -117,7 +106,7 @@
       hinting = "slight";
       subpixelRendering = "rgb";
       defaultFonts = {
-        emoji = ["Noto Color Emoji"];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };

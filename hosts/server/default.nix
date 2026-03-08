@@ -1,33 +1,17 @@
+{ ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   imports = [
-    ./hardware-config.nix
-    ./homepage.nix
+    ./hardware.nix
+    ../../nix/homepage.nix
   ];
 
   networking = {
     hostName = "Diorite";
     domain = "local";
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        22
-        80
-        443
-      ];
-    };
-  };
-
-  users.users.dio = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "docker"
+    firewall.allowedTCPPorts = [
+      22
+      80
+      443
     ];
   };
 
@@ -38,15 +22,14 @@
       PasswordAuthentication = false;
     };
   };
-
   services.fail2ban.enable = true;
 
+  # stay alive
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore"; # closing lid doesn't put to sleep
     HandleSuspendKey = "ignore";
     HandleHibernateKey = "ignore";
   };
-
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
@@ -78,7 +61,6 @@
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
           "dash.shlb.ng" = "http://localhost:3033";
-
           "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";

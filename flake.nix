@@ -24,45 +24,59 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nixcord,
-    ...
-  } @ attrs: let
-    mkSystem = name: {user}:
-      nixpkgs.lib.nixosSystem {
-        specialArgs = attrs;
-        system = "x86_64-linux";
-        modules = [
-          ./nixos
-          ./nixos/${name}
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.${user} = {
-                imports = [
-                  ./home
-                  ./home/hosts/${name}.nix
-                ];
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixcord,
+      ...
+    }@attrs:
+    let
+      mkSystem =
+        name:
+        { user }:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = attrs // {
+            username = user;
+          };
+          system = "x86_64-linux";
+          modules = [
+            ./nix
+            ./hosts/${name}
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                backupFileExtension = "backup";
+                users.${user} = {
+                  imports = [
+                    ./home
+                    ./hosts/${name}/home.nix
+                  ];
+                };
+                extraSpecialArgs = attrs // {
+                  hostProfile = name;
+                  username = user;
+                };
+                sharedModules = [ nixcord.homeModules.nixcord ];
               };
-              extraSpecialArgs = attrs // {hostProfile = name;};
-              sharedModules = [nixcord.homeModules.nixcord];
-            };
-          }
-        ];
-      };
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+            }
+          ];
+        };
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-    # each setup expects a nixos/<name> and home/hosts/<name>
-    nixosConfigurations = builtins.mapAttrs mkSystem {
-      desk = {user = "seb";};
-      lap = {user = "seb";};
-      server = {user = "dio";}; # servertop
+      nixosConfigurations = builtins.mapAttrs mkSystem {
+        desk = {
+          user = "seb";
+        };
+        lap = {
+          user = "seb";
+        };
+        server = {
+          user = "dio";
+        }; # servertop
+      };
     };
-  };
 }

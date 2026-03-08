@@ -14,11 +14,6 @@ git clone https://github.com/sebastos1/nixos-config
 cd nixos-config
 nixos-rebuild switch --flake .#<profile>
 ```
-There's also an alias `rebuild` that rebuilds the current profile, but this assumes that the config is in `/etc/nixos`
+There's also an alias `rebuild` that rebuilds the current profile.
 
-## vpn
-
-```sh
-mullvad login
-mullvad lockdown-mode set on
-```
+#

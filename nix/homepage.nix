@@ -1,12 +1,8 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   virtualisation.oci-containers.containers.whoami = {
     image = "traefik/whoami";
-    ports = ["8889:80"];
+    ports = [ "8889:80" ];
     labels = {
       "homepage.group" = "Apps";
       "homepage.name" = "whoami";
@@ -20,9 +16,13 @@
     listenPort = 3033;
     docker.my-podman.socket = "/run/podman/podman.sock";
 
-    environmentFile = pkgs.writeText "homepage-env" ''
-      HOMEPAGE_ALLOWED_HOSTS=dash.shlb.ng
-    '';
+    environmentFiles = [
+      pkgs.writeText
+      "homepage-env"
+      ''
+        HOMEPAGE_ALLOWED_HOSTS=dash.shlb.ng
+      ''
+    ];
 
     widgets = [
       {
@@ -83,7 +83,7 @@
     ];
   };
 
-  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = ["podman"];
+  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = [ "podman" ];
 
   services.glances = {
     enable = true;
