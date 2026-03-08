@@ -9,14 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
-    nixcord.url = "github:KaylorBen/nixcord";
-
     keylist = {
       url = "github:sebastos1/keylist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    nixcord.url = "github:KaylorBen/nixcord";
 
     mcsr-nixos = {
       url = "https://git.uku3lig.net/uku/mcsr-nixos/archive/main.tar.gz";
@@ -24,59 +24,58 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      nixcord,
-      ...
-    }@attrs:
-    let
-      mkSystem =
-        name:
-        { user }:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = attrs // {
+  outputs = {
+    nixpkgs,
+    home-manager,
+    nixcord,
+    ...
+  } @ attrs: let
+    mkSystem = name: {user}:
+      nixpkgs.lib.nixosSystem {
+        specialArgs =
+          attrs
+          // {
             username = user;
           };
-          system = "x86_64-linux";
-          modules = [
-            ./nix
-            ./hosts/${name}
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                backupFileExtension = "backup";
-                users.${user} = {
-                  imports = [
-                    ./home
-                    ./hosts/${name}/home.nix
-                  ];
-                };
-                extraSpecialArgs = attrs // {
+        system = "x86_64-linux";
+        modules = [
+          ./nix
+          ./hosts/${name}
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              users.${user} = {
+                imports = [
+                  ./home
+                  ./hosts/${name}/home.nix
+                ];
+              };
+              extraSpecialArgs =
+                attrs
+                // {
                   hostProfile = name;
                   username = user;
                 };
-                sharedModules = [ nixcord.homeModules.nixcord ];
-              };
-            }
-          ];
-        };
-    in
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-      nixosConfigurations = builtins.mapAttrs mkSystem {
-        desk = {
-          user = "seb";
-        };
-        lap = {
-          user = "seb";
-        };
-        server = {
-          user = "dio";
-        }; # servertop
+              sharedModules = [nixcord.homeModules.nixcord];
+            };
+          }
+        ];
       };
+  in {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+
+    nixosConfigurations = builtins.mapAttrs mkSystem {
+      desk = {
+        user = "seb";
+      };
+      lap = {
+        user = "seb";
+      };
+      server = {
+        user = "dio";
+      }; # servertop
     };
+  };
 }

@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   xdg.userDirs = {
     enable = true;
     music = "$HOME/music/";

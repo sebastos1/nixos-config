@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ../../home/cli
     ../../home/cli/tools.nix

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     swayfx
     autotiling-rs # open new windows in the direction with most space
@@ -106,7 +105,7 @@
       hinting = "slight";
       subpixelRendering = "rgb";
       defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };
