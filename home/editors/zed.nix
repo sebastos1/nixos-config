@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   programs.zed-editor = {
     enable = true;
     # fixes some jank when fullscreening and scrollbar flickering by using xwayland instead
@@ -26,12 +31,12 @@
         metrics = false;
       };
       # visual
-      theme = "Gruvbox Dark";
+      # theme = "Gruvbox Dark";
       icon_theme = "Warm Charmed Icons";
-      ui_font_size = 18;
-      buffer_font_size = 18;
-      ui_font_family = "JetBrainsMono Nerd Font";
-      buffer_font_family = "JetBrainsMono Nerd Font";
+      # ui_font_size = 18;
+      # buffer_font_size = 18;
+      ui_font_family = lib.mkForce config.stylix.fonts.monospace.name;
+      # buffer_font_family = "JetBrainsMono Nerd Font";
       title_bar = {
         show_onboarding_banner = false;
       };

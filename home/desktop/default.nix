@@ -1,8 +1,13 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
+  imports = [
+    ./waybar
+    ./terminal.nix
+  ];
+
   home.packages = with pkgs; [
     swayfx
     autotiling-rs # open new windows in the direction with most space
-    waybar
     keylist
 
     sway-contrib.grimshot
@@ -19,12 +24,8 @@
 
     # fonts
     font-awesome
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.roboto-mono
-    nerd-fonts.meslo-lg
     noto-fonts # latin, greek, cyrillic, etc
     noto-fonts-cjk-sans # chinese, japanese, korean
-    noto-fonts-color-emoji # emojis
 
     nautilus
     mpv
@@ -47,47 +48,16 @@
       display-emoji = "emoji";
       show-icons = true;
     };
-    theme = ./sway/rofi.rasi;
-  };
-
-  programs.alacritty = {
-    enable = true;
-    theme = "gruvbox_dark";
-    settings = {
-      window.padding = {
-        x = 20;
-        y = 20;
-      };
-      font = {
-        size = 15;
-        bold = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Bold";
-        };
-        normal = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Regular";
-        };
-        italic = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Italic";
-        };
-        bold_italic = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Bold Italic";
-        };
-      };
-    };
+    # theme = ./sway/rofi.rasi;
   };
 
   xdg = {
     configFile = {
       "sway/config".source = ./sway/sway.conf;
-      "waybar/config".source = ./sway/waybar/waybar.conf;
-      "waybar/style.css".source = ./sway/waybar/style.css;
-      "keylist/config.yaml".source = ./sway/waybar/keybinds.yaml;
+      "waybar/config".source = ./waybar/waybar.conf;
+      "keylist/config.yaml".source = ./waybar/keybinds.yaml;
       "sway/mullvad-check.sh" = {
-        source = ./sway/waybar/mullvad-check.sh;
+        source = ./waybar/mullvad-check.sh;
         executable = true;
       };
       "rofi-rbw.rc".text = ''
@@ -95,18 +65,6 @@
         action=type
         target=password
       '';
-    };
-  };
-
-  fonts = {
-    fontconfig = {
-      enable = true;
-      antialiasing = true;
-      hinting = "slight";
-      subpixelRendering = "rgb";
-      defaultFonts = {
-        emoji = ["Noto Color Emoji"];
-      };
     };
   };
 

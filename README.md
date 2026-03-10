@@ -17,9 +17,7 @@ nixos-rebuild switch --flake .#<profile>
 There's also an alias `rebuild` that rebuilds the current profile.
 
 # secrets
-For new machines, to use secrets, use the host keys at `/etc/ssh/`
-
-Adding key:
+Agenix for keys, placed in `secrets/`.
 ```sh
 agenix -e 
 ```

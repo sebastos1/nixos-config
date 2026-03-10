@@ -22,4 +22,17 @@
   };
 
   # nixpkgs.config.chromium.enableWideVine = true;
+
+  # audio
+  security.rtkit.enable = true;
+  services.pipewire.enable = true;
+
+  fonts.fontconfig = {
+    enable = true;
+    antialias = true;
+    hinting.enable = true;
+    hinting.style = "slight";
+    subpixel.rgba = "rgb";
+    useEmbeddedBitmaps = true; # for emojis
+  };
 }

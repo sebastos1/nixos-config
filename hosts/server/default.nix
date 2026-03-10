@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./hardware.nix
-    ../../nix/homepage.nix
+    ../../nix/server/homepage.nix
   ];
 
   networking = {

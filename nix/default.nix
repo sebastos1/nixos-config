@@ -90,8 +90,4 @@
     packages = [pkgs.terminus_font];
     earlySetup = true;
   };
-
-  # audio
-  security.rtkit.enable = true;
-  services.pipewire.enable = true;
 }

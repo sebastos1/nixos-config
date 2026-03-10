@@ -22,7 +22,6 @@
       batpipe
     ];
     config = {
-      theme = "gruvbox-dark";
       pager = "less -FR";
       style = "plain";
     };

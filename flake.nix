@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     keylist = {
       url = "github:sebastos1/keylist";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,67 +31,70 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      agenix,
-      home-manager,
-      nixcord,
-      ...
-    }@attrs:
-    let
-      mkSystem =
-        name:
-        { user }:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = attrs // {
+  outputs = {
+    nixpkgs,
+    agenix,
+    home-manager,
+    stylix,
+    nixcord,
+    ...
+  } @ attrs: let
+    mkSystem = name: {user}:
+      nixpkgs.lib.nixosSystem {
+        specialArgs =
+          attrs
+          // {
             username = user;
           };
-          system = "x86_64-linux";
-          modules = [
-            ./nix
-            ./hosts/${name}
-            agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                backupFileExtension = "backup";
-                users.${user} = {
-                  imports = [
-                    ./home
-                    ./hosts/${name}/home.nix
-                  ];
-                };
-                extraSpecialArgs = attrs // {
+        system = "x86_64-linux";
+        modules = [
+          ./nix
+          ./hosts/${name}
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              users.${user} = {
+                imports = [
+                  ./home
+                  ./hosts/${name}/home.nix
+                ];
+              };
+              extraSpecialArgs =
+                attrs
+                // {
                   hostProfile = name;
                   username = user;
                 };
-                sharedModules = [ nixcord.homeModules.nixcord ];
-              };
-            }
-          ];
-        };
-    in
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        packages = [
-          agenix.packages.x86_64-linux.default
+              sharedModules = [
+                nixcord.homeModules.nixcord
+                stylix.homeModules.stylix
+              ];
+            };
+          }
         ];
       };
+  in {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-      nixosConfigurations = builtins.mapAttrs mkSystem {
-        desk = {
-          user = "seb";
-        };
-        lap = {
-          user = "seb";
-        };
-        server = {
-          user = "dio";
-        }; # servertop
-      };
+    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+      packages = [
+        agenix.packages.x86_64-linux.default
+      ];
     };
+
+    nixosConfigurations = builtins.mapAttrs mkSystem {
+      desk = {
+        user = "seb";
+      };
+      lap = {
+        user = "seb";
+      };
+      server = {
+        user = "dio";
+      }; # servertop
+    };
+  };
 }
