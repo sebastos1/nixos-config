@@ -59,9 +59,9 @@
           on-click = "keylist";
           tooltip = false;
         };
-        "battery" = {
+        battery = {
           format = "{percentage}% {icon}";
-          format-status = "{percentage}% {icon}󱐋";
+          format-charging = "{percentage}% {icon}󱐋";
           format-icons = [
             ""
             ""
@@ -73,15 +73,15 @@
             critical = 20;
           };
         };
-        "memory" = {
+        memory = {
           format = "{used}G ";
           on-click = "alacritty -e btop";
         };
-        "cpu" = {
+        cpu = {
           format = "{usage}% ";
           on-click = "alacritty -e btop";
         };
-        "pulseaudio" = {
+        pulseaudio = {
           format = "{volume}% {icon}";
           format-muted = "";
           format-icons = {
@@ -101,7 +101,7 @@
           exec = "date '+%d/%m'";
           interval = 60;
         };
-        "clock" = {
+        clock = {
           format = "{:%d/%m %H:%M:%S}";
           interval = 1;
           tooltip-format = "<tt>{calendar}</tt>";
@@ -116,7 +116,7 @@
           format = "|";
           tooltip = false;
         };
-        "tray" = {
+        tray = {
           icon-size = 18;
           spacing = 5;
         };
@@ -126,7 +126,7 @@
           return-type = "json";
           interval = 10;
         };
-        "network" = {
+        network = {
           format = "";
           format-disconnected = "󰤮";
           format-ethernet = "󰈀";
