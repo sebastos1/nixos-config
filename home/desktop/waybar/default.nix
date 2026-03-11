@@ -60,8 +60,8 @@
           tooltip = false;
         };
         battery = {
-          format = "{percentage}% {icon}";
-          format-charging = "{percentage}% {icon}󱐋";
+          format = "{capacity}% {icon}";
+          format-charging = "{capacity}% {icon}󱐋";
           format-icons = [
             ""
             ""
