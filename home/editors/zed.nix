@@ -11,10 +11,10 @@
       WAYLAND_DISPLAY= exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
     '';
     extensions = [
+      "charmed-icons"
       "nix"
       "toml"
       "rust"
-      "charmed-icons"
       "lua"
     ];
     extraPackages = with pkgs; [

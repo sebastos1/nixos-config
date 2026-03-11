@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./hardware.nix
-    ../../nix/sway.nix
+    ../../nix/desktop.nix
     ../../nix/firejail.nix
     ../../nix/vpn.nix
   ];

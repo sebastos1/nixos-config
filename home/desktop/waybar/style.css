@@ -1,16 +1,15 @@
 @define-color bg #0F0F17;
 @define-color fg #A1BDCE;
 @define-color border #2b2b2b;
-@define-color lavender #6F8FDB;
-@define-color mauve #915CAF;
 @define-color peach #e0b994;
-@define-color green #94e094;
-@define-color red #e27a7b;
+@define-color red #EB8486;
+@define-color orange #EE9F55;
+@define-color yellow #F8EE7A;
+@define-color green #64DC98;
+@define-color blue #6D92E9;
 
 * {
-    font-family: "JetbrainsMono Nerd Font";
     font-weight: bold;
-    font-size: 15px;
     color: @fg;
 }
 
@@ -27,7 +26,7 @@ window#waybar > box {
     padding: 0;
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
 }
 
 window#waybar.solo > box {
@@ -38,78 +37,88 @@ window#waybar.solo > box {
     margin: 0;
     padding-left: 10px;
     padding-right: 10px;
-    padding-bottom: 7px;
+    padding-bottom: 5px;
 }
 
+#custom-spacer {
+    /*manual adjustment because font icons are a little scuffed*/
+    padding-left: 4px;
+    color: @border;
+}
+
+/*todo */
 /* tooltip {
     font-size: 13px;
     border-radius: 7px;
     border: 2px solid @border;
 } */
 
-/* account for font icons */
-#custom-keybinds,
-#memory,
-#cpu,
-#pulseaudio,
-#group-vpn,
-#clock,
-#tray {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-#network {
-    padding-right: 10px;
-}
-
-#custom-vpn {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-/* right side  */
+/* right */
 #clock {
     font-weight: 900;
     padding-right: 10px;
 }
 
-#pulseaudio {
-    color: @lavender;
+#clock,
+#network,
+/*#custom-vpn,*/
+#pulseaudio,
+#cpu,
+#memory,
+#custom-keybinds {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-#custom-mullvad.disconnected {
+/* put this closer to network */
+#custom-vpn {
+    padding-left: 10px;
+}
+
+#network.ethernet,
+#network.wifi,
+#custom-vpn.connected {
+    color: @green;
+}
+
+#network.disconnected,
+#network.disabled,
+#custom-vpn.disconnected {
     color: @red;
 }
 
-#custom-spacer {
-    color: @border;
+#pulseaudio {
+    color: @blue;
 }
 
 #cpu {
-    color: @mauve;
+    color: @yellow;
 }
 
 #memory {
-    color: @green;
+    color: @orange;
 }
 
 #custom-keybinds {
     color: @peach;
 }
 
-/* todo  */
-#tray menu * {
+#tray {
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: @border;
+    margin: 3px;
+    border-radius: 10px;
+}
+/*todo */
+/*#tray menu * {
     min-height: 16px;
-    font-weight: bold;
-    font-size: 13px;
     background: @bg;
 }
-
 #tray menu separator {
     background: @border;
     min-height: 1px;
-}
+}*/
 
 /* left side  */
 #workspaces {
@@ -120,14 +129,16 @@ window#waybar.solo > box {
     padding-right: 5px;
 }
 
-#workspaces * {
-    font-size: 24px;
-}
-
 #workspaces button {
     padding: 0;
-    /* 5+5 for left one since workspace padding */
     padding-left: 5px;
+    padding-right: 5px;
+    margin: 3px;
+    border-radius: 10px;
+}
+
+#workspaces button.focused {
+    background-color: @border;
 }
 
 button {
@@ -152,15 +163,6 @@ button:hover * {
     -gtk-icon-shadow: none;
 }
 
-button:hover label,
-#taskbar button.active:hover label {
+button:hover label {
     color: @red;
-}
-
-#taskbar button {
-    padding-left: 20px;
-}
-
-#taskbar button.active label {
-    color: white;
 }

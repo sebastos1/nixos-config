@@ -8,7 +8,7 @@
     ./hardware.nix
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
-    ../../nix/sway.nix
+    ../../nix/desktop.nix
     ../../nix/firejail.nix
     ../../nix/docker.nix
     ../../nix/vpn.nix

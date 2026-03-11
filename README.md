@@ -21,3 +21,4 @@ Agenix for keys, placed in `secrets/`.
 ```sh
 agenix -e 
 ```
+nails holy moly, noooo, 8 ball
