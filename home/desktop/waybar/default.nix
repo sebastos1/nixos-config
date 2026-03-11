@@ -37,7 +37,7 @@
           "tray"
           "custom/keybinds"
           "custom/spacer"
-          "battery" # https://man.archlinux.org/man/extra/waybar/waybar-battery.5.en
+          "battery"
           "memory"
           "cpu"
           "custom/spacer"
@@ -55,9 +55,23 @@
           format = "{name}";
         };
         "custom/keybinds" = {
-          format = "Keybinds 󰌌";
+          format = "󰌌";
           on-click = "keylist";
           tooltip = false;
+        };
+        "battery" = {
+          format = "{percentage}% {icon}";
+          format-status = "{percentage}% {icon}󱐋";
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
+          states = {
+            critical = 20;
+          };
         };
         "memory" = {
           format = "{used}G ";

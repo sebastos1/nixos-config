@@ -65,6 +65,7 @@ window#waybar.solo > box {
 #pulseaudio,
 #cpu,
 #memory,
+#battery,
 #custom-keybinds {
     padding-left: 10px;
     padding-right: 10px;
@@ -97,6 +98,14 @@ window#waybar.solo > box {
 
 #memory {
     color: @orange;
+}
+
+#battery {
+    color: @red;
+}
+
+#battery.critical {
+    color: red;
 }
 
 #custom-keybinds {
