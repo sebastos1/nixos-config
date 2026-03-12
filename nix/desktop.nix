@@ -2,32 +2,45 @@
   pkgs,
   username,
   ...
-}: {
+}:
+{
+  programs.sway = {
+    enable = true;
+    package = pkgs.swayfx;
+    wrapperFeatures.gtk = true;
+  };
+
+  programs.niri = {
+    enable = true;
+  };
+
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
-  nix.settings.trusted-users = [username];
+
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+      user = "greeter";
+    };
+  };
+
+  nix.settings.trusted-users = [ username ];
   security = {
     sudo.extraConfig = "Defaults pwfeedback"; # show asterisks
     sudo.wheelNeedsPassword = false;
   };
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.swayfx}/bin/sway --unsupported-gpu";
-        user = username;
-      };
-      default_session = initial_session;
-    };
-  };
-  # nixpkgs.config.chromium.enableWideVine = true;
 
+  # xdg.portal = {
+  #   enable = true;
+  #   wlr.enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # };
+
+  fonts.enableDefaultPackages = false;
   fonts.fontconfig = {
     enable = true;
-    # antialiasing = true;
-    # hinting = "slight";
-    # subpixelRendering = "rgb";
     useEmbeddedBitmaps = true; # needed for emojis
   };
 

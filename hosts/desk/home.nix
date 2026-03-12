@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ../../home/desktop
     ../../home/desktop/sway

@@ -3,7 +3,8 @@
   keylist,
   username,
   ...
-}: {
+}:
+{
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
@@ -36,7 +37,7 @@
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
   environment = {
-    defaultPackages = [];
+    defaultPackages = [ ];
     systemPackages = with pkgs; [
       wget
     ];
@@ -87,7 +88,8 @@
   console = {
     keyMap = "no";
     font = "ter-v32n";
-    packages = [pkgs.terminus_font];
+    packages = [ pkgs.terminus_font ];
     earlySetup = true;
   };
+
 }

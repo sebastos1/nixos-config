@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./terminal.nix
   ];
@@ -19,7 +20,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce {};
+  dconf.settings = lib.mkForce { };
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
@@ -44,6 +45,8 @@
       sizes = {
         terminal = 12;
         applications = 12;
+        # popups
+        # desktop
       };
     };
     targets.waybar.enable = false;
@@ -53,6 +56,7 @@
     font-awesome
     noto-fonts # latin, greek, cyrillic, etc
     noto-fonts-cjk-sans # chinese, japanese, korean
+    twitter-color-emoji
   ];
 
   fonts.fontconfig = {
@@ -64,14 +68,17 @@
       monospace = [
         "JetBrainsMono Nerd Font"
         "Noto Sans CJK JP"
+        "Twitter Color Emoji"
       ];
       sansSerif = [
         "IBM Plex Sans"
         "Noto Sans CJK JP"
+        "Twitter Color Emoji"
       ];
       serif = [
         "IBM Plex Serif"
         "Noto Serif CJK JP"
+        "Twitter Color Emoji"
       ];
       emoji = [
         "Twitter Color Emoji"
