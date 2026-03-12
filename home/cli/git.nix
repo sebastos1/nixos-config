@@ -29,6 +29,7 @@
         interactive = "auto";
       };
       alias = {
+        a = "add .";
         s = "status -sb";
         c = "commit -v";
         l = "log --oneline --graph --decorate";

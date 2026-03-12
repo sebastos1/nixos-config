@@ -2,11 +2,17 @@
   lib,
   pkgs,
   ...
-}:
-{
-  imports = [
-    ./terminal.nix
-  ];
+}: {
+  # goat terminal
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      window.padding = {
+        x = 20;
+        y = 20;
+      };
+    };
+  };
 
   xdg.userDirs = {
     enable = true;
@@ -20,7 +26,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce { };
+  dconf.settings = lib.mkForce {};
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";

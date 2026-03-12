@@ -2,11 +2,14 @@
   imports = [
     ./waybar
     ./rofi
+    ./niri
   ];
 
   home.packages = with pkgs; [
     wl-clipboard # copy/paste
     sway-contrib.grimshot
+
+    fuzzel
 
     # pws
     bitwarden-desktop

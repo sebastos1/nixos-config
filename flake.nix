@@ -39,16 +39,18 @@
     nixcord,
     ...
   } @ attrs: let
+    mkImports = base: paths: map (p: base + p) paths;
     mkSystem = name: {user}:
       nixpkgs.lib.nixosSystem {
         specialArgs =
           attrs
           // {
             username = user;
+            mkImports = mkImports;
           };
         system = "x86_64-linux";
         modules = [
-          ./nix
+          ./system
           ./hosts/${name}
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -67,6 +69,7 @@
                 // {
                   hostProfile = name;
                   username = user;
+                  mkImports = mkImports;
                 };
               sharedModules = [
                 nixcord.homeModules.nixcord

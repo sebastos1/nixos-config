@@ -3,13 +3,10 @@
   keylist,
   username,
   ...
-}:
-{
+}: {
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      keylist.overlays.default
-    ];
+    overlays = [keylist.overlays.default];
   };
 
   nix = {
@@ -37,7 +34,7 @@
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
   environment = {
-    defaultPackages = [ ];
+    defaultPackages = [];
     systemPackages = with pkgs; [
       wget
     ];
@@ -70,26 +67,29 @@
 
   # locale
   time.timeZone = "Europe/Oslo";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_TIME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "nb_NO.UTF-8";
+      LC_NUMERIC = "nb_NO.UTF-8";
+      LC_MONETARY = "nb_NO.UTF-8";
+      LC_PAPER = "nb_NO.UTF-8";
+      LC_MEASUREMENT = "nb_NO.UTF-8";
+      LC_ADDRESS = "nb_NO.UTF-8";
+      LC_TELEPHONE = "nb_NO.UTF-8";
+      LC_NAME = "nb_NO.UTF-8";
+    };
   };
-  services.xserver.xkb = {
-    layout = "no";
-    variant = "nodeadkeys";
-  };
-  console = {
-    keyMap = "no";
-    font = "ter-v32n";
-    packages = [ pkgs.terminus_font ];
-    earlySetup = true;
+  services.xserver = {
+    xkb = {
+      layout = "no";
+      variant = "nodeadkeys";
+    };
   };
 
+  services.libinput = {
+    enable = true;
+    mouse.accelProfile = "flat";
+    touchpad.accelProfile = "flat";
+  };
 }

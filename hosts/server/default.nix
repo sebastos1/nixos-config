@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./hardware.nix
-    ../../nix/server/homepage.nix
+    ./services/homepage.nix
   ];
 
   networking = {
@@ -35,9 +35,6 @@
     hibernate.enable = false;
     hybrid-sleep.enable = false;
   };
-
-  # trackpad
-  services.libinput.enable = true;
 
   virtualisation.docker = {
     enable = true;

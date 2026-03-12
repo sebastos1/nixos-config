@@ -1,0 +1,70 @@
+.
+├── copy
+├── flake.lock
+├── flake.nix
+├── home
+│   ├── apps
+│   │   ├── default.nix
+│   │   ├── minecraft
+│   │   │   ├── default.nix
+│   │   │   ├── eye-overlay.png
+│   │   │   ├── flake.nix
+│   │   │   ├── standardsettings.json
+│   │   │   └── waywall.lua
+│   │   └── music.nix
+│   ├── browser
+│   │   └── brave.nix
+│   ├── cli
+│   │   ├── default.nix
+│   │   ├── git.nix
+│   │   ├── network.nix
+│   │   ├── system.nix
+│   │   └── tools.nix
+│   ├── default.nix
+│   ├── desktop
+│   │   ├── default.nix
+│   │   ├── niri
+│   │   │   ├── config.kdl
+│   │   │   └── default.nix
+│   │   ├── rofi
+│   │   │   ├── default.nix
+│   │   │   └── rofi.rasi
+│   │   ├── sway
+│   │   │   ├── default.nix
+│   │   │   └── sway.conf
+│   │   └── waybar
+│   │       ├── default.nix
+│   │       ├── keybinds.yaml
+│   │       ├── mullvad-status.sh
+│   │       ├── style.css
+│   │       └── waybar.json
+│   ├── editors
+│   │   ├── vscode.nix
+│   │   └── zed.nix
+│   └── terminal.nix
+├── hosts
+│   ├── desk
+│   │   ├── default.nix
+│   │   ├── hardware.nix
+│   │   └── home.nix
+│   ├── lap
+│   │   ├── default.nix
+│   │   ├── hardware.nix
+│   │   └── home.nix
+│   └── server
+│       ├── default.nix
+│       ├── hardware.nix
+│       ├── home.nix
+│       └── services
+│           ├── authabong.nix
+│           └── homepage.nix
+├── README.md
+├── secrets
+│   └── test.age
+├── secrets.nix
+└── system
+    ├── default.nix
+    ├── desktop.nix
+    ├── docker.nix
+    ├── firejail.nix
+    └── vpn.nix

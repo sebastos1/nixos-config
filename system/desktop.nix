@@ -2,21 +2,8 @@
   pkgs,
   username,
   ...
-}:
-{
-  programs.sway = {
-    enable = true;
-    package = pkgs.swayfx;
-    wrapperFeatures.gtk = true;
-  };
-
-  programs.niri = {
-    enable = true;
-  };
-
-  security.polkit.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
+}: {
+  programs.niri.enable = true;
 
   services.greetd = {
     enable = true;
@@ -26,17 +13,22 @@
     };
   };
 
-  nix.settings.trusted-users = [ username ];
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
+  # highly recommended apparently
+  environment.systemPackages = with pkgs; [
+    xwayland-satellite # xwayland support
+  ];
+
+  nix.settings.trusted-users = [username];
   security = {
     sudo.extraConfig = "Defaults pwfeedback"; # show asterisks
     sudo.wheelNeedsPassword = false;
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  # };
+  nixpkgs.config.chromium.enableWideVine = true;
 
   fonts.enableDefaultPackages = false;
   fonts.fontconfig = {
