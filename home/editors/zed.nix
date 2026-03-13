@@ -6,9 +6,8 @@
 }: {
   programs.zed-editor = {
     enable = true;
-    # fixes some jank when fullscreening and scrollbar flickering by using xwayland instead
     package = pkgs.writeShellScriptBin "zeditor" ''
-      WAYLAND_DISPLAY= exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
+      exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
     '';
     extensions = [
       "charmed-icons"
