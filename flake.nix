@@ -1,36 +1,6 @@
 {
   description = "system config";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    keylist = {
-      url = "github:sebastos1/keylist";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agenix.url = "github:ryantm/agenix";
-
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
-    nixcord.url = "github:KaylorBen/nixcord";
-
-    mcsr-nixos = {
-      url = "https://git.uku3lig.net/uku/mcsr-nixos/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
   outputs = {
     nixpkgs,
     agenix,
@@ -98,6 +68,36 @@
       server = {
         user = "dio";
       }; # servertop
+    };
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    keylist = {
+      url = "github:sebastos1/keylist";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix.url = "github:ryantm/agenix";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    nixcord.url = "github:KaylorBen/nixcord";
+
+    mcsr-nixos = {
+      url = "https://github.com/sebastos1/mcsr-nixos/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

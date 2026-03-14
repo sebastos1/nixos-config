@@ -406,13 +406,12 @@
       "locked": {
         "lastModified": 1771756753,
         "narHash": "sha256-8+yCKpZr+BFdVFjvZZVzkZem/ggafyGsOxX5nhqtLvY=",
-        "rev": "657da45185894ef03709e4c100bb8038a972dc59",
         "type": "tarball",
-        "url": "https://git.uku3lig.net/api/v1/repos/uku/mcsr-nixos/archive/657da45185894ef03709e4c100bb8038a972dc59.tar.gz"
+        "url": "https://github.com/sebastos1/mcsr-nixos/archive/main.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://git.uku3lig.net/uku/mcsr-nixos/archive/main.tar.gz"
+        "url": "https://github.com/sebastos1/mcsr-nixos/archive/main.tar.gz"
       }
     },
     "nix-gaming": {

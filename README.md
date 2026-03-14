@@ -22,3 +22,12 @@ Agenix for keys, placed in `secrets/`.
 agenix -e 
 ```
 nails holy moly, noooo, 8 ball
+
+todo
+paralax scroller
+remove window decoration bar
+blur?
+waybar workspaces
+https://github.com/amaanq/nirinit
+https://github.com/calico32/waybar-niri-windows
+https://github.com/prankstr/vibepanel
