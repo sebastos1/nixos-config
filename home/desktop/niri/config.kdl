@@ -52,6 +52,7 @@ layout {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
+        proportion 1.0
     }
     // preset-window-heights { }
 
@@ -67,24 +68,14 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        // active-color "#7fc8ff"
 
         // Color of the ring on inactive monitors.
         inactive-color "#505050"
 
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        // Changing the color space is also supported, check the wiki for more info.
-        //
         // active-gradient from="#80c8ff" to="#c7ff7f" angle=45
+        active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
 
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
 
         urgent-color "#9b0000"
@@ -93,10 +84,6 @@ layout {
     // always visible focus ring, like sway
     border {
         off
-        // Gradients can use a few different interpolation color spaces.
-        // For example, this is a pastel rainbow gradient via in="oklch longer hue".
-        // active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     shadow {
@@ -179,6 +166,8 @@ binds {
     Mod+T      { spawn "alacritty"; }
     Mod+Return { spawn "alacritty"; }
     Mod+D      { spawn "fuzzel"; }
+    // Mod+B      { spawn "browser"; }
+    // Mod+E      { spawn "file manager?"; }
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // zoomed-out view of workspaces and windows.
@@ -274,44 +263,37 @@ binds {
 
     // these are mid
     Mod+R { switch-preset-column-width; }
-    // Mod+Shift+R { switch-preset-column-width-back; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+R { switch-preset-column-width-back; }
 
-    // While maximize-column leaves gaps and borders around the window,
-    // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
-    // This bind corresponds to normal window maximizing,
-    // e.g. by double-clicking on the titlebar.
+    // why do we have 4 different fullscreen binds
+    Mod+F { fullscreen-window; }
+    Mod+Shift+F { maximize-column; }
+
+    // expands to fill without any gaps
     Mod+M { maximize-window-to-edges; }
 
-    // Expand the focused column to space not taken up by other fully visible columns.
-    // Makes the column "fill the rest of the space".
+    // fill empty space
     Mod+Ctrl+F { expand-column-to-available-width; }
 
-    Mod+C { center-column; }
-    Mod+Ctrl+C { center-visible-columns; }
+    Mod+N { center-column; }
+    Mod+Ctrl+N { center-visible-columns; }
 
     // Finer width adjustments.
-    Mod+Minus { set-column-width "-10%"; }
-    Mod+Plus  { set-column-width "+10%"; }
-    // Finer height adjustments when in column with other windows.
-    Mod+Shift+Minus { set-window-height "-10%"; }
-    Mod+Shift+Plus  { set-window-height "+10%"; }
+    Mod+Minus { set-column-width "-20%"; }
+    Mod+Plus  { set-column-width "+20%"; }
+    Mod+Shift+Minus { set-column-width "-5%"; }
+    Mod+Shift+Plus  { set-column-width "+5%"; }
 
-    // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    // Floating mode
+    Mod+Shift+Space { toggle-window-floating; }
+    Mod+Space { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
-    // Windows in this column will appear as vertical tabs,
-    // rather than stacked on top of each other.
     Mod+W { toggle-column-tabbed-display; }
 
     Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    Mod+Print { screenshot-screen; }
+    Mod+Shift+Print { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

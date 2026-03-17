@@ -7,6 +7,7 @@
     home-manager,
     stylix,
     nixcord,
+    zen-browser,
     ...
   } @ attrs: let
     mkImports = base: paths: map (p: base + p) paths;
@@ -44,6 +45,7 @@
               sharedModules = [
                 nixcord.homeModules.nixcord
                 stylix.homeModules.stylix
+                zen-browser.homeModules.beta
               ];
             };
           }
@@ -98,6 +100,19 @@
     mcsr-nixos = {
       url = "https://github.com/sebastos1/mcsr-nixos/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    waybar-niri-windows = {
+      url = "github:sebastos1/waybar-niri-windows";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
   };
 }

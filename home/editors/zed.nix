@@ -10,10 +10,9 @@
       exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
     '';
     extensions = [
-      "charmed-icons"
       "nix"
       "toml"
-      "rust"
+      "charmed-icons"
       "lua"
     ];
     extraPackages = with pkgs; [
@@ -29,6 +28,7 @@
         diagnostics = false;
         metrics = false;
       };
+      laod_direnv = "shell_hook";
       # visual
       # theme = "Gruvbox Dark";
       icon_theme = "Warm Charmed Icons";
@@ -84,7 +84,6 @@
         button = false;
       };
       line_indicator_format = "short";
-      scrollbar.show = "never";
       # todo: completions, snippets, inlines, inlay hints
       # https://zed.dev/docs/visual-customization#editor-inlay-hints
     };

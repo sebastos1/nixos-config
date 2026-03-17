@@ -15,7 +15,9 @@ keys:
   Windows:
     Move focus: [mod, [i, j, k, l]]
     Move window: [mod, shift, [i, j, k, l]]
+    # Move window in/out of columns: [mod, [".", ","]]
     Move window with mouse: [mod, mouse_left]
+    Resize width: [mod, ["+", "-"]]
     Resize window: [mod, mouse_right]
     Close window: [mod, shift, w]
     Toggle fullscreen: [mod, f]

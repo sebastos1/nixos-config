@@ -8,6 +8,7 @@
     /apps
     /apps/minecraft
     /apps/music.nix
+    /browser/zen.nix
   ];
 in {
   imports = mkImports ../../home imports;

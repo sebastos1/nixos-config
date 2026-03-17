@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  waybar-niri-windows,
   ...
 }: {
   home.packages = with pkgs; [
@@ -28,10 +29,11 @@
         position = "bottom";
         height = 40;
         modules-left = [
-          "sway/workspaces"
+          "niri/workspaces"
+          "cffi/niri-windows"
         ];
         modules-center = [
-          "sway/window"
+          "niri/window"
         ];
         modules-right = [
           "tray"
@@ -47,12 +49,31 @@
           "custom/spacer"
           "clock"
         ];
-        "sway/window" = {
-          all-outputs = true;
-          offscreen-css = true;
+        "cffi/niri-windows" = {
+          module_path = "${waybar-niri-windows.packages.${pkgs.system}.default}/lib/waybar-niri-windows.so";
+          options = {
+            show-floating = "never";
+            spacing = 3;
+            # rules = [
+            #   {
+            #     "app-id" = "Alacritty";
+            #     "class" = "alacritty";
+            #     "icon" = "";
+            #   }
+            # ];
+          };
         };
-        "sway/workspaces" = {
-          format = "{index}{name}";
+        "niri/workspaces" = {
+          format = "{icon} {name}";
+          format-icons = {
+            active = "";
+            default = "";
+          };
+        };
+        "niri/window" = {
+          format = "{title:.30}";
+          separate-outputs = true;
+          icon = true;
         };
         "custom/keybinds" = {
           format = "󰌌";
