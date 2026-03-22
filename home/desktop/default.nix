@@ -1,8 +1,8 @@
-{pkgs, ...}: {
+{ inputs, pkgs, ... }:
+{
   imports = [
-    ./waybar
-    ./rofi
     ./niri
+    ./ironbar
   ];
 
   home.packages = with pkgs; [
@@ -15,9 +15,12 @@
     bitwarden-desktop
     rbw
 
+    adwaita-icon-theme
+
     nautilus
     mpv
     oculante # images
+
   ];
 
   home.pointerCursor = {

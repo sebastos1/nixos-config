@@ -3,12 +3,23 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   programs.zed-editor = {
     enable = true;
-    package = pkgs.writeShellScriptBin "zeditor" ''
-      exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
-    '';
+    package =
+      let
+        wrapped = pkgs.writeShellScriptBin "zeditor" ''
+          exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
+        '';
+      in
+      pkgs.symlinkJoin {
+        name = "zeditor";
+        paths = [
+          wrapped
+          pkgs.zed-editor-fhs
+        ];
+      };
     extensions = [
       "nix"
       "toml"

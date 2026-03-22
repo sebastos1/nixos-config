@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # goat terminal
   programs.alacritty = {
     enable = true;
@@ -26,7 +27,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce {};
+  dconf.settings = lib.mkForce { };
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
@@ -55,7 +56,9 @@
         # desktop
       };
     };
-    targets.waybar.enable = false;
+    targets = {
+      zen-browser.profileNames = [ "default" ];
+    };
   };
 
   home.packages = with pkgs; [
@@ -93,5 +96,5 @@
   };
 
   systemd.user.startServices = "sd-switch";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

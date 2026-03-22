@@ -1,77 +1,79 @@
 {
   description = "system config";
 
-  outputs = {
-    nixpkgs,
-    agenix,
-    home-manager,
-    stylix,
-    nixcord,
-    zen-browser,
-    ...
-  } @ attrs: let
-    mkImports = base: paths: map (p: base + p) paths;
-    mkSystem = name: {user}:
-      nixpkgs.lib.nixosSystem {
-        specialArgs =
-          attrs
-          // {
+  outputs =
+    {
+      nixpkgs,
+      agenix,
+      home-manager,
+      stylix,
+      nixcord,
+      zen-browser,
+      ...
+    }@inputs:
+    let
+      mkImports = base: paths: map (p: base + p) paths;
+      mkSystem =
+        name:
+        { user }:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = inputs // {
+            inputs = inputs;
             username = user;
             mkImports = mkImports;
           };
-        system = "x86_64-linux";
-        modules = [
-          ./system
-          ./hosts/${name}
-          agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.${user} = {
-                imports = [
-                  ./home
-                  ./hosts/${name}/home.nix
-                ];
-              };
-              extraSpecialArgs =
-                attrs
-                // {
+          system = "x86_64-linux";
+          modules = [
+            ./system
+            ./hosts/${name}
+            agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                backupFileExtension = "backup";
+                users.${user} = {
+                  imports = [
+                    ./home
+                    ./hosts/${name}/home.nix
+                  ];
+                };
+                extraSpecialArgs = inputs // {
                   hostProfile = name;
                   username = user;
                   mkImports = mkImports;
                 };
-              sharedModules = [
-                nixcord.homeModules.nixcord
-                stylix.homeModules.stylix
-                zen-browser.homeModules.beta
-              ];
-            };
-          }
+                sharedModules = [
+                  nixcord.homeModules.nixcord
+                  stylix.homeModules.stylix
+                  zen-browser.homeModules.beta
+                ];
+              };
+            }
+          ];
+        };
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+
+      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        packages = [
+          agenix.packages.x86_64-linux.default
         ];
       };
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      packages = [
-        agenix.packages.x86_64-linux.default
-      ];
-    };
-
-    nixosConfigurations = builtins.mapAttrs mkSystem {
-      desk = {
-        user = "seb";
+      nixosConfigurations = builtins.mapAttrs mkSystem {
+        desk = {
+          user = "seb";
+        };
+        lap = {
+          user = "seb";
+        };
+        server = {
+          user = "dio";
+        }; # servertop
       };
-      lap = {
-        user = "seb";
-      };
-      server = {
-        user = "dio";
-      }; # servertop
     };
-  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -102,17 +104,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    waybar-niri-windows = {
-      url = "github:sebastos1/waybar-niri-windows";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
+    };
+
+    ironbar = {
+      url = "github:sebastos1/ironbar";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

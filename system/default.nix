@@ -2,11 +2,18 @@
   pkgs,
   keylist,
   username,
+  inputs,
   ...
-}: {
+}:
+{
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [keylist.overlays.default];
+    overlays = [
+      keylist.overlays.default
+      (final: prev: {
+        ironbar = inputs.ironbar.packages.${prev.system}.default;
+      })
+    ];
   };
 
   nix = {
@@ -34,7 +41,7 @@
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
   environment = {
-    defaultPackages = [];
+    defaultPackages = [ ];
     systemPackages = with pkgs; [
       wget
     ];

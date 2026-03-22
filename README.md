@@ -4,9 +4,9 @@
 
 | profile | description |
 | - | - |
-| desk | sway, with apps and games (fat) |
-| lap | sway, and dev things |
-| server | zellij and whatever |
+| desk | niri, apps, games |
+| lap | niri, apps |
+| server | zellij and server |
 
 Use:
 ```sh
@@ -21,10 +21,9 @@ Agenix for keys, placed in `secrets/`.
 ```sh
 agenix -e 
 ```
-nails holy moly, noooo, 8 ball
+nails holy moly, noooo
 
 todo
 paralax scroller
 blur?
-waybar workspaces
 https://github.com/amaanq/nirinit
