@@ -14,23 +14,23 @@ let {
     }
 } in {
   position = "bottom"
-  height = 40
-  margin.bottom = 5
-  margin.left = 10
-  margin.right = 10
+  height = 36
+  margin.bottom = 8
+  margin.left = 16
+  margin.right = 16
   popup_autohide = true
 
   start = [
     { type = "label" label = "󱄅" name = "leftmost-icon" }
-    { type = "niri_workspaces" icon_size = 22 }
+    { type = "niri_workspaces" icon_size = 20 }
   ]
 
   center = [
-    { type = "focused" icon_size = 24 truncate = "end" }
+    { type = "focused" icon_size = 20 truncate.mode = "end" truncate.max_length = 30 }
   ]
 
   end = [
-    { type = "tray" icon_size = 18 hide_when_empty = true }
+    { type = "tray" icon_size = 16 hide_when_empty = true }
     // bluetooth and battery would go here
     $sys_info
     $sep

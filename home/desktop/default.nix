@@ -21,6 +21,8 @@
     mpv
     oculante # images
 
+    swaybg
+
   ];
 
   home.pointerCursor = {

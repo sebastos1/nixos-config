@@ -35,21 +35,23 @@
     background-color: @bg;
     border: 3px solid @border;
     border-radius: 12px;
-    padding: 0 12px;
+    padding: 4px 12px;
 }
 
 /* LEFT SIDE */
 #leftmost-icon {
-    font-size: 28px;
-    padding-right: 14px;
+    font-size: 26px;
+    padding-right: 12px;
+    line-height: 0.5;
 }
 
 .workspace {
     background: @border;
-    border-radius: 12px;
-    padding: 3px 6px;
-    margin: 4px 2px;
+    border-radius: 10px;
+    padding: 1px 4px;
+    margin: 0 4px;
     border: 2px solid @border;
+    line-height: 0.5;
 }
 
 .workspace.focused {
@@ -68,7 +70,7 @@
 }*/
 
 .window-icon {
-    padding: 0 4px;
+    padding: 0 3px;
 }
 
 .window.focused {
@@ -82,10 +84,14 @@
 }
 
 .tray {
-    padding: 4px 5px;
+    padding: 4px 3px;
     background-color: @border;
-    margin: 7px;
+    margin: 1px 10px;
     border-radius: 10px;
+}
+
+.tray .item {
+    padding: 0 3px;
 }
 
 /*network */
