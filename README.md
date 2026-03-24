@@ -24,6 +24,5 @@ agenix -e
 nails holy moly, noooo
 
 todo
-paralax scroller
-blur?
 https://github.com/amaanq/nirinit
+hardcoded wallpaper path yikes

@@ -4,15 +4,22 @@
   ...
 }:
 {
-  # goat terminal
-  programs.alacritty = {
+  # goat terminal (nvm doesnt multiplex)
+  # programs.alacritty = {
+  #   enable = true;
+  #   settings = {
+  #     window.padding = {
+  #       x = 20;
+  #       y = 20;
+  #     };
+  #   };
+  # };
+
+  programs.wezterm = {
     enable = true;
-    settings = {
-      window.padding = {
-        x = 20;
-        y = 20;
-      };
-    };
+    extraConfig = ''
+      return {}
+    '';
   };
 
   xdg.userDirs = {

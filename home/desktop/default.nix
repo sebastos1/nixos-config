@@ -6,8 +6,8 @@
   ];
 
   home.packages = with pkgs; [
+    cliphist
     wl-clipboard # copy/paste
-    sway-contrib.grimshot
 
     fuzzel
 

@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   imports = [
     /desktop.nix
     /firejail.nix
@@ -11,7 +12,8 @@
     /docker.nix
     /gaming.nix
   ];
-in {
+in
+{
   networking.hostName = "CarPlay_9814";
 
   systemd = {
@@ -27,14 +29,14 @@ in {
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = ["acpi-cpufreq"];
+    kernelModules = [ "acpi-cpufreq" ];
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
     ];
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
@@ -48,6 +50,7 @@ in {
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
+  zramSwap.enable = true;
   swapDevices = [
     {
       device = "/swapfile";
@@ -55,11 +58,10 @@ in {
     }
   ];
 
-  imports =
-    [
-      ./hardware.nix
-    ]
-    ++ mkImports ../../system imports;
+  imports = [
+    ./hardware.nix
+  ]
+  ++ mkImports ../../system imports;
 
   system.stateVersion = "25.05";
 }

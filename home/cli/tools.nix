@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     ouch # zips
     p7zip # zip
     ffmpeg # video
-    poppler # pdf
+    zathura # pdf
     imagemagick # image biz
     jq # json
     resvg # svg

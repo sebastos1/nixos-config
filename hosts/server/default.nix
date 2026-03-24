@@ -1,7 +1,9 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./hardware.nix
     ./services/homepage.nix
+    ./services/matrix.nix
   ];
 
   networking = {
@@ -57,9 +59,12 @@
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
           "dash.shlb.ng" = "http://localhost:3033";
-          "sjallabong.com" = "http://localhost:3000";
+          # "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
+
+          "matrix.sjallabong.com" = "http://localhost:6167";
+          "sjallabong.com" = "http://localhost:6167"; # /.well-known
         };
       };
     };

@@ -4,11 +4,13 @@
 @define-color fg #aaa;
 @define-color gradient-start #6ab0f5;
 @define-color gradient-end #e5989b;
+@define-color actual_fg #d5c4a1;
 
 * {
     font-size: 16px;
     font-family: JetBrainsMono Nerd Font;
     font-weight: bold;
+    color: @actual_fg;
 
     /*reset */
     border-radius: 0;

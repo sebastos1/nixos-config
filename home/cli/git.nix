@@ -1,9 +1,10 @@
-{...}: {
+{ ... }:
+{
   programs.git = {
     enable = true;
     settings = {
       core.askpass = "";
-      credential.helper = "store";
+      credential.helper = "libsecret";
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
       pull.rebase = "true"; # must have
@@ -11,10 +12,10 @@
         autoStash = true;
         autosquash = true;
       };
-      # fetch = {
-      #   prune = true; # remove remote tracking refs
-      #   prunetags = true; # remove tags
-      # };
+      fetch = {
+        prune = true; # remove remote tracking refs
+        # prunetags = true; # remove tags
+      };
       commit.verbose = true; # show diff
       diff = {
         colorMoved = "default";

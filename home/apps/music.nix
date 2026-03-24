@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     mpc
     # nicotine-plus
@@ -23,6 +24,11 @@
     '';
   };
   services.mpd-discord-rpc.enable = true;
+
+  programs.rmpc = {
+    enable = true;
+    # todo https://nix-community.github.io/home-manager/options.xhtml#opt-programs.rmpc.config
+  };
 
   # programs.ncmpcpp = {
   #   enable = true;
