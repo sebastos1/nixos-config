@@ -16,11 +16,9 @@
     docker.my-podman.socket = "/run/podman/podman.sock";
 
     environmentFiles = [
-      pkgs.writeText
-      "homepage-env"
-      ''
+      (pkgs.writeText "homepage-env" ''
         HOMEPAGE_ALLOWED_HOSTS=dash.shlb.ng
-      ''
+      '')
     ];
 
     widgets = [
