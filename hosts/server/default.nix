@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware.nix
     ./services/homepage.nix
@@ -64,7 +63,11 @@
           "account.sjallabong.com" = "http://localhost:3001";
 
           "matrix.sjallabong.com" = "http://localhost:6167";
-          "sjallabong.com" = "http://localhost:6167"; # /.well-known
+          "sjallabong.com" = {
+            service = "http://localhost:6167"; # /.well-known
+            path = "/.well-known/matrix/.*";
+          };
+          # "sjallabong.com" = "cinny";
         };
       };
     };

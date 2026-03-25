@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{...}: {
   programs.git = {
     enable = true;
-    package = pkgs.gitFull;
+    # package = pkgs.gitFull;
     settings = {
       core.askpass = "";
       credential.helper = "libsecret";

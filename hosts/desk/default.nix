@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   imports = [
     /desktop.nix
     /firejail.nix
@@ -12,8 +11,26 @@ let
     /docker.nix
     /gaming.nix
   ];
-in
-{
+in {
+  # chills on 6167
+  services.matrix-continuwuity = {
+    enable = true;
+    settings = {
+      global = {
+        server_name = "sjallabong.com";
+        allow_registration = false;
+        allow_encryption = true;
+        allow_federation = true;
+        trusted_servers = ["matrix.org"];
+
+        well_known = {
+          client = "https://matrix.sjallabong.com";
+          server = "matrix.sjallabong.com:443";
+        };
+      };
+    };
+  };
+
   networking.hostName = "CarPlay_9814";
 
   systemd = {
@@ -29,14 +46,14 @@ in
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = [ "acpi-cpufreq" ];
+    kernelModules = ["acpi-cpufreq"];
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
     ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
@@ -58,10 +75,11 @@ in
     }
   ];
 
-  imports = [
-    ./hardware.nix
-  ]
-  ++ mkImports ../../system imports;
+  imports =
+    [
+      ./hardware.nix
+    ]
+    ++ mkImports ../../system imports;
 
   system.stateVersion = "25.05";
 }

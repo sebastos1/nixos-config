@@ -1,5 +1,8 @@
-{ inputs, pkgs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./niri
     ./ironbar
@@ -22,7 +25,6 @@
     oculante # images
 
     swaybg
-
   ];
 
   home.pointerCursor = {

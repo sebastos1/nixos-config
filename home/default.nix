@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   # goat terminal (nvm doesnt multiplex)
   # programs.alacritty = {
   #   enable = true;
@@ -34,7 +33,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce { };
+  dconf.settings = lib.mkForce {};
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
@@ -64,7 +63,7 @@
       };
     };
     targets = {
-      zen-browser.profileNames = [ "default" ];
+      zen-browser.profileNames = ["default"];
     };
   };
 

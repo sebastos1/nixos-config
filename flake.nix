@@ -1,79 +1,78 @@
 {
   description = "system config";
 
-  outputs =
-    {
-      nixpkgs,
-      agenix,
-      home-manager,
-      stylix,
-      nixcord,
-      zen-browser,
-      ...
-    }@inputs:
-    let
-      mkImports = base: paths: map (p: base + p) paths;
-      mkSystem =
-        name:
-        { user }:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = inputs // {
+  outputs = {
+    nixpkgs,
+    agenix,
+    home-manager,
+    stylix,
+    nixcord,
+    zen-browser,
+    ...
+  } @ inputs: let
+    mkImports = base: paths: map (p: base + p) paths;
+    mkSystem = name: {user}:
+      nixpkgs.lib.nixosSystem {
+        specialArgs =
+          inputs
+          // {
             inputs = inputs;
             username = user;
             mkImports = mkImports;
           };
-          system = "x86_64-linux";
-          modules = [
-            ./system
-            ./hosts/${name}
-            agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                backupFileExtension = "backup";
-                users.${user} = {
-                  imports = [
-                    ./home
-                    ./hosts/${name}/home.nix
-                  ];
-                };
-                extraSpecialArgs = inputs // {
+        system = "x86_64-linux";
+        modules = [
+          ./system
+          ./hosts/${name}
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              users.${user} = {
+                imports = [
+                  ./home
+                  ./hosts/${name}/home.nix
+                ];
+              };
+              extraSpecialArgs =
+                inputs
+                // {
                   hostProfile = name;
                   username = user;
                   mkImports = mkImports;
                 };
-                sharedModules = [
-                  nixcord.homeModules.nixcord
-                  stylix.homeModules.stylix
-                  zen-browser.homeModules.beta
-                ];
-              };
-            }
-          ];
-        };
-    in
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        packages = [
-          agenix.packages.x86_64-linux.default
+              sharedModules = [
+                nixcord.homeModules.nixcord
+                stylix.homeModules.stylix
+                zen-browser.homeModules.beta
+              ];
+            };
+          }
         ];
       };
+  in {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-      nixosConfigurations = builtins.mapAttrs mkSystem {
-        desk = {
-          user = "seb";
-        };
-        lap = {
-          user = "seb";
-        };
-        server = {
-          user = "dio";
-        }; # servertop
-      };
+    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+      packages = [
+        agenix.packages.x86_64-linux.default
+      ];
     };
+
+    nixosConfigurations = builtins.mapAttrs mkSystem {
+      desk = {
+        user = "seb";
+      };
+      lap = {
+        user = "seb";
+      };
+      server = {
+        user = "dio";
+      }; # servertop
+    };
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

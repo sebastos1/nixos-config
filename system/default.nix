@@ -4,8 +4,7 @@
   username,
   inputs,
   ...
-}:
-{
+}: {
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
@@ -41,7 +40,7 @@
   # remove defaults
   services.xserver.desktopManager.xterm.enable = false;
   environment = {
-    defaultPackages = [ ];
+    defaultPackages = [];
     systemPackages = with pkgs; [
       wget
     ];
