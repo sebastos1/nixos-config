@@ -25,10 +25,16 @@ in
         }
       ];
       root = pkgs.cinny;
-      locations."= /config.json".extraConfig = ''
-        default_type application/json;
-        return 200 '${lib.strings.toJSON cinnyConfig}';
-      '';
+      locations = {
+        "/.well-known/matrix/" = {
+          proxyPass = "http://127.0.0.1:6167";
+        };
+
+        "= /config.json".extraConfig = ''
+          default_type application/json;
+          return 200 '${lib.strings.toJSON cinnyConfig}';
+        '';
+      };
       extraConfig = ''
         rewrite ^/config.json$ /config.json break;
         rewrite ^/manifest.json$ /manifest.json break;
