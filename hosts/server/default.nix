@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./hardware.nix
     ./services/homepage.nix
@@ -54,21 +55,21 @@
     tunnels = {
       "67f421c8-1836-4702-82c6-304741c443ac" = {
         credentialsFile = "/etc/cloudflared/tunnel.json";
-        default = "http_status:404";
         ingress = {
-          "ssh.shlb.ng" = "ssh://localhost:22";
-          "dash.shlb.ng" = "http://localhost:3033";
-          # "sjallabong.com" = "http://localhost:3000";
-          "pool.sjallabong.com" = "http://localhost:8080";
-          "account.sjallabong.com" = "http://localhost:3001";
+          # "ssh.shlb.ng" = "ssh://localhost:22";
+          # "dash.shlb.ng" = "http://localhost:3033";
+          # # "sjallabong.com" = "http://localhost:3000";
+          # "pool.sjallabong.com" = "http://localhost:8080";
+          # "account.sjallabong.com" = "http://localhost:3001";
 
-          "matrix.sjallabong.com" = "http://localhost:6167";
-          "sjallabong.com" = {
-            service = "http://localhost:6167"; # /.well-known
-            path = "/.well-known/matrix/.*";
-          };
-          # "sjallabong.com" = "cinny";
+          # "matrix.sjallabong.com" = "http://localhost:6167";
+          # "sjallabong.com" = {
+          #   service = "http://localhost:6167"; # /.well-known
+          #   path = "/.well-known/matrix/.*";
+          # };
+          # # "sjallabong.com" = "cinny";
         };
+        default = "http_status:404";
       };
     };
   };
