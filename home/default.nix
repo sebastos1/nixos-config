@@ -36,6 +36,7 @@
   dconf.settings = lib.mkForce {};
   stylix = {
     enable = true;
+    overlays.enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
     polarity = "dark";
     fonts = {

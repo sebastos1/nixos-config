@@ -32,6 +32,7 @@ in {
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
+      "video=1920x1080"
     ];
   };
 
