@@ -26,3 +26,8 @@ nails holy moly, noooo
 todo
 https://github.com/amaanq/nirinit
 hardcoded wallpaper path yikes
+tailscale
+tunnel revamp
+tie to vps
+syncthing
+glance mogs homepage

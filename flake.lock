@@ -111,6 +111,26 @@
         "type": "github"
       }
     },
+    "ello-plymouth": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774719578,
+        "narHash": "sha256-0QjJ0/WXqGZeHUi7zTVvaYLS0HsPNVT2EYIurKLUV0Y=",
+        "owner": "sebastos1",
+        "repo": "ello-plymouth",
+        "rev": "771d6df151b55ae4e0f64a5d722810009d278eac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sebastos1",
+        "repo": "ello-plymouth",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -707,6 +727,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "ello-plymouth": "ello-plymouth",
         "home-manager": "home-manager_2",
         "ironbar": "ironbar",
         "keylist": "keylist",

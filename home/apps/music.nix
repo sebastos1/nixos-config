@@ -28,22 +28,4 @@
     enable = true;
     # todo https://nix-community.github.io/home-manager/options.xhtml#opt-programs.rmpc.config
   };
-
-  # programs.ncmpcpp = {
-  #   enable = true;
-  #   package = pkgs.ncmpcpp.override { visualizerSupport = true; };
-  #   settings = {
-  #     # sick visualizer
-  #     visualizer_data_source = "/tmp/mpd.fifo";
-  #     visualizer_output_name = "Visualizer";
-  #     visualizer_in_stereo = "yes";
-  #     visualizer_type = "wave";
-  #     visualizer_look = "●●";
-  #     visualizer_color = "blue, green, yellow, magenta, red";
-  #     visualizer_spectrum_smooth_look = "yes";
-  #     volume_change_step = 10;
-  #     user_interface = "alternative";
-  #     progressbar_look = "━━";
-  #   };
-  # };
 }

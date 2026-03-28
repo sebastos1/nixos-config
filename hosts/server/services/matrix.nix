@@ -2,19 +2,17 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cinnyConfig = {
     allowCustomHomeservers = false;
-    homeserverList = [ "sjallabong.com" ];
+    homeserverList = ["sjallabong.com"];
     defaultHomeserver = 0;
     hashRouter = {
       enabled = false;
       basename = "/";
     };
   };
-in
-{
+in {
   services.nginx = {
     enable = true;
     virtualHosts."sjallabong.com" = {
@@ -55,7 +53,7 @@ in
       allow_registration = false;
       allow_encryption = true;
       allow_federation = true;
-      trusted_servers = [ "matrix.org" ];
+      trusted_servers = ["matrix.org"];
       new_user_displayname_suffix = "";
 
       well_known = {

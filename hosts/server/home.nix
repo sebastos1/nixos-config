@@ -1,10 +1,12 @@
-{ pkgs, mkImports, ... }:
-let
+{
+  pkgs,
+  mkImports,
+  ...
+}: let
   imports = [
     /cli
   ];
-in
-{
+in {
   imports = mkImports ../../home imports;
   home.packages = with pkgs; [
     lnav

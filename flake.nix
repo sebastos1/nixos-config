@@ -115,5 +115,10 @@
       url = "github:sebastos1/ironbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ello-plymouth = {
+      url = "github:sebastos1/ello-plymouth";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

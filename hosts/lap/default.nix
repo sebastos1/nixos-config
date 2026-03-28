@@ -3,6 +3,7 @@
     /desktop.nix
     /firejail.nix
     /vpn.nix
+    /boot.nix
   ];
 in {
   networking.hostName = "Mozart";
