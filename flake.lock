@@ -118,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774719578,
-        "narHash": "sha256-0QjJ0/WXqGZeHUi7zTVvaYLS0HsPNVT2EYIurKLUV0Y=",
+        "lastModified": 1774721393,
+        "narHash": "sha256-43BUE7ruHQPKoF69L1tVT4+IPrtDadM77MeSw6+CO/k=",
         "owner": "sebastos1",
         "repo": "ello-plymouth",
-        "rev": "771d6df151b55ae4e0f64a5d722810009d278eac",
+        "rev": "556711690cce824f84c0971c3f123483922136c3",
         "type": "github"
       },
       "original": {
