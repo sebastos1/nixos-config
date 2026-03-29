@@ -1,10 +1,4 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    mpc
-    # nicotine-plus
-  ];
-
   services.mpd = {
     enable = true;
     musicDirectory = "~/music";

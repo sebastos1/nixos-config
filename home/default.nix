@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   # goat terminal (nvm doesnt multiplex)
   # programs.alacritty = {
   #   enable = true;
@@ -22,6 +21,8 @@
         hide_tab_bar_if_only_one_tab = true,
         window_close_confirmation = "NeverPrompt",
         window_background_opacity = 0.9,
+        -- WHAT IS THIS SETTING ??????
+        adjust_window_size_when_changing_font_size = false,
       }
     '';
   };
@@ -38,11 +39,26 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce { };
+  dconf.settings = lib.mkForce {};
   stylix = {
     enable = true;
     overlays.enable = false;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+    # everforest-dark-hard / medium
+    # onedark
+    # gruvbox-dark-hard / material-dark-hard
+    # solarized-dark
+
+    # lights ig
+    # gruvbox-light-medium
+    # solarized-light
+
+    # ones that arent in the base16 package below:
+    # ciapre
+    # belafonte day
+    # kanagawa lotus
+    # havn skumring/daggry
+    # everforest light med
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
     polarity = "dark";
     fonts = {
       monospace = {
@@ -62,14 +78,14 @@
         name = "Twitter Color Emoji";
       };
       sizes = {
-        terminal = 12;
+        terminal = 14;
         applications = 12;
         # popups
         # desktop
       };
     };
     targets = {
-      zen-browser.profileNames = [ "default" ];
+      zen-browser.profileNames = ["default"];
     };
   };
 

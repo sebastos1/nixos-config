@@ -4,12 +4,14 @@
   ...
 }: let
   mcsrPkgs = mcsr-nixos.packages.x86_64-linux;
-  init = pkgs.writeText "init.lua" (''
+  init = pkgs.writeText "init.lua" (
+    ''
       package.path = package.path .. ";${mcsrPkgs.waywork}/?.lua"
       local programs = { ninjabrain_bot = "${pkgs.lib.getExe mcsrPkgs.ninjabrain-bot}", }
       local files = { eye_overlay = "${./eye-overlay.png}", }
     ''
-    + builtins.readFile ./waywall.lua);
+    + builtins.readFile ./waywall.lua
+  );
 in {
   home.packages = with pkgs; [
     jemalloc
@@ -35,9 +37,10 @@ in {
   # set standardsettings
   # this thing -XX:+UseZGC
   # sys installation of GLFW
+  # 26.1 doesn't need patched GLFW, just some java args
   # "waywall wrap --"
-  # __GL_THREADED_OPTIMIZATIONS 0
-  # feral gamemode maybe
+  # __GL_THREADED_OPTIMIZATIONS 0 ?
+  # feral gamemode ?
 
   home.file.".config/waywall/init.lua".source = init;
 }
