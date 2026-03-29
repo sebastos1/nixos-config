@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     mpc
     # nicotine-plus
@@ -22,7 +23,7 @@
       }
     '';
   };
-  services.mpd-discord-rpc.enable = true;
+  # services.mpd-discord-rpc.enable = true;
 
   programs.rmpc = {
     enable = true;

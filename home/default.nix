@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # goat terminal (nvm doesnt multiplex)
   # programs.alacritty = {
   #   enable = true;
@@ -17,7 +18,11 @@
   programs.wezterm = {
     enable = true;
     extraConfig = ''
-      return {}
+      return {
+        hide_tab_bar_if_only_one_tab = true,
+        window_close_confirmation = "NeverPrompt",
+        window_background_opacity = 0.9,
+      }
     '';
   };
 
@@ -33,7 +38,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce {};
+  dconf.settings = lib.mkForce { };
   stylix = {
     enable = true;
     overlays.enable = false;
@@ -64,7 +69,7 @@
       };
     };
     targets = {
-      zen-browser.profileNames = ["default"];
+      zen-browser.profileNames = [ "default" ];
     };
   };
 

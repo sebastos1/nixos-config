@@ -8,7 +8,7 @@
     /desktop.nix
     /firejail.nix
     /vpn.nix
-    /docker.nix
+    # /docker.nix
     /gaming.nix
     /boot.nix
   ];
@@ -33,8 +33,35 @@ in {
       "initcall_blacklist=amd_pstate_init"
       "intel_pstate=disable"
       "video=1920x1080"
+
+      # testing. not much value
+      "nmi_watchdog=0"
+      "pcie_aspm.policy=performance"
+      # "mitigations=off"
+      "threadirqs"
+      "processor.max_cstate=1"
     ];
+
+    kernel = {
+      # for zram
+      sysctl = {
+        "vm.swappiness" = 100;
+        "vm.page-cluster" = 0;
+      };
+      sysfs.kernel.mm.transparent_hugepage = {
+        enabled = "madvise";
+        defrag = "defer+madvise";
+      };
+      # if pstate
+      # sysfs.devices.system.cpu."cpu[0-9]*".energy_performance_preference = "performance";
+    };
   };
+
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
+  powerManagement.cpuFreqGovernor = "performance";
 
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
@@ -55,6 +82,7 @@ in {
     {
       device = "/swapfile";
       size = 16 * 1024; # 16GB
+      priority = 0; # last resort
     }
   ];
 
