@@ -23,7 +23,7 @@
   networking.nat = {
     enable = true;
     internalInterfaces = [ "microvm" ];
-    # externalInterface = "ermm";
+    externalInterface = "enp2s0";
   };
 
   services.openssh = {
