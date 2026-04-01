@@ -24,6 +24,13 @@
     enable = true;
     internalInterfaces = [ "microvm" ];
     externalInterface = "enp2s0";
+    forwardPorts = [
+      {
+        destination = "10.0.0.2:8080";
+        protocol = "tcp";
+        sourcePort = 1234;
+      }
+    ];
   };
 
   services.openssh = {
