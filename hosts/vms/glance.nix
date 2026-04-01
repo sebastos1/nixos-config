@@ -9,7 +9,7 @@
   systemd.network = {
     enable = true;
     networks."10-eth" = {
-      matchConfig.Name = "vm-*";
+      matchConfig.Name = "e*";
       addresses = [ { Address = "10.0.0.2/24"; } ];
       routes = [ { Gateway = "10.0.0.1"; } ];
     };
