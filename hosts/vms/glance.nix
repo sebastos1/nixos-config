@@ -6,12 +6,12 @@
     firewall.enable = false;
   };
 
-  users.users.root.password = "dontlook";
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-    settings.PermitEmptyPasswords = "yes";
-  };
+  # users.users.root.password = "dontlook";
+  # services.openssh = {
+  #   enable = true;
+  #   settings.PermitRootLogin = "yes";
+  #   settings.PermitEmptyPasswords = "yes";
+  # };
 
   systemd.network = {
     enable = true;
@@ -46,6 +46,7 @@
   services.glance = {
     enable = true;
     settings.server.port = 8080;
+    settings.server.host = "0.0.0.0";
   };
 
   system.stateVersion = "25.11";
