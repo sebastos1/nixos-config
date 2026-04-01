@@ -33,13 +33,11 @@
         in
         {
           # register hosts here
-          nixosConfigurations =
-            lib.mkSystems [
-              "desk"
-              "lap"
-              "homeserver"
-            ]
-            // (import ./hosts/vms { inherit inputs nixpkgs; });
+          nixosConfigurations = lib.mkSystems [
+            "desk"
+            "lap"
+            "homeserver"
+          ];
         };
 
       perSystem =

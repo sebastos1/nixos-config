@@ -1,4 +1,4 @@
-{ mkImports, ... }:
+{ mkImports, inputs, ... }:
 let
   imports = [
     /server
@@ -20,6 +20,16 @@ in
       80
       443
     ];
+  };
+
+  microvm.vms.glance-vm = {
+    autostart = true;
+    config = {
+      imports = [
+        inputs.microvm.nixosModules.microvm
+        ../vms/glance.nix
+      ];
+    };
   };
 
   # stay alive
