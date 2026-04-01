@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     mangohud
     wineWow64Packages.stable
@@ -15,7 +16,7 @@
 
   programs.obs-studio = {
     enable = true;
-    package = pkgs.obs-studio.override {cudaSupport = true;};
+    package = pkgs.obs-studio.override { cudaSupport = true; };
   };
 
   programs.nixcord = {

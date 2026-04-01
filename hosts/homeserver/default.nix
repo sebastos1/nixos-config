@@ -1,9 +1,16 @@
-{...}: {
+{ mkImports, ... }:
+let
+  imports = [
+    /server
+    /server/homepage.nix
+    /server/matrix.nix
+  ];
+in
+{
   imports = [
     ./hardware.nix
-    ./services/homepage.nix
-    ./services/matrix.nix
-  ];
+  ]
+  ++ mkImports ../../system imports;
 
   networking = {
     hostName = "Diorite";
@@ -14,15 +21,6 @@
       443
     ];
   };
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-  services.fail2ban.enable = true;
 
   # stay alive
   services.logind.settings.Login = {

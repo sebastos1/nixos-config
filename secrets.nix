@@ -10,9 +10,10 @@ let
     lap
     # server
   ];
-in {
+in
+{
   # shared
-  "secrets/test.age".publicKeys = [userKey] ++ allSystems;
+  "secrets/test.age".publicKeys = [ userKey ] ++ allSystems;
 
   "example.age".publicKeys = [
     userKey

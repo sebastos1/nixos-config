@@ -1,4 +1,5 @@
-{mkImports, ...}: let
+{ mkImports, ... }:
+let
   imports = [
     /desktop
     /cli
@@ -11,6 +12,7 @@
     /browser/zen.nix
     /ai
   ];
-in {
+in
+{
   imports = mkImports ../../home imports;
 }

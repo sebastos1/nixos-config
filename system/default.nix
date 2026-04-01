@@ -1,21 +1,13 @@
 {
   pkgs,
-  keylist,
   username,
-  inputs,
   ...
-}: {
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [
-      keylist.overlays.default
-      (final: prev: {
-        ironbar = inputs.ironbar.packages.${prev.system}.default;
-      })
-    ];
-  };
-
+}:
+{
+  # only fully core options
+  nixpkgs.config.allowUnfree = true;
   nix = {
+    channel.enable = false;
     settings = {
       warn-dirty = false;
       auto-optimise-store = true;
@@ -32,29 +24,27 @@
   };
 
   security.protectKernelImage = true;
+  boot.tmp.cleanOnBoot = true;
+  systemd.coredump.enable = false;
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
   # remove defaults
-  services.xserver.desktopManager.xterm.enable = false;
   environment = {
-    defaultPackages = [];
+    defaultPackages = [ ];
     systemPackages = with pkgs; [
       wget
     ];
   };
 
   # networking
-  networking = {
-    networkmanager.enable = true;
-    firewall = {
-      enable = true;
-      allowPing = false;
-    };
+  networking.firewall = {
+    enable = true;
+    allowPing = false;
   };
-  systemd.services.NetworkManager-wait-online.enable = false;
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = false;
     "net.ipv6.conf.all.forwarding" = false;
@@ -62,12 +52,11 @@
     "net.ipv4.conf.all.accept_redirects" = false;
   };
 
+  # users.mutableUsers = false;
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
-      "networkmanager"
-      "docker"
     ];
   };
 
@@ -85,17 +74,5 @@
       LC_TELEPHONE = "nb_NO.UTF-8";
       LC_NAME = "nb_NO.UTF-8";
     };
-  };
-  services.xserver = {
-    xkb = {
-      layout = "no";
-      variant = "nodeadkeys";
-    };
-  };
-
-  services.libinput = {
-    enable = true;
-    mouse.accelProfile = "flat";
-    touchpad.accelProfile = "flat";
   };
 }

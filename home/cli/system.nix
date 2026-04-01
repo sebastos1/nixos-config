@@ -2,7 +2,8 @@
   pkgs,
   hostProfile,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     procs # ps
     duf # df

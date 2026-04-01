@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{ pkgs, username, ... }:
+{
+  users.users.${username}.extraGroups = [
+    "docker"
+  ];
+
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {

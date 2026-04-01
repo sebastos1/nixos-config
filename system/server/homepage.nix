@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   virtualisation.oci-containers.containers.whoami = {
     image = "traefik/whoami";
-    ports = ["8889:80"];
+    ports = [ "8889:80" ];
     labels = {
       "homepage.group" = "Apps";
       "homepage.name" = "whoami";
@@ -80,7 +81,7 @@
     ];
   };
 
-  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = ["podman"];
+  systemd.services.homepage-dashboard.serviceConfig.SupplementaryGroups = [ "podman" ];
 
   services.glances = {
     enable = true;

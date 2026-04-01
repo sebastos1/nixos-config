@@ -2,8 +2,9 @@
   pkgs,
   mcsr-nixos,
   ...
-}: let
-  mcsrPkgs = mcsr-nixos.packages.x86_64-linux;
+}:
+let
+  mcsrPkgs = mcsr-nixos.packages.${pkgs.system};
   init = pkgs.writeText "init.lua" (
     ''
       package.path = package.path .. ";${mcsrPkgs.waywork}/?.lua"
@@ -12,7 +13,8 @@
     ''
     + builtins.readFile ./waywall.lua
   );
-in {
+in
+{
   home.packages = with pkgs; [
     jemalloc
     jdk21
@@ -20,15 +22,14 @@ in {
 
   programs.prismlauncher = {
     enable = true;
-    package = with pkgs;
-      (prismlauncher.override {additionalPrograms = [waywall];}).overrideAttrs (oldAttrs: {
-        nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [makeWrapper];
-        postInstall =
-          (oldAttrs.postInstall or "")
-          + ''
-            wrapProgram $out/bin/prismlauncher \
-              --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
-          '';
+    package =
+      with pkgs;
+      (prismlauncher.override { additionalPrograms = [ waywall ]; }).overrideAttrs (oldAttrs: {
+        nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
+        postInstall = (oldAttrs.postInstall or "") + ''
+          wrapProgram $out/bin/prismlauncher \
+            --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so"
+        '';
       });
   };
 

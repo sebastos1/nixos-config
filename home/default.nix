@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # goat terminal (nvm doesnt multiplex)
   # programs.alacritty = {
   #   enable = true;
@@ -39,7 +40,7 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce {};
+  dconf.settings = lib.mkForce { };
   stylix = {
     enable = true;
     overlays.enable = false;
@@ -85,7 +86,7 @@
       };
     };
     targets = {
-      zen-browser.profileNames = ["default"];
+      zen-browser.profileNames = [ "default" ];
     };
   };
 

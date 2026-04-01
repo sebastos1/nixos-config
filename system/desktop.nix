@@ -1,8 +1,20 @@
 {
   pkgs,
   username,
+  keylist,
+  inputs,
   ...
-}: {
+}:
+{
+  # TODO TODO TODO TODO TODO TODO TODO TODO
+
+  nixpkgs.overlays = [
+    keylist.overlays.default
+    (final: prev: {
+      ironbar = inputs.ironbar.packages.${prev.system}.default;
+    })
+  ];
+
   programs.niri.enable = true;
 
   services.greetd = {
@@ -26,8 +38,27 @@
   };
 
   nix.settings = {
-    substituters = ["https://cache.garnix.io"];
-    trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
+    substituters = [ "https://cache.garnix.io" ];
+    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  };
+
+  networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
+  users.users.${username}.extraGroups = [
+    "networkmanager"
+  ];
+
+  services.xserver = {
+    xkb = {
+      layout = "no";
+      variant = "nodeadkeys";
+    };
+  };
+
+  services.libinput = {
+    enable = true;
+    mouse.accelProfile = "flat";
+    touchpad.accelProfile = "flat";
   };
 
   security.polkit.enable = true;
@@ -39,7 +70,7 @@
     xwayland-satellite # xwayland support
   ];
 
-  nix.settings.trusted-users = [username];
+  nix.settings.trusted-users = [ username ];
   security = {
     sudo.extraConfig = "Defaults pwfeedback"; # show asterisks
     sudo.wheelNeedsPassword = false;

@@ -2,11 +2,13 @@
   pkgs,
   mkImports,
   ...
-}: let
+}:
+let
   imports = [
     /cli
   ];
-in {
+in
+{
   imports = mkImports ../../home imports;
   home.packages = with pkgs; [
     lnav

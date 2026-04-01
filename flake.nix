@@ -1,78 +1,54 @@
 {
-  description = "system config";
+  outputs =
+    {
+      nixpkgs,
+      agenix,
+      home-manager,
+      flake-parts,
+      stylix,
+      nixcord,
+      zen-browser,
+      microvm,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-  outputs = {
-    nixpkgs,
-    agenix,
-    home-manager,
-    stylix,
-    nixcord,
-    zen-browser,
-    ...
-  } @ inputs: let
-    mkImports = base: paths: map (p: base + p) paths;
-    mkSystem = name: {user}:
-      nixpkgs.lib.nixosSystem {
-        specialArgs =
-          inputs
-          // {
-            inputs = inputs;
-            username = user;
-            mkImports = mkImports;
+      flake =
+        let
+          username = "seb";
+          lib = import ./lib.nix {
+            inherit username inputs nixpkgs;
+            systemModules = [
+              agenix.nixosModules.default
+              home-manager.nixosModules.home-manager
+              microvm.nixosModules.host
+            ];
+            sharedModules = [
+              nixcord.homeModules.nixcord
+              stylix.homeModules.stylix
+              zen-browser.homeModules.beta
+            ];
           };
-        system = "x86_64-linux";
-        modules = [
-          ./system
-          ./hosts/${name}
-          agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.${user} = {
-                imports = [
-                  ./home
-                  ./hosts/${name}/home.nix
-                ];
-              };
-              extraSpecialArgs =
-                inputs
-                // {
-                  hostProfile = name;
-                  username = user;
-                  mkImports = mkImports;
-                };
-              sharedModules = [
-                nixcord.homeModules.nixcord
-                stylix.homeModules.stylix
-                zen-browser.homeModules.beta
-              ];
-            };
-          }
-        ];
-      };
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+        in
+        {
+          # register hosts here
+          nixosConfigurations = lib.mkSystems [
+            "desk"
+            "lap"
+            "homeserver"
+          ];
+        };
 
-    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      packages = [
-        agenix.packages.x86_64-linux.default
-      ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          formatter = pkgs.nixfmt-tree;
+          devShells.default = pkgs.mkShell {
+            packages = [ inputs.agenix.packages.${pkgs.system}.default ];
+          };
+        };
     };
-
-    nixosConfigurations = builtins.mapAttrs mkSystem {
-      desk = {
-        user = "seb";
-      };
-      lap = {
-        user = "seb";
-      };
-      server = {
-        user = "dio";
-      }; # servertop
-    };
-  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -81,6 +57,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    agenix.url = "github:ryantm/agenix";
 
     stylix = {
       url = "github:danth/stylix";
@@ -91,8 +71,6 @@
       url = "github:sebastos1/keylist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    agenix.url = "github:ryantm/agenix";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
@@ -118,6 +96,11 @@
 
     ello-plymouth = {
       url = "github:sebastos1/ello-plymouth";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

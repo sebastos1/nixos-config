@@ -1,18 +1,19 @@
-{mkImports, ...}: let
+{ mkImports, ... }:
+let
   imports = [
     /desktop.nix
     /firejail.nix
     /vpn.nix
     /boot.nix
   ];
-in {
+in
+{
   networking.hostName = "Mozart";
 
-  imports =
-    [
-      ./hardware.nix
-    ]
-    ++ mkImports ../../system imports;
+  imports = [
+    ./hardware.nix
+  ]
+  ++ mkImports ../../system imports;
 
   system.stateVersion = "25.05";
 }
