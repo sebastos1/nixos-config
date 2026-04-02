@@ -3,7 +3,6 @@ let
   imports = [
     /server
     /server/homepage.nix
-    /server/matrix.nix
   ];
 in
 {
@@ -25,37 +24,72 @@ in
     ];
   };
 
-  microvm.vms.forgejo-vm = {
-    autostart = true;
-    config = {
-      imports = [
-        inputs.microvm.nixosModules.microvm
-        ../vms/forgejo.nix
-      ];
+  microvm.vms = {
+    matrix-vm = {
+      autostart = true;
+      config = {
+        imports = [
+          inputs.microvm.nixosModules.microvm
+          ../vms/matrix.nix
+        ];
+      };
+    };
+
+    forgejo-vm = {
+      autostart = true;
+      config = {
+        imports = [
+          inputs.microvm.nixosModules.microvm
+          ../vms/forgejo.nix
+        ];
+      };
+    };
+
+    glance-vm = {
+      autostart = true;
+      config = {
+        imports = [
+          inputs.microvm.nixosModules.microvm
+          ../vms/glance.nix
+        ];
+      };
     };
   };
 
-  microvm.vms.glance-vm = {
-    autostart = true;
-    config = {
-      imports = [
-        inputs.microvm.nixosModules.microvm
-        ../vms/glance.nix
-      ];
+  systemd.network = {
+    netdevs."10-microvm".netdevConfig = {
+      Kind = "bridge";
+      Name = "microvm";
+    };
+    networks = {
+      "10-microvm" = {
+        matchConfig.Name = "microvm";
+        addresses = [ { Address = "10.0.0.1/24"; } ];
+        networkConfig.ConfigureWithoutCarrier = true;
+      };
+      "11-microvm-tap" = {
+        matchConfig.Name = "vm-*";
+        networkConfig.Bridge = "microvm";
+      };
     };
   };
 
-  # stay alive
-  services.logind.settings.Login = {
-    HandleLidSwitch = "ignore"; # closing lid doesn't put to sleep
-    HandleSuspendKey = "ignore";
-    HandleHibernateKey = "ignore";
-  };
-  systemd.targets = {
-    sleep.enable = false;
-    suspend.enable = false;
-    hibernate.enable = false;
-    hybrid-sleep.enable = false;
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "microvm" ];
+    externalInterface = "enp2s0";
+    forwardPorts = [
+      {
+        destination = "10.0.0.2:8080";
+        proto = "tcp";
+        sourcePort = 1234;
+      }
+      {
+        destination = "10.0.0.3:3000";
+        proto = "tcp";
+        sourcePort = 1235;
+      }
+    ];
   };
 
   services.cloudflared = {
@@ -70,12 +104,12 @@ in
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
 
-          "matrix.sjallabong.com" = "http://localhost:6167";
+          "matrix.sjallabong.com" = "http://10.0.0.4:6167";
           # "sjallabong.com" = {
-          #   service = "http://localhost:6167"; # /.well-known
+          #   service = "http://10.0.0.4:6167"; # /.well-known
           #   path = "/.well-known/matrix/.*";
           # };
-          "sjallabong.com" = "http://localhost:8081";
+          "sjallabong.com" = "http://10.0.0.4:8081";
         };
         default = "http_status:404";
       };
