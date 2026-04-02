@@ -103,6 +103,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/microvms/matrix-vm/journal 0755 root root -"
     "L+ /var/log/journal/0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a - - - -
     /var/lib/microvms/matrix-vm/journal/0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"
   ];
