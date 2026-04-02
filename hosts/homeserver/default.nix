@@ -47,18 +47,6 @@ in
     hybrid-sleep.enable = false;
   };
 
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-      dns = [
-        "192.168.1.1"
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-      ipv6 = false;
-    };
-  };
-
   services.cloudflared = {
     enable = true;
     tunnels = {

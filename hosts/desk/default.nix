@@ -9,7 +9,6 @@ let
     /desktop.nix
     /firejail.nix
     /vpn.nix
-    # /docker.nix
     /gaming.nix
     /boot.nix
   ];

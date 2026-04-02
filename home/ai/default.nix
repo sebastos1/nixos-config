@@ -16,10 +16,12 @@
           "Edit(/etc/nixos/**)"
           "Read(~/src/**)"
           "Edit(~/src/**)"
+          "Bash(nix:*)"
+          "Bash(git:*)"
         ];
         deny = [
-          "Read(**)"
-          "Edit(**)"
+          "Bash(rm:*)"
+          "Bash(sudo:*)"
           # "Bash(**)"
           # "WebFetch(**)"
         ];

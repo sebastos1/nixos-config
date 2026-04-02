@@ -12,7 +12,7 @@ in
   imports = mkImports ../../home imports;
   home.packages = with pkgs; [
     lnav
-    lazydocker
+    # lazydocker
   ];
 
   programs.zellij = {
