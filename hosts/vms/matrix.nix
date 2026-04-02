@@ -22,12 +22,12 @@ in
     firewall.enable = false;
   };
 
-  users.users.root.password = "dontlook";
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-    settings.PermitEmptyPasswords = "yes";
-  };
+  # users.users.root.password = "dontlook";
+  # services.openssh = {
+  #   enable = true;
+  #   settings.PermitRootLogin = "yes";
+  #   settings.PermitEmptyPasswords = "yes";
+  # };
 
   systemd.network = {
     enable = true;
@@ -37,6 +37,13 @@ in
       routes = [ { Gateway = "10.0.0.1"; } ];
     };
   };
+
+  systemd.services.matrix-continuwuity.serviceConfig.DynamicUser = lib.mkForce false;
+  users.users.continuwuity = {
+    isSystemUser = true;
+    group = "continuwuity";
+  };
+  users.groups.continuwuity = { };
 
   microvm = {
     machineId = "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"; # todo gen
