@@ -100,16 +100,16 @@ in
           default_type application/json;
           return 200 '${lib.strings.toJSON cinnyConfig}';
         '';
+        "/".extraConfig = ''
+          rewrite ^/config.json$ /config.json break;
+          rewrite ^/manifest.json$ /manifest.json break;
+          rewrite ^/sw.js$ /sw.js break;
+          rewrite ^/pdf.worker.min.js$ /pdf.worker.min.js break;
+          rewrite ^/public/(.*)$ /public/$1 break;
+          rewrite ^/assets/(.*)$ /assets/$1 break;
+          rewrite ^(.+)$ /index.html break;
+        '';
       };
-      extraConfig = ''
-        rewrite ^/config.json$ /config.json break;
-        rewrite ^/manifest.json$ /manifest.json break;
-        rewrite ^/sw.js$ /sw.js break;
-        rewrite ^/pdf.worker.min.js$ /pdf.worker.min.js break;
-        rewrite ^/public/(.*)$ /public/$1 break;
-        rewrite ^/assets/(.*)$ /assets/$1 break;
-        rewrite ^(.+)$ /index.html break;
-      '';
     };
   };
 
