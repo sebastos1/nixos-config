@@ -5,7 +5,7 @@
     settings = {
       server = {
         port = 8080;
-        host = "localhost"; # local only
+        host = "0.0.0.0";
       };
 
       branding = {

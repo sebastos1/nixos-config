@@ -43,13 +43,9 @@
     ];
   };
 
-  services.forgejo = {
-    enable = true;
-    settings.server = {
-      HTTP_ADDR = "0.0.0.0";
-      HTTP_PORT = 3000;
-    };
-  };
+  imports = [
+    ../../system/services/forgejo.nix
+  ];
 
   system.stateVersion = "25.11";
 }

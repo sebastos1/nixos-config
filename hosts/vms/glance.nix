@@ -6,13 +6,6 @@
     firewall.enable = false;
   };
 
-  # users.users.root.password = "dontlook";
-  # services.openssh = {
-  #   enable = true;
-  #   settings.PermitRootLogin = "yes";
-  #   settings.PermitEmptyPasswords = "yes";
-  # };
-
   systemd.network = {
     enable = true;
     networks."10-eth" = {
@@ -43,11 +36,9 @@
     ];
   };
 
-  services.glance = {
-    enable = true;
-    settings.server.port = 8080;
-    settings.server.host = "0.0.0.0";
-  };
+  imports = [
+    ../../system/services/glance
+  ];
 
   system.stateVersion = "25.11";
 }

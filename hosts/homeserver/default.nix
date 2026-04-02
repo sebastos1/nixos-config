@@ -7,7 +7,6 @@
 let
   imports = [
     /server.nix
-    # /services/homepage.nix
   ];
 in
 {
@@ -16,11 +15,6 @@ in
   ]
   ++ mkImports ../../system imports;
 
-  # 71fc4efd9ff85d6e65f7bac4f1f8f91d zoneid
-  # age.secrets.cf-api-shlb = {
-  #   file = ../../secrets/cf-api-shlb.age;
-  #   owner = "seb";
-  # };
   networking = {
     hostName = "Diorite";
     domain = "local";
@@ -127,7 +121,7 @@ in
           #   service = "http://10.0.0.4:6167"; # /.well-known
           #   path = "/.well-known/matrix/.*";
           # };
-          "sjallabong.com" = "http://10.0.0.4:8081";
+          "sjallabong.com" = "http://10.0.0.4:8080";
         };
         default = "http_status:404";
       };
