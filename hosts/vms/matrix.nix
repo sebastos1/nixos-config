@@ -15,10 +15,18 @@ let
   };
 in
 {
+
   networking = {
     hostName = "matrix";
     useNetworkd = true;
     firewall.enable = false;
+  };
+
+  users.users.root.password = "dontlook";
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "yes";
+    settings.PermitEmptyPasswords = "yes";
   };
 
   systemd.network = {
@@ -31,6 +39,7 @@ in
   };
 
   microvm = {
+    machineId = "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"; # todo gen
     hypervisor = "cloud-hypervisor";
     vcpu = 1;
     mem = 512;
@@ -47,6 +56,14 @@ in
         tag = "ro-store";
         source = "/nix/store";
         mountPoint = "/nix/.ro-store";
+      }
+      {
+        # ship the logs to host
+        source = "/var/lib/microvms/matrix-vm/journal";
+        mountPoint = "/var/log/journal";
+        tag = "journal";
+        proto = "virtiofs";
+        socket = "journal.sock";
       }
     ];
     volumes = [
