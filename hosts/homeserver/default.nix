@@ -15,6 +15,7 @@ in
   networking = {
     hostName = "Diorite";
     domain = "local";
+    firewall.trustedInterfaces = [ "microvm" ];
     firewall.allowedTCPPorts = [
       22
       80
