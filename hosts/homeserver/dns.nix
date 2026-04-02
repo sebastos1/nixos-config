@@ -30,8 +30,9 @@
               provider.cloudflare.api_token = "\${var.cloudflare_api_token}";
 
               resource.cloudflare_dns_record = {
-                ssh_shlb_ng = mkRecord shlb "ssh";
-                dash_shlb_ng = mkRecord shlb "dash";
+                ssh_shlb = mkRecord shlb "ssh";
+                git_shlb = mkRecord shlb "git";
+                dash_shlb = mkRecord shlb "dash";
                 pool_sjallabong = mkRecord sjallabong "pool";
                 account_sjallabong = mkRecord sjallabong "account";
                 matrix_sjallabong = mkRecord sjallabong "matrix";

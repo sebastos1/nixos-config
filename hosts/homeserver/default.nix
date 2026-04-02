@@ -104,10 +104,12 @@ in
         credentialsFile = "/etc/cloudflared/tunnel.json";
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
-          "dash.shlb.ng" = "http://localhost:3033";
           # "sjallabong.com" = "http://localhost:3000";
           "pool.sjallabong.com" = "http://localhost:8080";
           "account.sjallabong.com" = "http://localhost:3001";
+
+          "dash.shlb.ng" = "http://10.0.0.2:8080";
+          "git.shlb.ng" = "http://10.0.0.3:3000";
 
           "matrix.sjallabong.com" = "http://10.0.0.4:6167";
           # "sjallabong.com" = {
