@@ -12,7 +12,10 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.terranix.flakeModule ];
+      imports = [
+        inputs.terranix.flakeModule
+        ./hosts/homeserver/dns.nix
+      ];
       systems = [ "x86_64-linux" ];
 
       flake =
@@ -47,11 +50,6 @@
           formatter = pkgs.nixfmt-tree;
           devShells.default = pkgs.mkShell {
             packages = [ inputs.agenix.packages.${pkgs.system}.default ];
-          };
-
-          terranix.terranixConfigurations.dns = {
-            terraformWrapper.package = pkgs.opentofu;
-            modules = [ ./hosts/homeserver/dns.nix ];
           };
         };
     };
