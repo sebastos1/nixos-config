@@ -52,7 +52,7 @@ in
     volumes = [
       {
         image = "matrix-data.img";
-        mountPoint = "/var/lib/matrix-continuwuity";
+        mountPoint = "/var/lib/continuwuity";
         size = 2048;
       }
     ];
@@ -94,6 +94,7 @@ in
     enable = true;
     settings.global = {
       server_name = "sjallabong.com";
+      address = [ "0.0.0.0" ];
       allow_registration = false;
       allow_encryption = true;
       allow_federation = true;
