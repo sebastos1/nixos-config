@@ -6,8 +6,8 @@
 }:
 let
   imports = [
-    /server
-    /server/homepage.nix
+    /server.nix
+    # /services/homepage.nix
   ];
 in
 {

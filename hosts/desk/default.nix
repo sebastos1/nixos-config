@@ -89,7 +89,7 @@ in
 
   imports = [
     ./hardware.nix
-    ../../system/server/glance
+    ../../system/services/glance
   ]
   ++ mkImports ../../system imports;
 
