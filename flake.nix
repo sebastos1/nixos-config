@@ -51,7 +51,7 @@
           terranix.terranixConfigurations.dns = {
             terraformWrapper = {
               package = pkgs.opentofu;
-              prefixText = "export CLOUDFLARE_API_TOKEN=$(cat /run/agenix/cf-api-shlb)";
+              prefixText = "CLOUDFLARE_API_TOKEN=$(cat /run/agenix/cf-api-shlb) && export CLOUDFLARE_API_TOKEN";
             };
             modules = [ ./hosts/homeserver/dns.nix ];
           };
