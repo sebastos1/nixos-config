@@ -14,6 +14,11 @@ in
 {
   # shared
   "secrets/test.age".publicKeys = [ userKey ] ++ allSystems;
+
+  # cloudflare
+  "secrets/cf-tunnel-json.age".publicKeys = [
+    homeserver
+  ];
   "secrets/cf-api-shlb.age".publicKeys = [
     homeserver
   ];

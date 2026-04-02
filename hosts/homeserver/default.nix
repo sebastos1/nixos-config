@@ -1,4 +1,9 @@
-{ mkImports, inputs, ... }:
+{
+  mkImports,
+  inputs,
+  config,
+  ...
+}:
 let
   imports = [
     /server
@@ -100,8 +105,8 @@ in
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "67f421c8-1836-4702-82c6-304741c443ac" = {
-        credentialsFile = "/etc/cloudflared/tunnel.json";
+      "29cf8536-1108-4b81-8cbb-ff6d84cdf120" = {
+        credentialsFile = config.age.secrets.cf-tunnel-json;
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
           # "sjallabong.com" = "http://localhost:3000";
