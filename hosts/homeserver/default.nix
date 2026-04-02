@@ -12,7 +12,10 @@ in
   ++ mkImports ../../system imports;
 
   # 71fc4efd9ff85d6e65f7bac4f1f8f91d zoneid
-  age.secrets.cf-api-shlb.file = ../../secrets/cf-api-shlb.age;
+  age.secrets.cf-api-shlb = {
+    file = ../../secrets/cf-api-shlb.age;
+    owner = "seb";
+  };
   networking = {
     hostName = "Diorite";
     domain = "local";

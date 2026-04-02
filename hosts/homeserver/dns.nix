@@ -1,25 +1,34 @@
+{ lib, ... }:
+let
+  tunnel = "29cf8536-1108-4b81-8cbb-ff6d84cdf120";
+  target = "${tunnel}.cfargotunnel.com";
+  zone = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
+
+  mkRecord = zone: hostname: {
+    "${hostname}" = {
+      zone_id = zone;
+      name = hostname;
+      content = target;
+      type = "CNAME";
+      proxied = true;
+    };
+  };
+in
 {
   terraform.required_providers.cloudflare = {
     source = "cloudflare/cloudflare";
-    version = "~> 4";
+    version = "~> 5";
   };
 
-  resource.cloudflare_record =
-    let
-      zoneId = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
-      tunnelCname = "67f421c8-1836-4702-82c6-304741c443ac.cfargotunnel.com";
-      mkTunnelRecord = name: {
-        zone_id = zoneId;
-        inherit name;
-        content = tunnelCname;
-        type = "CNAME";
-        proxied = true;
-      };
-    in
-    {
-      sjallabong_root = mkTunnelRecord "@";
-      sjallabong_matrix = mkTunnelRecord "matrix";
-      sjallabong_pool = mkTunnelRecord "pool";
-      sjallabong_account = mkTunnelRecord "account";
-    };
+  provider.cloudflare = {
+    api_token = "\${var.cloudflare_api_token}";
+  };
+
+  resource.cloudflare_dns_record =
+    (mkRecord zone "ssh.shlb.ng")
+    // (mkRecord zone "dash.shlb.ng")
+    // (mkRecord zone "pool.sjallabong.com")
+    // (mkRecord zone "account.sjallabong.com")
+    // (mkRecord zone "matrix.sjallabong.com")
+    // (mkRecord zone "sjallabong.com");
 }

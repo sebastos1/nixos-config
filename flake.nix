@@ -48,11 +48,9 @@
           devShells.default = pkgs.mkShell {
             packages = [ inputs.agenix.packages.${pkgs.system}.default ];
           };
+
           terranix.terranixConfigurations.dns = {
-            terraformWrapper = {
-              package = pkgs.opentofu;
-              prefixText = "CLOUDFLARE_API_TOKEN=$(cat /run/agenix/cf-api-shlb) && export CLOUDFLARE_API_TOKEN";
-            };
+            terraformWrapper.package = pkgs.opentofu;
             modules = [ ./hosts/homeserver/dns.nix ];
           };
         };
