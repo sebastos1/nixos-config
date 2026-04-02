@@ -17,10 +17,10 @@ in
   ++ mkImports ../../system imports;
 
   # 71fc4efd9ff85d6e65f7bac4f1f8f91d zoneid
-  age.secrets.cf-api-shlb = {
-    file = ../../secrets/cf-api-shlb.age;
-    owner = "seb";
-  };
+  # age.secrets.cf-api-shlb = {
+  #   file = ../../secrets/cf-api-shlb.age;
+  #   owner = "seb";
+  # };
   networking = {
     hostName = "Diorite";
     domain = "local";
@@ -102,11 +102,12 @@ in
     ];
   };
 
+  age.secrets.cf-tunnel-json.file = ../../secrets/cf-tunnel-json.age;
   services.cloudflared = {
     enable = true;
     tunnels = {
       "29cf8536-1108-4b81-8cbb-ff6d84cdf120" = {
-        credentialsFile = config.age.secrets.cf-tunnel-json;
+        credentialsFile = config.age.secrets.cf-tunnel-json.path;
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";
           # "sjallabong.com" = "http://localhost:3000";
