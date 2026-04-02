@@ -30,6 +30,11 @@
         proto = "tcp";
         sourcePort = 1234;
       }
+      {
+        destination = "10.0.0.3:3000";
+        proto = "tcp";
+        sourcePort = 1235;
+      }
     ];
   };
 

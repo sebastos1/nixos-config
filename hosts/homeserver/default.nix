@@ -21,7 +21,18 @@ in
       80
       443
       1234
+      1235
     ];
+  };
+
+  microvm.vms.forgejo-vm = {
+    autostart = true;
+    config = {
+      imports = [
+        inputs.microvm.nixosModules.microvm
+        ../vms/forgejo.nix
+      ];
+    };
   };
 
   microvm.vms.glance-vm = {

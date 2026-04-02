@@ -41,10 +41,12 @@
   };
 
   # networking
-  networking.nftables.enable = true;
-  networking.firewall = {
-    enable = true;
-    allowPing = false;
+  networking = {
+    nftables.enable = true;
+    firewall = {
+      enable = true;
+      allowPing = false;
+    };
   };
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = false;
@@ -76,4 +78,5 @@
       LC_NAME = "nb_NO.UTF-8";
     };
   };
+  console.keyMap = "no-latin1";
 }
