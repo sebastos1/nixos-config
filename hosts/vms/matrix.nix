@@ -38,7 +38,7 @@ in
     };
   };
 
-  systemd.services.matrix-continuwuity.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.continuwuity.serviceConfig.DynamicUser = lib.mkForce false;
   users.users.continuwuity = {
     isSystemUser = true;
     group = "continuwuity";
