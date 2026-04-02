@@ -12,6 +12,7 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.terranix.flakeModule ];
       systems = [ "x86_64-linux" ];
 
       flake =
@@ -46,6 +47,13 @@
           formatter = pkgs.nixfmt-tree;
           devShells.default = pkgs.mkShell {
             packages = [ inputs.agenix.packages.${pkgs.system}.default ];
+          };
+          terranix.terranixConfigurations.dns = {
+            terraformWrapper = {
+              package = pkgs.opentofu;
+              prefixText = "export CLOUDFLARE_API_TOKEN=$(cat /run/agenix/cf-api-shlb)";
+            };
+            modules = [ ./hosts/homeserver/dns.nix ];
           };
         };
     };
@@ -101,6 +109,11 @@
 
     microvm = {
       url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    terranix = {
+      url = "github:terranix/terranix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -89,6 +89,7 @@ in
     };
   };
 
+  # chills on 6167
   services.matrix-continuwuity = {
     enable = true;
     settings.global = {
