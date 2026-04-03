@@ -44,5 +44,14 @@ Boot into this iso and just get ip (`ip a`), then on main machine:
 ssh seb@<ip>
 git clone https://github.com/sebastos1/nixos-config /tmp/config
 cd /tmp/config
-sudo disko --mode destroy,format,mount hosts/<host>/disk.nix # NEVER do the manual disk setup again! abhorrent procedure!
+
+# NEVER do manual disk setup again! define disk setup somewhere (todo, my fault g)
+sudo disko --mode destroy,format,mount hosts/<host>/disk.nix 
+
+# root password doesn't matter anyway
+sudo nixos-install --flake .#<host> --no-root-passwd
 ```
+
+then reboot and the ip probably changed
+
+TODO cloudflare bullshit >:c, terranix

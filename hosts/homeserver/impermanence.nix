@@ -29,7 +29,8 @@
     hideMounts = true;
     directories = [
       "/var/lib/nixos"
-      "/var/lib/microvm"
+      "/var/lib/microvm" # it was plural maybe remove this?
+      "/var/lib/microvms"
       "/var/log"
     ];
     files = [
