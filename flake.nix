@@ -9,6 +9,8 @@
       nixcord,
       zen-browser,
       microvm,
+      disko,
+      impermanence,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -27,6 +29,8 @@
               agenix.nixosModules.default
               home-manager.nixosModules.home-manager
               microvm.nixosModules.host
+              disko.nixosModules.disko
+              impermanence.nixosModules.impermanence
             ];
             sharedModules = [
               nixcord.homeModules.nixcord
@@ -112,5 +116,12 @@
       url = "github:terranix/terranix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    impermanence.url = "github:nix-community/impermanence";
   };
 }

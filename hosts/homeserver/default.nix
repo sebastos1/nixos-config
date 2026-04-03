@@ -13,6 +13,8 @@ in
 {
   imports = [
     ./hardware.nix
+    ./disk.nix
+    ./impermanence.nix
 
     (mkVms {
       subnetPrefix = "10.0.0";
