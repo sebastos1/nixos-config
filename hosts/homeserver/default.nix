@@ -1,7 +1,8 @@
 {
   mkImports,
-  inputs,
+  # inputs,
   config,
+  mkVms,
   ...
 }:
 let
@@ -12,6 +13,38 @@ in
 {
   imports = [
     ./hardware.nix
+
+    (mkVms {
+      subnetPrefix = "10.0.0";
+      vms = [
+        {
+          name = "glance";
+          services = [ ../../system/services/glance ];
+        }
+        {
+          name = "forgejo";
+          services = [ ../../system/services/forgejo.nix ];
+          volumes = [
+            {
+              image = "forgejo-data.img";
+              mountPoint = "/var/lib/forgejo";
+              size = 2048;
+            }
+          ];
+        }
+        {
+          name = "matrix";
+          services = [ ../../system/services/matrix.nix ];
+          volumes = [
+            {
+              image = "matrix-data.img";
+              mountPoint = "/var/lib/continuwuity";
+              size = 2048;
+            }
+          ];
+        }
+      ];
+    })
   ]
   ++ mkImports ../../system imports;
 
@@ -28,37 +61,37 @@ in
     ];
   };
 
-  microvm.vms = {
-    matrix-vm = {
-      autostart = true;
-      config = {
-        imports = [
-          inputs.microvm.nixosModules.microvm
-          ../vms/matrix.nix
-        ];
-      };
-    };
+  # microvm.vms = {
+  #   matrix-vm = {
+  #     autostart = true;
+  #     config = {
+  #       imports = [
+  #         inputs.microvm.nixosModules.microvm
+  #         ../vms/matrix.nix
+  #       ];
+  #     };
+  #   };
 
-    forgejo-vm = {
-      autostart = true;
-      config = {
-        imports = [
-          inputs.microvm.nixosModules.microvm
-          ../vms/forgejo.nix
-        ];
-      };
-    };
+  #   forgejo-vm = {
+  #     autostart = true;
+  #     config = {
+  #       imports = [
+  #         inputs.microvm.nixosModules.microvm
+  #         ../vms/forgejo.nix
+  #       ];
+  #     };
+  #   };
 
-    glance-vm = {
-      autostart = true;
-      config = {
-        imports = [
-          inputs.microvm.nixosModules.microvm
-          ../vms/glance.nix
-        ];
-      };
-    };
-  };
+  #   glance-vm = {
+  #     autostart = true;
+  #     config = {
+  #       imports = [
+  #         inputs.microvm.nixosModules.microvm
+  #         ../vms/glance.nix
+  #       ];
+  #     };
+  #   };
+  # };
 
   systemd.network = {
     netdevs."10-microvm".netdevConfig = {
@@ -117,10 +150,6 @@ in
           "git.shlb.ng" = "http://10.0.0.3:3000";
 
           "matrix.sjallabong.com" = "http://10.0.0.4:6167";
-          # "sjallabong.com" = {
-          #   service = "http://10.0.0.4:6167"; # /.well-known
-          #   path = "/.well-known/matrix/.*";
-          # };
           "sjallabong.com" = "http://10.0.0.4:8080";
         };
         default = "http_status:404";

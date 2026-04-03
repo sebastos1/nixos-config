@@ -58,5 +58,4 @@
     ../../system/services/matrix.nix
   ];
 
-  system.stateVersion = "25.11";
 }
