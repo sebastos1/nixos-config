@@ -71,10 +71,6 @@
   ];
 
   nix.settings.trusted-users = [ username ];
-  security = {
-    sudo.extraConfig = "Defaults pwfeedback"; # show asterisks
-    sudo.wheelNeedsPassword = false;
-  };
 
   nixpkgs.config.chromium.enableWideVine = true;
 

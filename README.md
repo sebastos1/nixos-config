@@ -30,3 +30,19 @@ hardcoded wallpaper path yikes
 tailscale
 tie to vps
 syncthing
+
+
+# New machine
+Build iso:
+```sh
+nix build .#nixosConfigurations.installer.config.system.build.isoImage
+sudo dd status=progress bs=4M if=result/iso/<ermm> of=/dev/<sdX>
+```
+
+Boot into this iso and just get ip (`ip a`), then on main machine:
+```sh
+ssh seb@<ip>
+git clone https://github.com/sebastos1/nixos-config /tmp/config
+cd /tmp/config
+sudo disko --mode destroy,format,mount hosts/<host>/disk.nix # NEVER do the manual disk setup again! abhorrent procedure!
+```

@@ -7,8 +7,8 @@
       type = "gpt";
       partitions = {
         ESP = {
-          size = "512M";
           type = "EF00";
+          size = "512M";
           content = {
             type = "filesystem";
             format = "vfat";

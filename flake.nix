@@ -41,11 +41,18 @@
         in
         {
           # register hosts here
-          nixosConfigurations = lib.mkSystems [
-            "desk"
-            "lap"
-            "homeserver"
-          ];
+          nixosConfigurations =
+            lib.mkSystems [
+              "desk"
+              "lap"
+              "homeserver"
+            ]
+            // {
+              installer = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                modules = [ ./hosts/installer.nix ];
+              };
+            };
         };
 
       perSystem =

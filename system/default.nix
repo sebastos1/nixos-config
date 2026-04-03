@@ -28,7 +28,10 @@
   systemd.coredump.enable = false;
 
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+    };
     efi.canTouchEfiVariables = true;
   };
 
@@ -61,6 +64,10 @@
     extraGroups = [
       "wheel"
     ];
+  };
+  security = {
+    sudo.extraConfig = "Defaults pwfeedback"; # show asterisks
+    sudo.wheelNeedsPassword = false;
   };
 
   # locale
