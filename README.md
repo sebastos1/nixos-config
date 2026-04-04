@@ -54,9 +54,22 @@ sudo nixos-install --flake .#<host> --no-root-passwd
 
 then reboot and the ip probably changed
 
-TODO cloudflare bullshit >:c, terranix
-
 If ever need to rebuild on the server, do:
 ```sh
 sudo nixos-rebuild switch --flake github:sebastos1/nixos-config#<host>
+```
+
+Cloudflare tunnels, terranix:
+Need:
+- cf tunnel .json
+- zone api key for opentofu to crank dns
+```sh
+nix run .#dns
+```
+
+Backups
+```sh
+sudo parted /dev/sdd -- mklabel gpt
+sudo parted /dev/sdd -- mkpart primary btrfs 0% 100%
+sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
 ```

@@ -15,6 +15,7 @@ in
     ./hardware.nix
     ./disk.nix
     ./impermanence.nix
+    ./backups.nix
 
     (mkVms {
       subnetPrefix = "10.0.0";
@@ -62,38 +63,6 @@ in
       1235
     ];
   };
-
-  # microvm.vms = {
-  #   matrix-vm = {
-  #     autostart = true;
-  #     config = {
-  #       imports = [
-  #         inputs.microvm.nixosModules.microvm
-  #         ../vms/matrix.nix
-  #       ];
-  #     };
-  #   };
-
-  #   forgejo-vm = {
-  #     autostart = true;
-  #     config = {
-  #       imports = [
-  #         inputs.microvm.nixosModules.microvm
-  #         ../vms/forgejo.nix
-  #       ];
-  #     };
-  #   };
-
-  #   glance-vm = {
-  #     autostart = true;
-  #     config = {
-  #       imports = [
-  #         inputs.microvm.nixosModules.microvm
-  #         ../vms/glance.nix
-  #       ];
-  #     };
-  #   };
-  # };
 
   systemd.network = {
     netdevs."10-microvm".netdevConfig = {
