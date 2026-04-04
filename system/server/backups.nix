@@ -51,11 +51,7 @@ in
         target_preserve = "30d 10w";
         volume.${cfg.btrfsRoot} = {
           snapshot_dir = "snapshots";
-          target = cfg.target;
-          subvolume = {
-            persistent = { };
-          }
-          // cfg.subVolumes;
+          inherit (cfg) target subVolumes;
         };
       };
     };

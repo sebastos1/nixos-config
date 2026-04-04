@@ -7,8 +7,6 @@
   ...
 }:
 let
-  server = import ./server.nix { inherit inputs nixpkgs; };
-
   mkImports = base: paths: map (p: base + p) paths;
 
   mkSystem =
@@ -20,24 +18,23 @@ let
           username
           mkImports
           ;
-        inherit (server) mkVms;
       };
       modules = systemModules ++ [
-        ../system
-        ../hosts/${name}
+        ./system
+        ./hosts/${name}
         {
           home-manager = {
             useGlobalPkgs = true;
             backupFileExtension = "backup";
             users.${username}.imports = [
-              ../home
-              ../hosts/${name}/home.nix
+              ./home
+              ./hosts/${name}/home.nix
             ];
             extraSpecialArgs = inputs // {
               hostProfile = name;
               inherit username mkImports;
             };
-            sharedModules = sharedModules;
+            inherit sharedModules;
           };
         }
       ];

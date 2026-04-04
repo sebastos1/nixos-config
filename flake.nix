@@ -26,7 +26,7 @@
         flake =
           let
             username = "seb";
-            lib = import ./lib {
+            lib = import ./lib.nix {
               inherit username inputs nixpkgs;
               systemModules = [
                 agenix.nixosModules.default
@@ -74,8 +74,7 @@
               terraformWrapper.package = pkgs.opentofu;
               extraArgs = {
                 dns = lib.mapAttrs (_: host: {
-                  tunnelId = host.config.server.dns.tunnelId;
-                  allServices = host.config.server.dns.allServices;
+                  inherit (host.config.server.dns) tunnelId allServices;
                 }) (lib.filterAttrs (_: host: host.config.server.dns.enable or false) self.nixosConfigurations);
               };
               modules = [ ./system/server/dns/terra.nix ];

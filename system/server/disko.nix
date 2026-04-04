@@ -55,21 +55,21 @@ in
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";
-                  mountOptions = mountOptions;
+                  inherit mountOptions;
                 };
                 "/nix" = {
                   mountpoint = "/nix";
-                  mountOptions = mountOptions;
+                  inherit mountOptions;
                 };
                 "/log" = {
                   mountpoint = "/var/log";
-                  mountOptions = mountOptions;
+                  inherit mountOptions;
                 };
               }
               // lib.optionalAttrs (cfg.persistenceDir != null) {
                 ${cfg.persistenceDir} = {
                   mountpoint = cfg.persistenceDir;
-                  mountOptions = mountOptions;
+                  inherit mountOptions;
                 };
               };
             };

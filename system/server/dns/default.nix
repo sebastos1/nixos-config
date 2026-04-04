@@ -54,9 +54,10 @@ in
       tunnels.${cfg.tunnelId} = {
         credentialsFile = cfg.secretsFile;
         ingress = builtins.listToAttrs (
-          map (svc: {
-            name = if svc.subdomain == "@" then svc.domain else "${svc.subdomain}.${svc.domain}";
-            value = svc.backend;
+          map (service: {
+            name =
+              if service.subdomain == "@" then service.domain else "${service.subdomain}.${service.domain}";
+            value = service.backend;
           }) allServices
         );
         default = "http_status:404";

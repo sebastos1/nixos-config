@@ -48,7 +48,6 @@ in
       hideMounts = true;
       directories = [
         "/var/lib/nixos"
-        # "/var/lib/microvms"
       ]
       ++ cfg.directories;
       files = [

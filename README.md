@@ -46,7 +46,7 @@ git clone https://github.com/sebastos1/nixos-config /tmp/config
 cd /tmp/config
 
 # NEVER do manual disk setup again! define disk setup somewhere (todo, my fault g)
-sudo disko --mode destroy,format,mount hosts/<host>/disk.nix 
+sudo disko --mode destroy,format,mount --flake .#<host> # --yes-wipe-all-disks
 
 # root password doesn't matter anyway
 sudo nixos-install --flake .#<host> --no-root-passwd
@@ -68,8 +68,7 @@ nix run .#dns
 ```
 
 Backups
-```sh
-sudo parted /dev/sdd -- mklabel gpt
+```sh 
 sudo parted /dev/sdd -- mkpart primary btrfs 0% 100%
 sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
 ```

@@ -5,6 +5,7 @@
     ./backups.nix
     ./disko.nix
     ./dns
+    ./vms.nix
   ];
 
   users.mutableUsers = false;

@@ -1,7 +1,6 @@
 {
   mkImports,
   config,
-  mkVms,
   ...
 }:
 let
@@ -9,33 +8,13 @@ let
     /server
   ];
 
-  zones = {
-    "shlb.ng" = {
-      id = "e30b7a9147aac2d6283478a2c4d96919";
-      services = {
-        "ssh" = "ssh://localhost:22";
-        "dash" = "http://10.0.0.2:8080";
-        "git" = "http://10.0.0.3:3000";
-      };
-    };
-    "sjallabong.com" = {
-      id = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
-      services = {
-        "pool" = "http://localhost:8080";
-        "account" = "http://localhost:3001";
-        "matrix" = "http://10.0.0.4:6167";
-        "@" = "http://10.0.0.4:8080";
-      };
-    };
-  };
-
-  vms = [
-    {
-      name = "glance";
+  vms = {
+    glance = {
+      ip = "10.0.0.2";
       services = [ ../../system/services/glance ];
-    }
-    {
-      name = "forgejo";
+    };
+    forgejo = {
+      ip = "10.0.0.3";
       services = [ ../../system/services/forgejo.nix ];
       data = [
         {
@@ -43,9 +22,9 @@ let
           mountPoint = "/var/lib/forgejo";
         }
       ];
-    }
-    {
-      name = "matrix";
+    };
+    matrix = {
+      ip = "10.0.0.4";
       services = [ ../../system/services/matrix.nix ];
       data = [
         {
@@ -53,16 +32,32 @@ let
           mountPoint = "/var/lib/continuwuity";
         }
       ];
-    }
-  ];
+    };
+  };
+
+  zones = {
+    "shlb.ng" = {
+      id = "e30b7a9147aac2d6283478a2c4d96919";
+      services = {
+        "ssh" = "ssh://localhost:22";
+        "dash" = "http://${vms.glance.ip}:8080";
+        "git" = "http://${vms.forgejo.ip}:3000";
+      };
+    };
+    "sjallabong.com" = {
+      id = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
+      services = {
+        # "pool" = "http://localhost:8080";
+        # "account" = "http://localhost:3001";
+        "matrix" = "http://${vms.matrix.ip}:6167";
+        "@" = "http://${vms.matrix.ip}:8080";
+      };
+    };
+  };
 in
 {
   imports = [
     ./hardware.nix
-    (mkVms {
-      subnetPrefix = "10.0.0";
-      vms = vms;
-    })
   ]
   ++ mkImports ../../system imports;
 
@@ -70,7 +65,7 @@ in
     enable = true;
     target = "/mnt/backups/diorite";
     subVolumes = {
-      "persistent" = { };
+      "persist" = { };
     };
   };
 
@@ -86,6 +81,11 @@ in
     fsType = "btrfs";
     swapSize = "8G";
     persistenceDir = "/persist";
+  };
+
+  server.vms = {
+    enable = true;
+    vms = vms;
   };
 
   networking = {
@@ -117,24 +117,6 @@ in
     };
   };
 
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "microvm" ];
-    externalInterface = "enp2s0";
-    forwardPorts = [
-      {
-        destination = "10.0.0.2:8080";
-        proto = "tcp";
-        sourcePort = 1234;
-      }
-      {
-        destination = "10.0.0.3:3000";
-        proto = "tcp";
-        sourcePort = 1235;
-      }
-    ];
-  };
-
   age.secrets.cf-tunnel-json.file = ../../secrets/cf-tunnel-json.age;
   server.dns = {
     enable = true;
@@ -142,29 +124,6 @@ in
     secretsFile = config.age.secrets.cf-tunnel-json.path;
     zones = zones;
   };
-
-  # age.secrets.cf-tunnel-json.file = ../../secrets/cf-tunnel-json.age;
-  # services.cloudflared = {
-  #   enable = true;
-  #   tunnels = {
-  #     "3c4839a0-a5ff-4da1-8512-e00428fd24a5" = {
-  #       credentialsFile = config.age.secrets.cf-tunnel-json.path;
-  #       ingress = {
-  #         "ssh.shlb.ng" = "ssh://localhost:22";
-  #         # "sjallabong.com" = "http://localhost:3000";
-  #         "pool.sjallabong.com" = "http://localhost:8080";
-  #         "account.sjallabong.com" = "http://localhost:3001";
-
-  #         "dash.shlb.ng" = "http://10.0.0.2:8080";
-  #         "git.shlb.ng" = "http://10.0.0.3:3000";
-
-  #         "matrix.sjallabong.com" = "http://10.0.0.4:6167";
-  #         "sjallabong.com" = "http://10.0.0.4:8080";
-  #       };
-  #       default = "http_status:404";
-  #     };
-  #   };
-  # };
 
   system.stateVersion = "25.11";
 }
