@@ -38,4 +38,8 @@
       "/etc/ssh/ssh_host_ed25519_key.pub"
     ];
   };
+
+  age.identityPaths = [
+    "/persistent/etc/ssh/ssh_host_ed25519_key"
+  ];
 }

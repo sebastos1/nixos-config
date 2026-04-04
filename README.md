@@ -73,3 +73,5 @@ sudo parted /dev/sdd -- mklabel gpt
 sudo parted /dev/sdd -- mkpart primary btrfs 0% 100%
 sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
 ```
+
+todo luks
