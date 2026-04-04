@@ -75,7 +75,7 @@ sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
 Then:
 ```sh
 # perform a manual backup (runs at 00:00 currently)
-sudo systemctl start btrbk-ssd-backup.service
+sudo systemctl start btrbk-backup.service
 ls /mnt/backups/diorite/
 # should show a new persistent.<timestamp> entry
 ```

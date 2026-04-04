@@ -66,6 +66,8 @@ in
     target = "/mnt/backups/diorite";
     subvolume = {
       "persist" = { };
+      "persist/var/lib/microvms/forgejo/forgejo-data" = { }; # todo
+      "persist/var/lib/microvms/matrix/matrix-data" = { };
     };
   };
 
