@@ -79,5 +79,11 @@ sudo systemctl start btrbk-backup.service
 ls /mnt/backups/diorite/
 # should show a new persistent.<timestamp> entry
 ```
-
 todo luks
+
+
+VMs
+Logs are forwarded so you can do
+```sh
+journalctl -m -u <servicename>
+```

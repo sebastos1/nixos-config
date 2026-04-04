@@ -74,7 +74,11 @@ in
   server.impermanence = {
     enable = true;
     rootDir = "/persist";
-    directories = [ "/var/lib/microvms" ];
+    directories = [
+      "/var/lib/microvms"
+      "/var/lib/microvms/forgejo/forgejo-data"
+      "/var/lib/microvms/matrix/matrix-data"
+    ];
   };
 
   server.disko = {
