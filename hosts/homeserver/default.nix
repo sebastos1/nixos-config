@@ -27,22 +27,20 @@ in
         {
           name = "forgejo";
           services = [ ../../system/services/forgejo.nix ];
-          volumes = [
+          data = [
             {
-              image = "forgejo-data.img";
+              name = "forgejo-data";
               mountPoint = "/var/lib/forgejo";
-              size = 2048;
             }
           ];
         }
         {
           name = "matrix";
           services = [ ../../system/services/matrix.nix ];
-          volumes = [
+          data = [
             {
-              image = "matrix-data.img";
+              name = "matrix-data";
               mountPoint = "/var/lib/continuwuity";
-              size = 2048;
             }
           ];
         }
