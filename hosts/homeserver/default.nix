@@ -64,7 +64,7 @@ in
   server.backups = {
     enable = true;
     target = "/mnt/backups/diorite";
-    subVolumes = {
+    subVolume = {
       "persist" = { };
     };
   };

@@ -8,7 +8,7 @@ in
     target = lib.mkOption {
       type = lib.types.str;
     };
-    subVolumes = lib.mkOption {
+    subVolume = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = { };
     };
@@ -51,7 +51,7 @@ in
         target_preserve = "30d 10w";
         volume.${cfg.btrfsRoot} = {
           snapshot_dir = "snapshots";
-          inherit (cfg) target subVolumes;
+          inherit (cfg) target subVolume;
         };
       };
     };
