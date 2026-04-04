@@ -73,5 +73,12 @@ sudo parted /dev/sdd -- mklabel gpt
 sudo parted /dev/sdd -- mkpart primary btrfs 0% 100%
 sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
 ```
+Then:
+```sh
+# perform a manual backup (runs at 00:00 currently)
+sudo systemctl start btrbk-ssd-backup.service
+ls /mnt/backups/diorite/
+# should show a new persistent.<timestamp> entry
+```
 
 todo luks

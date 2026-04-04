@@ -30,7 +30,6 @@
     directories = [
       "/var/lib/nixos"
       "/var/lib/microvms"
-      "/var/log"
     ];
     files = [
       "/etc/machine-id"

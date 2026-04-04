@@ -152,7 +152,7 @@ let
           "d /var/lib/microvms/${vm.name}/journal 0755 root root -"
           "L+ /var/log/journal/${machineId vm.name} - - - - /var/lib/microvms/${vm.name}/journal/${machineId vm.name}"
         ]
-        ++ map (d: "q /var/lib/microvms/${vm.name}/${d.name} 0755 root root -") (vm.data or [ ])
+        ++ map (d: "d /var/lib/microvms/${vm.name}/${d.name} 0755 root root -") (vm.data or [ ])
       ) vms;
     };
 
