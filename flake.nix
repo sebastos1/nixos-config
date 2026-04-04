@@ -2,9 +2,9 @@
   outputs =
     {
       nixpkgs,
+      flake-parts,
       agenix,
       home-manager,
-      flake-parts,
       stylix,
       nixcord,
       zen-browser,
@@ -13,57 +13,76 @@
       impermanence,
       ...
     }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.terranix.flakeModule
-        ./hosts/homeserver/dns.nix
-      ];
-      systems = [ "x86_64-linux" ];
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{ self, ... }:
+      {
+        systems = [ "x86_64-linux" ];
 
-      flake =
-        let
-          username = "seb";
-          lib = import ./lib.nix {
-            inherit username inputs nixpkgs;
-            systemModules = [
-              agenix.nixosModules.default
-              home-manager.nixosModules.home-manager
-              microvm.nixosModules.host
-              disko.nixosModules.disko
-              impermanence.nixosModules.impermanence
-            ];
-            sharedModules = [
-              nixcord.homeModules.nixcord
-              stylix.homeModules.stylix
-              zen-browser.homeModules.beta
-            ];
-          };
-        in
-        {
-          # register hosts here
-          nixosConfigurations =
-            lib.mkSystems [
-              "desk"
-              "lap"
-              "homeserver"
-            ]
-            // {
-              installer = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                modules = [ ./hosts/installer.nix ];
-              };
+        imports = [
+          inputs.terranix.flakeModule
+          # ./system/server/dns/terra.nix
+        ];
+
+        flake =
+          let
+            username = "seb";
+            lib = import ./lib {
+              inherit username inputs nixpkgs;
+              systemModules = [
+                agenix.nixosModules.default
+                home-manager.nixosModules.home-manager
+                microvm.nixosModules.host
+                disko.nixosModules.disko
+                impermanence.nixosModules.impermanence
+              ];
+              sharedModules = [
+                nixcord.homeModules.nixcord
+                stylix.homeModules.stylix
+                zen-browser.homeModules.beta
+              ];
             };
-        };
-
-      perSystem =
-        { pkgs, ... }:
-        {
-          formatter = pkgs.nixfmt-tree;
-          devShells.default = pkgs.mkShell {
-            packages = [ inputs.agenix.packages.${pkgs.system}.default ];
+          in
+          {
+            # register hosts here
+            nixosConfigurations =
+              lib.mkSystems [
+                "homeserver"
+                "desk"
+                "lap"
+              ]
+              // {
+                installer = nixpkgs.lib.nixosSystem {
+                  system = "x86_64-linux";
+                  modules = [ ./hosts/installer.nix ];
+                };
+              };
           };
-        };
-    };
+
+        perSystem =
+          {
+            pkgs,
+            lib,
+            ...
+          }:
+          {
+            formatter = pkgs.nixfmt-tree;
+            devShells.default = pkgs.mkShell {
+              packages = [ inputs.agenix.packages.${pkgs.system}.default ];
+            };
+
+            terranix.terranixConfigurations.dns = {
+              terraformWrapper.package = pkgs.opentofu;
+              extraArgs = {
+                dns = lib.mapAttrs (_: host: {
+                  tunnelId = host.config.server.dns.tunnelId;
+                  allServices = host.config.server.dns.allServices;
+                }) (lib.filterAttrs (_: host: host.config.server.dns.enable or false) self.nixosConfigurations);
+              };
+              modules = [ ./system/server/dns/terra.nix ];
+            };
+          };
+      }
+    );
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

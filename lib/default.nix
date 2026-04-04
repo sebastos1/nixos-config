@@ -1,0 +1,57 @@
+{
+  nixpkgs,
+  username,
+  inputs,
+  systemModules,
+  sharedModules,
+  ...
+}:
+let
+  server = import ./server.nix { inherit inputs nixpkgs; };
+
+  mkImports = base: paths: map (p: base + p) paths;
+
+  mkSystem =
+    name:
+    nixpkgs.lib.nixosSystem {
+      specialArgs = inputs // {
+        inherit
+          inputs
+          username
+          mkImports
+          ;
+        inherit (server) mkVms;
+      };
+      modules = systemModules ++ [
+        ../system
+        ../hosts/${name}
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            backupFileExtension = "backup";
+            users.${username}.imports = [
+              ../home
+              ../hosts/${name}/home.nix
+            ];
+            extraSpecialArgs = inputs // {
+              hostProfile = name;
+              inherit username mkImports;
+            };
+            sharedModules = sharedModules;
+          };
+        }
+      ];
+    };
+
+  mkSystems =
+    names:
+    builtins.listToAttrs (
+      map (name: {
+        inherit name;
+        value = mkSystem name;
+      }) names
+    );
+in
+{
+  inherit mkSystems mkImports;
+}

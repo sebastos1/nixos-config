@@ -1,53 +1,92 @@
 {
   mkImports,
-  # inputs,
   config,
   mkVms,
   ...
 }:
 let
   imports = [
-    /server.nix
+    /server
+  ];
+
+  zones = {
+    "shlb.ng" = {
+      id = "e30b7a9147aac2d6283478a2c4d96919";
+      services = {
+        "ssh" = "ssh://localhost:22";
+        "dash" = "http://10.0.0.2:8080";
+        "git" = "http://10.0.0.3:3000";
+      };
+    };
+    "sjallabong.com" = {
+      id = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
+      services = {
+        "pool" = "http://localhost:8080";
+        "account" = "http://localhost:3001";
+        "matrix" = "http://10.0.0.4:6167";
+        "@" = "http://10.0.0.4:8080";
+      };
+    };
+  };
+
+  vms = [
+    {
+      name = "glance";
+      services = [ ../../system/services/glance ];
+    }
+    {
+      name = "forgejo";
+      services = [ ../../system/services/forgejo.nix ];
+      data = [
+        {
+          name = "forgejo-data";
+          mountPoint = "/var/lib/forgejo";
+        }
+      ];
+    }
+    {
+      name = "matrix";
+      services = [ ../../system/services/matrix.nix ];
+      data = [
+        {
+          name = "matrix-data";
+          mountPoint = "/var/lib/continuwuity";
+        }
+      ];
+    }
   ];
 in
 {
   imports = [
     ./hardware.nix
-    ./disk.nix
-    ./impermanence.nix
-    ./backups.nix
-
     (mkVms {
       subnetPrefix = "10.0.0";
-      vms = [
-        {
-          name = "glance";
-          services = [ ../../system/services/glance ];
-        }
-        {
-          name = "forgejo";
-          services = [ ../../system/services/forgejo.nix ];
-          data = [
-            {
-              name = "forgejo-data";
-              mountPoint = "/var/lib/forgejo";
-            }
-          ];
-        }
-        {
-          name = "matrix";
-          services = [ ../../system/services/matrix.nix ];
-          data = [
-            {
-              name = "matrix-data";
-              mountPoint = "/var/lib/continuwuity";
-            }
-          ];
-        }
-      ];
+      vms = vms;
     })
   ]
   ++ mkImports ../../system imports;
+
+  server.backups = {
+    enable = true;
+    target = "/mnt/backups/diorite";
+    subVolumes = {
+      "persistent" = { };
+    };
+  };
+
+  server.impermanence = {
+    enable = true;
+    rootDir = "/persist";
+    directories = [ "/var/lib/microvms" ];
+  };
+
+  server.disko = {
+    enable = true;
+    device = "/dev/sda";
+    fsType = "btrfs";
+    swapSize = "8G";
+    persistenceDir = "/persist";
+  };
 
   networking = {
     hostName = "Diorite";
@@ -57,8 +96,6 @@ in
       22
       80
       443
-      1234
-      1235
     ];
   };
 
@@ -99,27 +136,35 @@ in
   };
 
   age.secrets.cf-tunnel-json.file = ../../secrets/cf-tunnel-json.age;
-  services.cloudflared = {
+  server.dns = {
     enable = true;
-    tunnels = {
-      "3c4839a0-a5ff-4da1-8512-e00428fd24a5" = {
-        credentialsFile = config.age.secrets.cf-tunnel-json.path;
-        ingress = {
-          "ssh.shlb.ng" = "ssh://localhost:22";
-          # "sjallabong.com" = "http://localhost:3000";
-          "pool.sjallabong.com" = "http://localhost:8080";
-          "account.sjallabong.com" = "http://localhost:3001";
-
-          "dash.shlb.ng" = "http://10.0.0.2:8080";
-          "git.shlb.ng" = "http://10.0.0.3:3000";
-
-          "matrix.sjallabong.com" = "http://10.0.0.4:6167";
-          "sjallabong.com" = "http://10.0.0.4:8080";
-        };
-        default = "http_status:404";
-      };
-    };
+    tunnelId = "3c4839a0-a5ff-4da1-8512-e00428fd24a5";
+    secretsFile = config.age.secrets.cf-tunnel-json.path;
+    zones = zones;
   };
+
+  # age.secrets.cf-tunnel-json.file = ../../secrets/cf-tunnel-json.age;
+  # services.cloudflared = {
+  #   enable = true;
+  #   tunnels = {
+  #     "3c4839a0-a5ff-4da1-8512-e00428fd24a5" = {
+  #       credentialsFile = config.age.secrets.cf-tunnel-json.path;
+  #       ingress = {
+  #         "ssh.shlb.ng" = "ssh://localhost:22";
+  #         # "sjallabong.com" = "http://localhost:3000";
+  #         "pool.sjallabong.com" = "http://localhost:8080";
+  #         "account.sjallabong.com" = "http://localhost:3001";
+
+  #         "dash.shlb.ng" = "http://10.0.0.2:8080";
+  #         "git.shlb.ng" = "http://10.0.0.3:3000";
+
+  #         "matrix.sjallabong.com" = "http://10.0.0.4:6167";
+  #         "sjallabong.com" = "http://10.0.0.4:8080";
+  #       };
+  #       default = "http_status:404";
+  #     };
+  #   };
+  # };
 
   system.stateVersion = "25.11";
 }

@@ -1,55 +1,9 @@
 {
   nixpkgs,
-  username,
   inputs,
-  systemModules,
-  sharedModules,
   ...
 }:
 let
-  mkImports = base: paths: map (p: base + p) paths;
-
-  mkSystem =
-    name:
-    nixpkgs.lib.nixosSystem {
-      specialArgs = inputs // {
-        inherit
-          inputs
-          username
-          mkImports
-          mkVms
-          ;
-      };
-      modules = systemModules ++ [
-        ./system
-        ./hosts/${name}
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            backupFileExtension = "backup";
-            users.${username}.imports = [
-              ./home
-              ./hosts/${name}/home.nix
-            ];
-            extraSpecialArgs = inputs // {
-              hostProfile = name;
-              inherit username mkImports;
-            };
-            sharedModules = sharedModules;
-          };
-        }
-      ];
-    };
-
-  mkSystems =
-    names:
-    builtins.listToAttrs (
-      map (name: {
-        inherit name;
-        value = mkSystem name;
-      }) names
-    );
-
   mkVm =
     {
       name,
@@ -152,12 +106,11 @@ let
           "d /var/lib/microvms/${vm.name}/journal 0755 root root -"
           "L+ /var/log/journal/${machineId vm.name} - - - - /var/lib/microvms/${vm.name}/journal/${machineId vm.name}"
         ]
-        ++ map (d: "d /var/lib/microvms/${vm.name}/${d.name} 0755 root root -") (vm.data or [ ])
+        ++ map (d: "q /var/lib/microvms/${vm.name}/${d.name} 0755 root root -") (vm.data or [ ])
       ) vms;
     };
 
 in
 {
-  inherit mkSystems mkImports;
   inherit mkVms;
 }

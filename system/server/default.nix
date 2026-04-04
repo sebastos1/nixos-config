@@ -1,5 +1,12 @@
 { username, ... }:
 {
+  imports = [
+    ./impermanence.nix
+    ./backups.nix
+    ./disko.nix
+    ./dns
+  ];
+
   users.mutableUsers = false;
   users.users.${username} = {
     initialPassword = "init"; # change !
