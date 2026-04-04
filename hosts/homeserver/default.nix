@@ -140,7 +140,7 @@ in
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "29cf8536-1108-4b81-8cbb-ff6d84cdf120" = {
+      "3c4839a0-a5ff-4da1-8512-e00428fd24a5" = {
         credentialsFile = config.age.secrets.cf-tunnel-json.path;
         ingress = {
           "ssh.shlb.ng" = "ssh://localhost:22";

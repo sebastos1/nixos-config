@@ -7,7 +7,7 @@
         modules = [
           (
             let
-              tunnel = "29cf8536-1108-4b81-8cbb-ff6d84cdf120";
+              tunnel = "3c4839a0-a5ff-4da1-8512-e00428fd24a5";
               shlb = "e30b7a9147aac2d6283478a2c4d96919";
               sjallabong = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
               mkRecord = zone: name: {
