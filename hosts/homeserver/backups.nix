@@ -21,6 +21,12 @@
     ];
   };
 
+  # btrfs really doesnt want to make folders
+  systemd.tmpfiles.rules = [
+    "d /mnt/btrfs-root/snapshots 0755 root root -"
+    "d /mnt/backups/diorite 0755 root root -"
+  ];
+
   services.btrbk.instances."ssd-backup" = {
     onCalendar = "daily";
     settings = {
