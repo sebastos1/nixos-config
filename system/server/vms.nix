@@ -78,6 +78,7 @@ in
                 };
                 microvm = {
                   hypervisor = "cloud-hypervisor";
+                  optimize.enable = true;
                   machineId = machineId name;
                   vcpu = 1;
                   mem = 512;
