@@ -133,7 +133,7 @@ in
           "L+ /var/log/journal/${machineId name} - - - - /var/lib/microvms/${name}/journal/${machineId name}"
         ]
         # data dirs
-        ++ map (d: "q /var/lib/microvms/${name}/${d.name} 0755 root root -") vm.data
+        ++ map (d: "d /var/lib/microvms/${name}/${d.name} 0755 root root -") vm.data
       ) cfg.vms
     );
   };

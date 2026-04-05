@@ -61,24 +61,20 @@ in
   ]
   ++ mkImports ../../system imports;
 
-  server.backups = {
-    enable = true;
-    target = "/mnt/backups/diorite";
-    subvolume = {
-      "persist" = { };
-      "persist/var/lib/microvms/forgejo/forgejo-data" = { }; # todo
-      "persist/var/lib/microvms/matrix/matrix-data" = { };
-    };
-  };
-
   server.impermanence = {
     enable = true;
     rootDir = "/persist";
     directories = [
       "/var/lib/microvms"
-      "/var/lib/microvms/forgejo/forgejo-data"
-      "/var/lib/microvms/matrix/matrix-data"
     ];
+  };
+
+  server.backups = {
+    enable = true;
+    target = "/mnt/backups/diorite";
+    subvolume = {
+      "persist" = { };
+    };
   };
 
   server.disko = {
