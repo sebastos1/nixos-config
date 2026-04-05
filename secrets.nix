@@ -3,7 +3,7 @@ let
 
   desk = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEActGcGJ/zP2Vy1gYmCw+ZRR6l8ciBh/fAbBgecOkC";
   lap = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIALJ6Qqyv9CAG+iSPkaYTUosRWPTm4TM2TsREfrdpUyN";
-  homeserver = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDas6Ctlurp0PkCbK2SD3MCWw7JGP19hEA1lrVRV67po";
+  homeserver = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEi1XhPEUQTz1J6M+UCP2/eW438n2za4rWqQbrvLZ/0Y";
 
   allSystems = [
     desk
