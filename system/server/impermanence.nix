@@ -22,7 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     boot.initrd.supportedFilesystems = [ "btrfs" ];
     programs.fuse.userAllowOther = true;
-    boot.initrd.postDeviceCommands = lib.mkBefore ''
+    boot.initrd.postResumeCommands = lib.mkBefore ''
       mkdir -p /mnt
       mount -t btrfs -o subvol=/ /dev/disk/by-label/nixos /mnt
 
