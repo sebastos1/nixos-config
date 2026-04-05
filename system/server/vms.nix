@@ -124,17 +124,25 @@ in
     );
 
     systemd.tmpfiles.rules = lib.concatLists (
-      lib.mapAttrsToList (
-        name: vm:
-        [
-          # journal symlink
-          "d /var/lib/microvms/${name}/journal 0755 root root -"
-          "d /var/lib/microvms/${name}/journal/${machineId name} 0755 root root -"
-          "L+ /var/log/journal/${machineId name} - - - - /var/lib/microvms/${name}/journal/${machineId name}"
-        ]
-        # data dirs
-        ++ map (d: "d /var/lib/microvms/${name}/${d.name} 0755 root root -") vm.data
-      ) cfg.vms
+      lib.mapAttrsToList (name: vm: [
+        # journal symlink
+        "d /var/lib/microvms/${name}/journal 0755 root root -"
+        "d /var/lib/microvms/${name}/journal/${machineId name} 0755 root root -"
+        "L+ /var/log/journal/${machineId name} - - - - /var/lib/microvms/${name}/journal/${machineId name}"
+      ]) cfg.vms
+    );
+
+    # tmpfiles can race, use activation script instaed
+    system.activationScripts = lib.listToAttrs (
+      lib.concatLists (
+        lib.mapAttrsToList (
+          name: vm:
+          map (d: {
+            name = "microvm-${name}-${d.name}";
+            value.text = "mkdir -p /var/lib/microvms/${name}/${d.name}";
+          }) vm.data
+        ) cfg.vms
+      )
     );
   };
 }
