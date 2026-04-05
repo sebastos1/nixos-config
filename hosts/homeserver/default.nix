@@ -9,10 +9,6 @@ let
   ];
 
   vms = {
-    glance = {
-      ip = "10.0.0.2";
-      services = [ ../../system/services/glance ];
-    };
     forgejo = {
       ip = "10.0.0.3";
       services = [ ../../system/services/forgejo.nix ];
@@ -40,7 +36,7 @@ let
       id = "e30b7a9147aac2d6283478a2c4d96919";
       services = {
         "ssh" = "ssh://localhost:22";
-        "dash" = "http://${vms.glance.ip}:8080";
+        "dash" = "http://localhost:8080";
         "git" = "http://${vms.forgejo.ip}:3000";
       };
     };
@@ -58,6 +54,7 @@ in
 {
   imports = [
     ./hardware.nix
+    ../../system/services/glance
   ]
   ++ mkImports ../../system imports;
 

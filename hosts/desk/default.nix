@@ -14,6 +14,13 @@ let
   ];
 in
 {
+  imports = [
+    ./hardware.nix
+    ../../system/services/glance
+    ../../system/services/forgejo.nix
+  ]
+  ++ mkImports ../../system imports;
+
   networking.hostName = "CarPlay_9814";
 
   systemd = {
@@ -86,12 +93,6 @@ in
       priority = 0; # last resort
     }
   ];
-
-  imports = [
-    ./hardware.nix
-    ../../system/services/glance
-  ]
-  ++ mkImports ../../system imports;
 
   system.stateVersion = "25.05";
 }

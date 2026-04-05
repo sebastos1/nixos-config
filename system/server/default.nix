@@ -10,7 +10,8 @@
 
   users.mutableUsers = false;
   users.users.${username} = {
-    initialPassword = "init"; # change !
+    # password = "init";
+    hashedPassword = "$y$j9T$slEWQT26egHiMwifbcDc51$E7nDcencLOyUGqm05Y/qw6Sl50vouuuEokmRcQgpem7";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINn2HFhSKi5iytR7UuY8H3I2vZ38I8VtmX7eY+kPmLRP"
     ];

@@ -25,6 +25,11 @@ in
     userKey
   ];
 
+  # in case forget
+  "secrets/initial-server.age".publicKeys = [
+    userKey
+  ];
+
   # "example.age".publicKeys = [
   #   userKey
   #   # server
