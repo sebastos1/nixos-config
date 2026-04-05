@@ -81,8 +81,36 @@ in
     {
       size = "full";
       widgets = [
+        # todo make module ig
         {
+          type = "monitor";
+          title = "Services";
+          cache = "1m";
+          sites = [
+            {
+              title = "You are here";
+              url = "http://localhost:8080";
+              icon = "si:glance";
+            }
+            {
+              title = "Forgejo";
+              url = "http://10.0.0.3";
+              icon = "si:forgejo";
+            }
+            {
+              title = "Matrix";
+              url = "http://10.0.0.4";
+              icon = "si:matrix";
+            }
 
+            # Uncomment and edit as needed:
+            # { title = "Jellyfin";  url = "http://localhost:8096"; icon = "sh:jellyfin"; }
+            # { title = "Immich";    url = "http://localhost:2283"; icon = "sh:immich"; }
+            # { title = "Gitea";     url = "http://localhost:3000"; icon = "si:gitea"; }
+            # { title = "AdGuard";   url = "http://localhost:3000"; icon = "si:adguard"; }
+            # { title = "Vaultwarden"; url = "http://localhost:8880"; icon = "si:vaultwarden"; }
+            # { title = "qBittorrent"; url = "http://localhost:8080"; icon = "si:qbittorrent"; }
+          ];
         }
       ];
     }
