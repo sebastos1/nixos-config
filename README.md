@@ -69,8 +69,8 @@ nix run .#dns
 
 Backups
 ```sh 
-sudo parted /dev/sdd -- mkpart primary btrfs 0% 100%
-sudo mkfs.btrfs -L backups /dev/sdd1 -f # important label
+sudo parted /dev/<erm> -- mkpart primary btrfs 0% 100%
+sudo mkfs.btrfs -L backups /dev/<erm>1 -f # important label
 ```
 Then:
 ```sh

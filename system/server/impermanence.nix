@@ -32,7 +32,7 @@ in
         serviceConfig.Type = "oneshot";
         script = ''
           mkdir /btrfs_tmp
-          mount /dev/disk/by-label/nixos /btrfs_tmp
+          mount -o subvol=/ /dev/disk/by-label/nixos /btrfs_tmp
           if [[ -e /btrfs_tmp/root ]]; then
             mkdir -p /btrfs_tmp/old_roots
             timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
