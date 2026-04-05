@@ -22,28 +22,20 @@ in
   config = lib.mkIf cfg.enable {
     boot.initrd.supportedFilesystems = [ "btrfs" ];
     programs.fuse.userAllowOther = true;
-    boot.initrd.systemd.enable = true;
-    boot.initrd.systemd.services.rollback = {
-      description = "rollback to blank";
-      wantedBy = [ "initrd.target" ];
-      before = [ "sysroot.mount" ];
-      unitConfig.DefaultDependencies = "no";
-      serviceConfig.Type = "oneshot";
-      script = ''
-        mkdir -p /mnt
-        mount -t btrfs -o subvol=/ /dev/disk/by-label/nixos /mnt
+    boot.initrd.postDeviceCommands = lib.mkBefore ''
+      mkdir -p /mnt
+      mount -t btrfs -o subvol=/ /dev/disk/by-label/nixos /mnt
 
-        btrfs subvolume list -o /mnt/root | cut -f9 -d' ' | \
-          while read subvolume; do
-            btrfs subvolume delete "/mnt/$subvolume"
-          done
+      btrfs subvolume list -o /mnt/root | cut -f9 -d' ' | \
+        while read subvolume; do
+          btrfs subvolume delete "/mnt/$subvolume"
+        done
 
-        btrfs subvolume delete /mnt/root
-        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+      btrfs subvolume delete /mnt/root
+      btrfs subvolume snapshot /mnt/root-blank /mnt/root
 
-        umount /mnt
-      '';
-    };
+      umount /mnt
+    '';
 
     fileSystems.${cfg.rootDir}.neededForBoot = true;
     environment.persistence.${cfg.rootDir} = {
