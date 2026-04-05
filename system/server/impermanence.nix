@@ -22,31 +22,27 @@ in
   config = lib.mkIf cfg.enable {
     boot.initrd.supportedFilesystems = [ "btrfs" ];
     programs.fuse.userAllowOther = true;
-    boot.initrd.systemd = {
-      enable = true;
-      services.rollback = {
-        description = "Rollback btrfs root subvolume";
-        wantedBy = [ "initrd.target" ];
-        before = [ "sysroot.mount" ];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          mkdir /btrfs_tmp
-          mount -o subvol=/ /dev/disk/by-label/nixos /btrfs_tmp
-          if [[ -e /btrfs_tmp/root ]]; then
-            mkdir -p /btrfs_tmp/old_roots
-            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-          fi
-          for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-            btrfs subvolume list -o "$i" | cut -f9 -d' ' |
-              xargs -I{} btrfs subvolume delete "/btrfs_tmp/{}"
-            btrfs subvolume delete "$i"
+    boot.initrd.systemd.enable = true;
+    boot.initrd.systemd.services.rollback = {
+      description = "rollback to blank";
+      wantedBy = [ "initrd.target" ];
+      before = [ "sysroot.mount" ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        mkdir -p /mnt
+        mount -t btrfs -o subvol=/ /dev/disk/by-label/nixos /mnt
+
+        btrfs subvolume list -o /mnt/root | cut -f9 -d' ' | \
+          while read subvolume; do
+            btrfs subvolume delete "/mnt/$subvolume"
           done
-          btrfs subvolume create /btrfs_tmp/root
-          umount /btrfs_tmp
-        '';
-      };
+
+        btrfs subvolume delete /mnt/root
+        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+        umount /mnt
+      '';
     };
 
     fileSystems.${cfg.rootDir}.neededForBoot = true;

@@ -67,6 +67,7 @@ in
                 };
               }
               // lib.optionalAttrs (cfg.persistenceDir != null) {
+                "/root-blank" = { };
                 ${cfg.persistenceDir} = {
                   mountpoint = cfg.persistenceDir;
                   inherit mountOptions;

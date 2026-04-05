@@ -47,6 +47,7 @@ cd /tmp/config
 
 # NEVER do manual disk setup again! define disk setup somewhere (todo, my fault g)
 sudo disko --mode destroy,format,mount --flake .#<host> # --yes-wipe-all-disks
+# sudo disko --mode destroy,format,mount --flake .#homeserver --yes-wipe-all-disks
 
 # root password doesn't matter anyway
 sudo nixos-install --flake .#<host> --no-root-passwd
