@@ -115,7 +115,7 @@ in
                     mountPoint = data.mountPoint;
                   }) vm.data;
                 };
-                system.stateVersion = "26.05";
+                system.stateVersion = "25.11";
               }
             ];
           };
