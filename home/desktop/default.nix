@@ -23,7 +23,7 @@
 
     nautilus
     mpv
-    oculante # images
+    # oculante # images
 
     swaybg
   ];
