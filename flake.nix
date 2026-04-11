@@ -20,7 +20,6 @@
 
         imports = [
           inputs.terranix.flakeModule
-          # ./system/server/dns/terra.nix
         ];
 
         flake =

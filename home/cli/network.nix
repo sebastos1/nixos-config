@@ -4,5 +4,6 @@
     curlie
     nmap
     doggo
+    arp-scan
   ];
 }

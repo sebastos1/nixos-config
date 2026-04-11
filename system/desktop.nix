@@ -1,21 +1,23 @@
 {
   pkgs,
   username,
-  keylist,
   inputs,
   ...
 }:
 {
-  # TODO TODO TODO TODO TODO TODO TODO TODO
-
   nixpkgs.overlays = [
-    keylist.overlays.default
     (final: prev: {
       ironbar = inputs.ironbar.packages.${prev.system}.default;
     })
   ];
 
   programs.niri.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   services.greetd = {
     enable = true;
@@ -78,6 +80,10 @@
   fonts.fontconfig = {
     enable = true;
     useEmbeddedBitmaps = true; # needed for emojis
+    subpixel = {
+      rgba = "none";
+      lcdfilter = "none";
+    };
   };
 
   # audio

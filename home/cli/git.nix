@@ -5,10 +5,9 @@
     # package = pkgs.gitFull;
     settings = {
       core.askpass = "";
-      credential.helper = "libsecret";
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
-      pull.rebase = "true"; # must have
+      pull.rebase = "true";
       rebase = {
         autoStash = true;
         autosquash = true;

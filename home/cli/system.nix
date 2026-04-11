@@ -5,15 +5,20 @@
 }:
 {
   home.packages = with pkgs; [
+    nh
+    nix-output-monitor
+
     procs # ps
     duf # df
     dust # du
     btop # htop
     fastfetch
-
-    nh
-    nix-output-monitor
   ];
+
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
 
   programs.fish.shellAliases = {
     ps = "procs";
@@ -21,7 +26,7 @@
     du = "dust";
     top = "btop";
 
-    rebuild = "nh os switch /etc/nixos --hostname ${hostProfile}";
+    rebuild = "nh os switch --hostname ${hostProfile}";
     nom = "nix-output-monitor";
   };
 }

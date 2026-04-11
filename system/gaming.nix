@@ -35,7 +35,7 @@
 
   environment.variables = {
     VKD3D_CONFIG = "dxr";
-    PROTON_ENABLE_NGX_UPDATER = "1";
+    # PROTON_ENABLE_NGX_UPDATER = "1";
     PROTON_ENABLE_NVAPI = "1";
   };
 }

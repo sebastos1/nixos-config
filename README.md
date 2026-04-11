@@ -27,7 +27,7 @@ nails holy moly, noooo
 todo
 https://github.com/amaanq/nirinit
 hardcoded wallpaper path yikes
-tailscale
+netbird
 tie to vps
 syncthing
 
@@ -87,4 +87,21 @@ VMs
 Logs are forwarded so you can do
 ```sh
 journalctl -m -u <servicename>
+```
+
+
+rpi
+https://frederikstroem.com/journal/bootstrapping-nixos-on-a-headless-raspberry-pi-4
+```
+sudo mkdir -p home/nixos/.ssh
+echo "ssgh skdjfsdjkhfsdjkhfks" | sudo tee home/nixos/.ssh/authorized_keys
+sudo chown -R 1000:100 home/nixos/.ssh
+sudo chmod 700 home/nixos/.ssh
+sudo chmod 600 home/nixos/.ssh/authorized_keys
+```
+
+THen:
+```
+sudo arp-scan --localnet
+ssh nixos@<ip>
 ```

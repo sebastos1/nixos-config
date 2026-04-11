@@ -3,6 +3,7 @@
   # infra
   # clean https://github.com/glanceapp/community-widgets/blob/main/widgets/cloudflared-tunnels/README.md
   # https://github.com/glanceapp/community-widgets/blob/main/widgets/tailscale-devices/README.md
+  # https://github.com/glanceapp/community-widgets/blob/main/widgets/netbird-devices/README.md
   # https://github.com/glanceapp/community-widgets/blob/main/widgets/forgejo-repos/README.md
   # https://github.com/glanceapp/community-widgets/blob/main/widgets/grafana/README.md
   # https://github.com/glanceapp/community-widgets/blob/main/widgets/github-actions-status/README.md

@@ -4,29 +4,46 @@
   ...
 }:
 {
-  # goat terminal (nvm doesnt multiplex)
-  # programs.alacritty = {
-  #   enable = true;
-  #   settings = {
-  #     window.padding = {
-  #       x = 20;
-  #       y = 20;
-  #     };
-  #   };
-  # };
-
-  programs.wezterm = {
+  programs.foot = {
     enable = true;
-    extraConfig = ''
-      return {
-        hide_tab_bar_if_only_one_tab = true,
-        window_close_confirmation = "NeverPrompt",
-        window_background_opacity = 0.9,
-        -- WHAT IS THIS SETTING ??????
-        adjust_window_size_when_changing_font_size = false,
-      }
-    '';
+    server.enable = true;
+    settings = {
+      main = {
+        term = "foot";
+        dpi-aware = lib.mkForce "yes";
+        pad = "10x10";
+      };
+      scrollback = {
+        lines = 10000;
+        multiplier = 5.0;
+      };
+      cursor = {
+        blink = "yes";
+        style = "beam";
+      };
+      mouse.hide-when-typing = "yes";
+      colors-dark = {
+        alpha = lib.mkForce "0.9";
+        blur = "yes"; # coming to niri soon I heard
+      };
+      desktop-notifications.inhibit-when-focused = "yes";
+    };
   };
+
+  # this thing is horrible
+  # programs.wezterm = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     return {
+  #       hide_tab_bar_if_only_one_tab = true,
+  #       window_close_confirmation = "NeverPrompt",
+  #       window_background_opacity = 0.9,
+  #       -- WHAT IS THIS SETTING ??????
+  #       adjust_window_size_when_changing_font_size = false,
+  #       front_end = "OpenGL",
+  #     }
+  #   '';
+  # };
 
   xdg.userDirs = {
     enable = true;
@@ -59,12 +76,12 @@
     # kanagawa lotus
     # havn skumring/daggry
     # everforest light med
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
     polarity = "dark";
     fonts = {
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font Mono";
+        name = "JetBrainsMono Nerd Font";
       };
       sansSerif = {
         package = pkgs.ibm-plex;
@@ -101,7 +118,7 @@
     enable = true;
     antialiasing = true;
     hinting = "slight";
-    subpixelRendering = "rgb";
+    subpixelRendering = "none";
     defaultFonts = {
       monospace = [
         "JetBrainsMono Nerd Font"

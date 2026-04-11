@@ -9,29 +9,25 @@
     jq # json
     resvg # svg
     glow # markdown
-
     pastel
-
-    # cargo new and such
-    cargo
-    cloudflared
   ];
 
   programs.fish.shellAliases = {
     unzip = "ouch decompress";
+    copy = "wl-copy"; # copy < file.txt
   };
 
   # tui files
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-    plugins = with pkgs.yaziPlugins; {
-      inherit
-        git
-        mediainfo
-        duckdb
-        ;
-    };
-    shellWrapperName = "y";
-  };
+  # programs.yazi = {
+  #   enable = true;
+  #   enableFishIntegration = true;
+  #   plugins = with pkgs.yaziPlugins; {
+  #     inherit
+  #       git
+  #       mediainfo
+  #       duckdb
+  #       ;
+  #   };
+  #   shellWrapperName = "y";
+  # };
 }

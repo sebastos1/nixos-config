@@ -11,13 +11,14 @@ let
     /vpn.nix
     /gaming.nix
     /boot.nix
+    /services/glance
+    /services/forgejo.nix
+    /services/beszel.nix
   ];
 in
 {
   imports = [
     ./hardware.nix
-    ../../system/services/glance
-    ../../system/services/forgejo.nix
   ]
   ++ mkImports ../../system imports;
 
@@ -39,15 +40,8 @@ in
     kernelModules = [ "acpi-cpufreq" ];
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
-      "intel_pstate=disable"
-      "video=1920x1080"
-
-      # testing. not much value
-      "nmi_watchdog=0"
-      "pcie_aspm.policy=performance"
-      # "mitigations=off"
-      "threadirqs"
-      "processor.max_cstate=1"
+      # "intel_pstate=disable"
+      # "video=1920x1080"
     ];
 
     kernel = {
@@ -60,16 +54,11 @@ in
         enabled = "madvise";
         defrag = "defer+madvise";
       };
-      # if pstate
-      # sysfs.devices.system.cpu."cpu[0-9]*".energy_performance_preference = "performance";
     };
   };
 
-  services.scx = {
-    enable = true;
-    scheduler = "scx_lavd";
-  };
-  powerManagement.cpuFreqGovernor = "performance";
+  # scheduler
+  services.scx.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

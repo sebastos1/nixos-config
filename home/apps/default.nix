@@ -5,12 +5,10 @@
     wineWow64Packages.stable
     winetricks
     protonup-qt
-    protontricks
     lutris
     heroic
 
     osu-lazer-bin
-
     # (blender.override { cudaSupport = true; })
   ];
 
