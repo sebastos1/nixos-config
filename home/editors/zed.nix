@@ -27,7 +27,6 @@
       "lua"
     ];
     extraPackages = with pkgs; [
-      nil
       nixd
     ];
     userSettings = {

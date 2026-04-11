@@ -11,6 +11,7 @@ let
     /apps/music.nix
     /browser/zen.nix
     /ai
+    /editors/helix.nix
   ];
 in
 {

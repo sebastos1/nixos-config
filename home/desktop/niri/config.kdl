@@ -32,6 +32,11 @@ layer-rule {
 input {
     keyboard {
         numlock
+        xkb {
+            layout "no"
+            variant "nodeadkeys"
+            options "caps:escape"
+        }
     }
 
     mouse {
