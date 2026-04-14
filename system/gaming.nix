@@ -26,16 +26,8 @@
     platformOptimizations.enable = true;
     protontricks.enable = true;
     gamescopeSession.enable = false;
-    #remotePlay.openFirewall = true;
-    #dedicatedServer.openFirewall = true;
     extraPackages = with pkgs; [
-      python3 # used by elden ring
+      python3 # for elden ring
     ];
-  };
-
-  environment.variables = {
-    VKD3D_CONFIG = "dxr";
-    # PROTON_ENABLE_NGX_UPDATER = "1";
-    PROTON_ENABLE_NVAPI = "1";
   };
 }

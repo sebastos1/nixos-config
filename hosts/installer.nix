@@ -2,7 +2,6 @@
 {
   pkgs,
   modulesPath,
-  lib,
   ...
 }:
 {
@@ -18,7 +17,7 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  users.users.seb = {
+  users.users.installer = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     initialPassword = "install";
@@ -26,12 +25,12 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINn2HFhSKi5iytR7UuY8H3I2vZ38I8VtmX7eY+kPmLRP"
     ];
   };
-  services.openssh.enable = true; # ssh :D
+  services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
     disko
   ];
 
-  console.keyMap = "no";
+  console.keyMap = "no-latin1";
 }

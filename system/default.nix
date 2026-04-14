@@ -54,7 +54,6 @@
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = false;
     "net.ipv6.conf.all.forwarding" = false;
-    # "net.ipv4.conf.all.send_requests" = false;
     "net.ipv4.conf.all.accept_redirects" = false;
   };
 
@@ -63,6 +62,7 @@
     isNormalUser = true;
     extraGroups = [
       "wheel"
+      "dialout"
     ];
   };
   security = {

@@ -22,28 +22,13 @@
         style = "beam";
       };
       mouse.hide-when-typing = "yes";
-      colors-dark = {
-        alpha = lib.mkForce "0.9";
-        blur = "yes"; # coming to niri soon I heard
-      };
+      # colors-dark = { # todo: wait for blur :)
+      #   alpha = lib.mkForce "0.9";
+      #   blur = "yes"; # coming to niri soon I heard
+      # };
       desktop-notifications.inhibit-when-focused = "yes";
     };
   };
-
-  # this thing is horrible
-  # programs.wezterm = {
-  #   enable = true;
-  #   extraConfig = ''
-  #     return {
-  #       hide_tab_bar_if_only_one_tab = true,
-  #       window_close_confirmation = "NeverPrompt",
-  #       window_background_opacity = 0.9,
-  #       -- WHAT IS THIS SETTING ??????
-  #       adjust_window_size_when_changing_font_size = false,
-  #       front_end = "OpenGL",
-  #     }
-  #   '';
-  # };
 
   xdg.userDirs = {
     enable = true;

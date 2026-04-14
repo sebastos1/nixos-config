@@ -39,11 +39,6 @@
     TTYVTDisallocate = true;
   };
 
-  nix.settings = {
-    substituters = [ "https://cache.garnix.io" ];
-    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
-  };
-
   networking.networkmanager.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
   users.users.${username}.extraGroups = [
@@ -76,13 +71,15 @@
 
   nixpkgs.config.chromium.enableWideVine = true;
 
-  fonts.enableDefaultPackages = false;
-  fonts.fontconfig = {
-    enable = true;
-    useEmbeddedBitmaps = true; # needed for emojis
-    subpixel = {
-      rgba = "none";
-      lcdfilter = "none";
+  fonts = {
+    enableDefaultPackages = false;
+    fontconfig = {
+      enable = true;
+      useEmbeddedBitmaps = true; # for emojis
+      subpixel = {
+        rgba = "none";
+        lcdfilter = "none";
+      };
     };
   };
 

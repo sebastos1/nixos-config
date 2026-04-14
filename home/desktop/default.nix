@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -12,20 +13,32 @@
     cliphist
     wl-clipboard # copy/paste
 
-    fuzzel
-
     # pws
     bitwarden-desktop
     rbw
 
     adwaita-icon-theme
-
+    swaybg
     nautilus
     mpv
     # oculante # images
-
-    swaybg
   ];
+
+  programs.tofi = {
+    enable = true;
+    settings = {
+      font-size = lib.mkForce "25";
+      num-results = 10;
+      result-spacing = 25;
+      width = "100%";
+      height = "100%";
+      padding-top = "15%";
+      padding-left = "35%";
+      padding-right = "35%";
+      outline-width = 0;
+      border-width = 0;
+    };
+  };
 
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";

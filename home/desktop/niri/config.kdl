@@ -96,7 +96,7 @@ layout {
     }
 
     shadow {
-        on
+        off
         offset x=5 y=5
         softness 20 // blur radius
         spread 10 // expands shadow
@@ -150,7 +150,7 @@ binds {
     Mod+Shift+T      { spawn "footclient"; }
     Mod+Return       { spawn "footclient"; }
     Mod+Shift+Return { spawn "footclient"; }
-    Mod+D            { spawn "fuzzel"; }
+    Mod+D            { spawn "tofi-drun" "--drun-launch=true"; }
     // Mod+B      { spawn "browser"; }
     // Mod+E      { spawn "file manager?"; }
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
