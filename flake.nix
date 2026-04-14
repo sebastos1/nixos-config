@@ -3,14 +3,6 @@
     {
       nixpkgs,
       flake-parts,
-      agenix,
-      home-manager,
-      stylix,
-      nixcord,
-      zen-browser,
-      microvm,
-      disko,
-      impermanence,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -28,16 +20,17 @@
             lib = import ./lib.nix {
               inherit username inputs nixpkgs;
               systemModules = [
-                agenix.nixosModules.default
-                home-manager.nixosModules.home-manager
-                microvm.nixosModules.host
-                disko.nixosModules.disko
-                impermanence.nixosModules.impermanence
+                inputs.agenix.nixosModules.default
+                inputs.home-manager.nixosModules.home-manager
+                inputs.microvm.nixosModules.host
+                inputs.disko.nixosModules.disko
+                inputs.hjem.nixosModules.default
+                inputs.stylix.nixosModules.stylix
+                inputs.impermanence.nixosModules.impermanence
               ];
               sharedModules = [
-                nixcord.homeModules.nixcord
-                stylix.homeModules.stylix
-                zen-browser.homeModules.beta
+                inputs.nixcord.homeModules.nixcord
+                inputs.zen-browser.homeModules.beta
               ];
             };
           in
@@ -87,6 +80,11 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hjem = {
+      url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

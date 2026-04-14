@@ -6,7 +6,8 @@
 }:
 let
   imports = [
-    /desktop.nix
+    /cli
+    /desktop
     /firejail.nix
     /vpn.nix
     /gaming.nix

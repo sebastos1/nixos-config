@@ -1,0 +1,57 @@
+[core]
+    askpass =
+
+[push]
+    autoSetupRemote = true
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+    autosquash = true
+
+[fetch]
+    prune = true
+
+[commit]
+    verbose = true
+
+[diff]
+    colorMoved = default
+    algorithm = histogram
+
+[rerere]
+    enabled = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[log]
+    date = relative
+
+[color]
+    status = auto
+    branch = auto
+    interactive = auto
+
+[alias]
+    a = add .
+    s = status -sb
+    c = commit -v
+    l = log --oneline --graph --decorate
+    undo = reset HEAD~1 --mixed
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    hyperlinks = true
+    side-by-side = true

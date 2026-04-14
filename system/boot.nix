@@ -1,13 +1,14 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }:
 {
   boot = {
     plymouth = {
       enable = true;
-      theme = "ello";
+      theme = lib.mkForce "ello";
       themePackages = [
         inputs.ello-plymouth.packages.${pkgs.system}.default
       ];

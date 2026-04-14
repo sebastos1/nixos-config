@@ -1,0 +1,176 @@
+format = """
+$directory\
+$c\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$haxe\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$rlang\
+$ruby\
+$rust\
+$perl\
+$php\
+$python\
+$scala\
+$swift\
+$zig\
+$package\
+$git_branch\
+$git_status\
+$fill\
+$status\
+$cmd_duration\
+$jobs\
+$line_break\
+$username\
+$hostname\
+$container\
+$nix_shell\
+$character\
+"""
+
+[username]
+aliases = { root = "󰱯" }
+format = "[$user]($style bold)"
+show_always = true
+style_user = "fg:green"
+style_root = "fg:red"
+
+[hostname]
+ssh_only = true
+format = "@[$hostname](fg:green)"
+
+[container]
+format = "[ $symbol $name]($style)"
+style = "fg:base"
+symbol = "󱋩"
+
+[nix_shell]
+format = " ❄️"
+
+[character]
+error_symbol = " [\\$](bold red)"
+success_symbol = " [\\$](bold green)"
+
+[directory]
+format = "$path[$read_only]($read_only_style)"
+style = "fg:cyan"
+read_only = "(ro)"
+read_only_style = "bold fg:red"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[c]
+format = "$symbol"
+
+[dart]
+format = "$symbol"
+
+[dotnet]
+format = "$symbol"
+
+[elixir]
+format = "$symbol"
+
+[elm]
+format = "$symbol"
+
+[erlang]
+format = "$symbol"
+
+[golang]
+format = "$symbol"
+
+[haskell]
+format = "$symbol"
+
+[haxe]
+format = "$symbol"
+
+[java]
+format = "$symbol"
+
+[julia]
+format = "$symbol"
+
+[kotlin]
+format = "$symbol"
+
+[lua]
+format = "$symbol"
+
+[nim]
+format = "$symbol"
+
+[nodejs]
+format = "$symbol"
+
+[perl]
+format = "$symbol"
+
+[php]
+format = "$symbol"
+
+[python]
+format = "$symbol"
+
+[rlang]
+format = "$symbol"
+
+[ruby]
+format = "$symbol"
+
+[rust]
+format = "$symbol"
+
+[scala]
+format = "$symbol"
+
+[swift]
+format = "$symbol"
+
+[zig]
+format = "$symbol"
+
+[package]
+format = "[ $version]($style)"
+style = "fg:yellow"
+version_format = "$raw"
+
+[git_branch]
+format = "[  $branch]($style)"
+style = "fg:green"
+
+[git_status]
+format = "($all_status$ahead_behind)"
+
+[status]
+format = "$symbol"
+map_symbol = true
+pipestatus = false
+style = "fg:red"
+success_symbol = ""
+symbol = "[ $status]($style)"
+not_executable_symbol = "[ $common_meaning]($style)"
+not_found_symbol = "[󰩌 $common_meaning]($style)"
+sigint_symbol = "[ $signal_name]($style)"
+signal_symbol = "[⚡ $signal_name]($style)"
+
+[cmd_duration]
+format = "[ $duration]($style)"
+min_time_to_notify = 60000
+show_notifications = false
+
+[jobs]
+format = " $symbol $number"
+symbol = "󰣖"

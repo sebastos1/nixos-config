@@ -1,9 +1,6 @@
 { mkImports, ... }:
 let
   imports = [
-    /desktop
-    /cli
-    /cli/tools.nix
     /editors/zed.nix
     /browser/brave.nix
     /apps

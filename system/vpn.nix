@@ -1,5 +1,18 @@
-{ config, ... }:
 {
+  config,
+  username,
+  pkgs,
+  ...
+}:
+{
+  #todo put in better place
+  users.users.${username}.packages = with pkgs; [
+    curlie
+    nmap
+    doggo
+    arp-scan
+  ];
+
   networking.resolvconf.enable = false;
   services.resolved = {
     enable = true;

@@ -13,6 +13,7 @@ let
     name:
     nixpkgs.lib.nixosSystem {
       specialArgs = inputs // {
+        hostProfile = name;
         inherit
           inputs
           username

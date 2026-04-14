@@ -1,7 +1,8 @@
 { mkImports, ... }:
 let
   imports = [
-    /desktop.nix
+    /cli
+    /desktop
     /firejail.nix
     /vpn.nix
     /boot.nix

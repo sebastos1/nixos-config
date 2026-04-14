@@ -1,4 +1,10 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    mpv
+    # oculante # images
+  ];
+
   services.mpd = {
     enable = true;
     musicDirectory = "~/music";

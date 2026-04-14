@@ -41,24 +41,24 @@
         hide-footer = true;
       };
 
-      theme = {
-        background-color = "0 0 16";
-        primary-color = "43 59 81";
-        positive-color = "61 66 44";
-        negative-color = "6 96 59";
-        contrast-multiplier = 1.3;
-        presets = {
-          default-light = {
-            light = true;
-            background-color = "43 58 87";
-            primary-color = "15 70 30";
-            positive-color = "60 56 33";
-            negative-color = "2 67 45";
-            contrast-multiplier = 1.3;
-            # text-saturation-multiplier = 0.9;
-          };
-        };
-      };
+      # theme = {
+      #   background-color = "0 0 16";
+      #   primary-color = "43 59 81";
+      #   positive-color = "61 66 44";
+      #   negative-color = "6 96 59";
+      #   contrast-multiplier = 1.3;
+      #   presets = {
+      #     default-light = {
+      #       light = true;
+      #       background-color = "43 58 87";
+      #       primary-color = "15 70 30";
+      #       positive-color = "60 56 33";
+      #       negative-color = "2 67 45";
+      #       contrast-multiplier = 1.3;
+      #       # text-saturation-multiplier = 0.9;
+      #     };
+      #   };
+      # };
 
       pages = [
         (import ./pages/home.nix)
