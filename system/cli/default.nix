@@ -60,7 +60,7 @@
     ".config/starship.toml".source = ./starship.toml;
 
     ".config/bat/config".text = ''
-      --pager=less -FR
+      --pager=less
       --style=plain
     '';
 
@@ -105,6 +105,7 @@
 
       unzip = "ouch decompress";
       copy = "wl-copy"; # copy < file.txt
+      zed = "zeditor";
     };
     # functions = {
     #   fish_greeting = "";

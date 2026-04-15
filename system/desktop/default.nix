@@ -2,18 +2,61 @@
   pkgs,
   username,
   inputs,
+  theme,
   ...
 }:
 {
   imports = [
     ./ironbar
+    ./boot.nix
   ];
 
   hjem.users.${username} = {
     files = {
       ".config/niri/config.kdl".source = ./niri.kdl;
-      ".config/foot/foot.ini".source = ./foot.ini;
+      ".config/foot/foot.ini".text = ''
+        [main]
+        term=foot
+        dpi-aware=yes
+        pad=10x10
+        font=${theme.font} Mono:size=16, Noto Color Emoji:size=16
+
+        [scrollback]
+        lines=10000
+        multiplier=5.0
+
+        [cursor]
+        blink=yes
+        style=beam
+
+        [mouse]
+        hide-when-typing=yes
+
+        [desktop-notifications]
+        inhibit-when-focused=yes
+
+        [colors]
+        background=${theme.term.bg}
+        foreground=${theme.term.fg}
+        regular0=${theme.term.black}
+        regular1=${theme.term.red}
+        regular2=${theme.term.green}
+        regular3=${theme.term.yellow}
+        regular4=${theme.term.blue}
+        regular5=${theme.term.magenta}
+        regular6=${theme.term.cyan}
+        regular7=${theme.term.white}
+        bright0=${theme.term.bright-black}
+        bright1=${theme.term.bright-red}
+        bright2=${theme.term.bright-green}
+        bright3=${theme.term.bright-yellow}
+        bright4=${theme.term.bright-blue}
+        bright5=${theme.term.bright-magenta}
+        bright6=${theme.term.bright-cyan}
+        bright7=${theme.term.bright-white}
+      '';
       ".config/tofi/config".text = ''
+        font = ${theme.font}
         font-size = 25
         num-results = 10
         result-spacing = 25
@@ -24,37 +67,77 @@
         padding-right = 35%
         outline-width = 0
         border-width = 0
+        background-color = ${theme.bg}ff
+        text-color = ${theme.fg}ff
+        selection-color = ${theme.blue}ff
+        selection-background = ${theme.bg}00
+        prompt-color = ${theme.pink}ff
       '';
+    };
+  };
+
+  fonts = {
+    enableDefaultPackages = false;
+    packages = with pkgs; [
+      font-awesome
+      noto-fonts # latin, greek, cyrillic, etc
+      noto-fonts-cjk-sans # chinese, japanese, korean
+      twitter-color-emoji
+      nerd-fonts.jetbrains-mono
+      ibm-plex
+    ];
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting = {
+        enable = true;
+        style = "slight";
+      };
+      useEmbeddedBitmaps = true; # for emojis
+      subpixel = {
+        rgba = "none";
+        lcdfilter = "none";
+      };
+      defaultFonts = {
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Noto Sans CJK JP"
+          "Twitter Color Emoji"
+        ];
+        sansSerif = [
+          "IBM Plex Sans"
+          "Noto Sans CJK JP"
+          "Twitter Color Emoji"
+        ];
+        serif = [
+          "IBM Plex Serif"
+          "Noto Serif CJK JP"
+          "Twitter Color Emoji"
+        ];
+        emoji = [ "Twitter Color Emoji" ];
+      };
     };
   };
 
   users.users.${username} = {
     packages = with pkgs; [
+      foot
+      tofi
+      swaybg
+      nautilus
+      bibata-cursors
+      adwaita-icon-theme
+
       cliphist
       wl-clipboard # copy/paste
-
-      adwaita-icon-theme
-      swaybg
-
-      nautilus
 
       # pws
       bitwarden-desktop
       rbw
-
-      bibata-cursors
-
-      foot
-
     ];
     extraGroups = [
       "networkmanager"
     ];
-  };
-
-  environment.variables = {
-    XCURSOR_THEME = "Bibata-Modern-Ice";
-    XCURSOR_SIZE = "20";
   };
 
   systemd.user.services.swayidle = {
@@ -131,82 +214,6 @@
   ];
 
   nix.settings.trusted-users = [ username ];
-
-  nixpkgs.config.chromium.enableWideVine = true;
-
-  fonts = {
-    enableDefaultPackages = false;
-    packages = with pkgs; [
-      font-awesome
-      noto-fonts # latin, greek, cyrillic, etc
-      noto-fonts-cjk-sans # chinese, japanese, korean
-      twitter-color-emoji
-      nerd-fonts.jetbrains-mono
-      ibm-plex
-    ];
-
-    fontconfig = {
-      enable = true;
-      antialias = true;
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      useEmbeddedBitmaps = true; # for emojis
-      subpixel = {
-        rgba = "none";
-        lcdfilter = "none";
-      };
-      defaultFonts = {
-        monospace = [
-          "JetBrainsMono Nerd Font"
-          "Noto Sans CJK JP"
-          "Twitter Color Emoji"
-        ];
-        sansSerif = [
-          "IBM Plex Sans"
-          "Noto Sans CJK JP"
-          "Twitter Color Emoji"
-        ];
-        serif = [
-          "IBM Plex Serif"
-          "Noto Serif CJK JP"
-          "Twitter Color Emoji"
-        ];
-        emoji = [ "Twitter Color Emoji" ];
-      };
-    };
-  };
-
-  stylix = {
-    enable = true;
-    overlays.enable = false;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
-    polarity = "dark";
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
-      };
-      sansSerif = {
-        package = pkgs.ibm-plex;
-        name = "IBM Plex Sans";
-      };
-      serif = {
-        package = pkgs.ibm-plex;
-        name = "IBM Plex Serif";
-      };
-      emoji = {
-        package = pkgs.twitter-color-emoji;
-        name = "Twitter Color Emoji";
-      };
-      sizes = {
-        terminal = 14;
-        applications = 12;
-      };
-    };
-    # targets.zen-browser.profileNames = [ "default" ];
-  };
 
   # audio
   security.rtkit.enable = true;

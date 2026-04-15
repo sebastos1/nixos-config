@@ -1,4 +1,3 @@
-# hosts/installer/default.nix
 {
   pkgs,
   modulesPath,

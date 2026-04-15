@@ -1,6 +1,6 @@
-// spawn-at-startup "ironbar"
-spawn-at-startup "foot" "--server"
 spawn-at-startup "sh" "-c" "swaybg -i $(ls ~/pics/wallpapers/* | shuf -n1) -m fill"
+spawn-at-startup "foot" "--server"
+// spawn-at-startup "ironbar"
 
 screenshot-path "~/pics/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -27,6 +27,11 @@ output "Samsung Electric Company S24C650 Unknown" {
 layer-rule {
     match namespace="^wallpaper$"
     place-within-backdrop true
+}
+
+cursor {
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 20
 }
 
 input {

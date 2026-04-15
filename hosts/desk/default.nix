@@ -1,6 +1,5 @@
 {
   mkImports,
-  config,
   pkgs,
   ...
 }:
@@ -8,10 +7,12 @@ let
   imports = [
     /cli
     /desktop
-    /firejail.nix
+    /browser
+    /editor
+
     /vpn.nix
     /gaming.nix
-    /boot.nix
+
     /services/glance
     /services/forgejo.nix
     /services/beszel.nix
@@ -34,55 +35,13 @@ in
     };
   };
 
-  # hardware specific
-  boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = [ "acpi-cpufreq" ];
-    kernelParams = [
-      "initcall_blacklist=amd_pstate_init"
-      # "intel_pstate=disable"
-      # "video=1920x1080"
-    ];
-
-    kernel = {
-      # for zram
-      sysctl = {
-        "vm.swappiness" = 100;
-        "vm.page-cluster" = 0;
-      };
-      sysfs.kernel.mm.transparent_hugepage = {
-        enabled = "madvise";
-        defrag = "defer+madvise";
-      };
-    };
-  };
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # scheduler
-  services.scx.enable = true;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    nvidiaSettings = true;
-    open = false;
+  services.scx = {
+    enable = true;
+    scheduler = "scx_bpfland";
   };
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
-
-  zramSwap.enable = true;
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-      priority = 0; # last resort
-    }
-  ];
 
   system.stateVersion = "25.05";
 }

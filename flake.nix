@@ -25,12 +25,7 @@
                 inputs.microvm.nixosModules.host
                 inputs.disko.nixosModules.disko
                 inputs.hjem.nixosModules.default
-                inputs.stylix.nixosModules.stylix
                 inputs.impermanence.nixosModules.impermanence
-              ];
-              sharedModules = [
-                inputs.nixcord.homeModules.nixcord
-                inputs.zen-browser.homeModules.beta
               ];
             };
           in
@@ -45,7 +40,7 @@
               // {
                 installer = nixpkgs.lib.nixosSystem {
                   system = "x86_64-linux";
-                  modules = [ ./hosts/installer.nix ];
+                  modules = [ ./installer.nix ];
                 };
               };
           };
@@ -91,16 +86,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     agenix.url = "github:ryantm/agenix";
-
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    keylist = {
-      url = "github:sebastos1/keylist";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 

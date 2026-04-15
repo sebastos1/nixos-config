@@ -3,7 +3,6 @@
   username,
   inputs,
   systemModules,
-  sharedModules,
   ...
 }:
 let
@@ -14,6 +13,7 @@ let
     nixpkgs.lib.nixosSystem {
       specialArgs = inputs // {
         hostProfile = name;
+        theme = import ./system/theme.nix;
         inherit
           inputs
           username
@@ -23,21 +23,6 @@ let
       modules = systemModules ++ [
         ./system
         ./hosts/${name}
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            backupFileExtension = "backup";
-            users.${username}.imports = [
-              ./home
-              ./hosts/${name}/home.nix
-            ];
-            extraSpecialArgs = inputs // {
-              hostProfile = name;
-              inherit username mkImports;
-            };
-            inherit sharedModules;
-          };
-        }
       ];
     };
 
