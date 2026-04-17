@@ -7,19 +7,7 @@
 {
   programs.zed-editor = {
     enable = true;
-    package =
-      let
-        wrapped = pkgs.writeShellScriptBin "zeditor" ''
-          exec ${pkgs.zed-editor-fhs}/bin/zeditor "$@"
-        '';
-      in
-      pkgs.symlinkJoin {
-        name = "zeditor";
-        paths = [
-          wrapped
-          pkgs.zed-editor-fhs
-        ];
-      };
+    package = pkgs.zed-editor-fhs;
     extensions = [
       "nix"
       "toml"
@@ -41,12 +29,8 @@
       };
       laod_direnv = "shell_hook";
       # visual
-      # theme = "Gruvbox Dark";
       icon_theme = "Warm Charmed Icons";
-      # ui_font_size = 18;
-      # buffer_font_size = 18;
       ui_font_family = lib.mkForce config.stylix.fonts.monospace.name;
-      # buffer_font_family = "JetBrainsMono Nerd Font";
       title_bar = {
         show_onboarding_banner = false;
       };

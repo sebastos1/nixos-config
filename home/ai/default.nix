@@ -37,7 +37,7 @@
     };
 
     # CLAUDE.md
-    memory.text = ''
+    context = ''
       <do_not_act_before_instructions>
       Do not modify files unless clearly instructed. When intent is ambiguous, default to providing information and recommendations rather than taking action.
       </do_not_act_before_instructions>

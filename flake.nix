@@ -99,11 +99,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    keylist = {
-      url = "github:sebastos1/keylist";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     nixcord.url = "github:KaylorBen/nixcord";

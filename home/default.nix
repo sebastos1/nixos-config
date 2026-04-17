@@ -4,6 +4,17 @@
   ...
 }:
 {
+
+  services.wlsunset = {
+    enable = true;
+    temperature = {
+      # day = 6500;
+      night = 4500;
+    };
+    sunrise = "05:00";
+    sunset = "21:00";
+  };
+
   programs.foot = {
     enable = true;
     server.enable = true;
@@ -42,7 +53,12 @@
     templates = "$HOME/other/";
   };
 
-  dconf.settings = lib.mkForce { };
+  dconf.settings = lib.mkForce {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "adw-gtk3-dark";
+    };
+  };
   stylix = {
     enable = true;
     overlays.enable = false;
