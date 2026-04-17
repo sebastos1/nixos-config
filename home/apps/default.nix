@@ -7,7 +7,6 @@
     protonup-qt
     lutris
     heroic
-
     osu-lazer-bin
     # (blender.override { cudaSupport = true; })
   ];

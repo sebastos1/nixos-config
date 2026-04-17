@@ -1,6 +1,6 @@
 {
   pkgs,
-  nix-gaming,
+  inputs,
   ...
 }:
 {
@@ -9,7 +9,7 @@
     trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
   };
 
-  imports = [
+  imports = with inputs; [
     "${nix-gaming}/modules/pipewireLowLatency.nix"
     "${nix-gaming}/modules/platformOptimizations.nix"
   ];

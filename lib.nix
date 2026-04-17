@@ -1,54 +1,46 @@
 {
-  nixpkgs,
-  username,
   inputs,
-  systemModules,
-  sharedModules,
+  username,
+  nixosModules,
+  homeModules,
   ...
 }:
 let
   mkImports = base: paths: map (p: base + p) paths;
 
-  mkSystem =
+  mkHost =
     name:
-    nixpkgs.lib.nixosSystem {
-      specialArgs = inputs // {
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
         inherit
           inputs
           username
           mkImports
           ;
       };
-      modules = systemModules ++ [
+      modules = nixosModules ++ [
         ./system
         ./hosts/${name}
+        ./hosts/${name}/hardware.nix
         {
           home-manager = {
             useGlobalPkgs = true;
             backupFileExtension = "backup";
             users.${username}.imports = [
               ./home
-              ./hosts/${name}/home.nix
             ];
-            extraSpecialArgs = inputs // {
+            extraSpecialArgs = {
+              inherit inputs username mkImports;
               hostProfile = name;
-              inherit username mkImports;
             };
-            inherit sharedModules;
+            sharedModules = homeModules;
           };
         }
       ];
     };
 
-  mkSystems =
-    names:
-    builtins.listToAttrs (
-      map (name: {
-        inherit name;
-        value = mkSystem name;
-      }) names
-    );
+  mkHosts = names: inputs.nixpkgs.lib.genAttrs names mkHost;
 in
 {
-  inherit mkSystems mkImports;
+  inherit mkHosts mkImports;
 }

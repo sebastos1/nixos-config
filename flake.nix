@@ -3,18 +3,18 @@
     {
       nixpkgs,
       flake-parts,
-      agenix,
-      home-manager,
-      stylix,
-      nixcord,
-      zen-browser,
-      microvm,
-      disko,
-      impermanence,
       ...
     }@inputs:
+    let
+      username = "seb";
+      hosts = [
+        "homeserver"
+        "desk"
+        "lap"
+      ];
+    in
     flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{ self, ... }:
+      { self, ... }:
       {
         systems = [ "x86_64-linux" ];
 
@@ -24,17 +24,16 @@
 
         flake =
           let
-            username = "seb";
             lib = import ./lib.nix {
-              inherit username inputs nixpkgs;
-              systemModules = [
+              inherit inputs username;
+              nixosModules = with inputs; [
                 agenix.nixosModules.default
                 home-manager.nixosModules.home-manager
                 microvm.nixosModules.host
                 disko.nixosModules.disko
                 impermanence.nixosModules.impermanence
               ];
-              sharedModules = [
+              homeModules = with inputs; [
                 nixcord.homeModules.nixcord
                 stylix.homeModules.stylix
                 zen-browser.homeModules.beta
@@ -42,19 +41,12 @@
             };
           in
           {
-            # register hosts here
-            nixosConfigurations =
-              lib.mkSystems [
-                "homeserver"
-                "desk"
-                "lap"
-              ]
-              // {
-                installer = nixpkgs.lib.nixosSystem {
-                  system = "x86_64-linux";
-                  modules = [ ./hosts/installer.nix ];
-                };
+            nixosConfigurations = lib.mkHosts hosts // {
+              installer = nixpkgs.lib.nixosSystem {
+                system = [ "x86_64-linux" ];
+                modules = [ ./installer.nix ];
               };
+            };
           };
 
         perSystem =
@@ -69,6 +61,7 @@
               packages = [ inputs.agenix.packages.${pkgs.system}.default ];
             };
 
+            # dns for servers
             terranix.terranixConfigurations.dns = {
               terraformWrapper.package = pkgs.opentofu;
               extraArgs = {

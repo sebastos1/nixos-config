@@ -1,11 +1,11 @@
 {
   mkImports,
-  config,
+  username,
   pkgs,
   ...
 }:
-let
-  imports = [
+{
+  imports = mkImports ../../system [
     /desktop.nix
     /firejail.nix
     /vpn.nix
@@ -15,12 +15,20 @@ let
     /services/forgejo.nix
     /services/beszel.nix
   ];
-in
-{
-  imports = [
-    ./hardware.nix
-  ]
-  ++ mkImports ../../system imports;
+
+  home-manager.users.${username}.imports = mkImports ../../home [
+    /desktop
+    /cli
+    /cli/tools.nix
+    /editors/zed.nix
+    /browser/brave.nix
+    /apps
+    /apps/minecraft
+    /apps/music.nix
+    /browser/zen.nix
+    /ai
+    /editors/helix.nix
+  ];
 
   networking.hostName = "CarPlay_9814";
 
@@ -33,55 +41,13 @@ in
     };
   };
 
-  # hardware specific
-  boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    # mobo doesnt support the apic pstate control that gamemode uses
-    kernelModules = [ "acpi-cpufreq" ];
-    kernelParams = [
-      "initcall_blacklist=amd_pstate_init"
-      # "intel_pstate=disable"
-      # "video=1920x1080"
-    ];
-
-    kernel = {
-      # for zram
-      sysctl = {
-        "vm.swappiness" = 100;
-        "vm.page-cluster" = 0;
-      };
-      sysfs.kernel.mm.transparent_hugepage = {
-        enabled = "madvise";
-        defrag = "defer+madvise";
-      };
-    };
-  };
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # scheduler
-  services.scx.enable = true;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    nvidiaSettings = true;
-    open = false;
+  services.scx = {
+    enable = true;
+    scheduler = "scx_bpfland";
   };
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
-
-  zramSwap.enable = true;
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-      priority = 0; # last resort
-    }
-  ];
 
   system.stateVersion = "25.05";
 }

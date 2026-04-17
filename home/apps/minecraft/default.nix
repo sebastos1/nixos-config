@@ -1,10 +1,10 @@
 {
   pkgs,
-  mcsr-nixos,
+  inputs,
   ...
 }:
 let
-  mcsrPkgs = mcsr-nixos.packages.${pkgs.system};
+  mcsrPkgs = inputs.mcsr-nixos.packages.${pkgs.system};
   init = pkgs.writeText "init.lua" (
     ''
       package.path = package.path .. ";${mcsrPkgs.waywork}/?.lua"
