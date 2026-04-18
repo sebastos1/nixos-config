@@ -67,6 +67,13 @@
     ];
   };
 
+  dconf.settings = lib.mkForce {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "adw-gtk3-dark";
+    };
+  };
+
   services.wlsunset = {
     enable = true;
     temperature = {
