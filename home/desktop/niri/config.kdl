@@ -1,4 +1,3 @@
-// spawn-at-startup "ironbar"
 spawn-at-startup "foot" "--server"
 spawn-at-startup "sh" "-c" "swaybg -i $(ls ~/pics/wallpapers/* | shuf -n1) -m fill"
 

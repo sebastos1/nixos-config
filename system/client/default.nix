@@ -1,16 +1,9 @@
 {
   pkgs,
   username,
-  inputs,
   ...
 }:
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      ironbar = inputs.ironbar.packages.${prev.system}.default;
-    })
-  ];
-
   imports = [
     ./boot.nix
   ];

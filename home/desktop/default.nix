@@ -6,7 +6,6 @@
 {
   imports = [
     ./niri
-    ./ironbar
   ];
 
   home.packages = with pkgs; [
