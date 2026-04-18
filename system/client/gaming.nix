@@ -25,7 +25,6 @@
     enable = true;
     platformOptimizations.enable = true;
     protontricks.enable = true;
-    gamescopeSession.enable = false;
     extraPackages = with pkgs; [
       python3 # for elden ring
     ];

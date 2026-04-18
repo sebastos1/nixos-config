@@ -1,6 +1,7 @@
 {
   pkgs,
   hostProfile,
+  configPath,
   ...
 }:
 {
@@ -17,7 +18,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "/etc/nixos";
+    flake = configPath;
   };
 
   programs.fish.shellAliases = {

@@ -1,13 +1,10 @@
 {
   mkImports,
   config,
+  username,
   ...
 }:
 let
-  imports = [
-    /server
-  ];
-
   vms = {
     forgejo = {
       ip = "10.0.0.3";
@@ -56,7 +53,15 @@ in
     ./hardware.nix
     ../../system/services/glance
   ]
-  ++ mkImports ../../system imports;
+  ++ mkImports ../../system [
+    /server
+  ];
+
+  home-manager.users.${username}.imports = mkImports ../../home [
+    /cli
+    /cli/headless.nix
+    /editor/helix.nix
+  ];
 
   server.impermanence = {
     enable = true;

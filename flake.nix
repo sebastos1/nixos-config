@@ -12,6 +12,7 @@
         "desk"
         "lap"
       ];
+      configPath = "/etc/nixos"; # or github:sebastos1/nixos-config
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
       { self, ... }:
@@ -25,7 +26,7 @@
         flake =
           let
             lib = import ./lib.nix {
-              inherit inputs username;
+              inherit inputs username configPath;
               nixosModules = with inputs; [
                 agenix.nixosModules.default
                 home-manager.nixosModules.home-manager
@@ -43,7 +44,7 @@
           {
             nixosConfigurations = lib.mkHosts hosts // {
               installer = nixpkgs.lib.nixosSystem {
-                system = [ "x86_64-linux" ];
+                system = "x86_64-linux";
                 modules = [ ./installer.nix ];
               };
             };

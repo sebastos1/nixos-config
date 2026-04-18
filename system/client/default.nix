@@ -11,6 +11,10 @@
     })
   ];
 
+  imports = [
+    ./boot.nix
+  ];
+
   programs.niri.enable = true;
   xdg.portal = {
     enable = true;

@@ -22,9 +22,6 @@
     vesktop.enable = true;
     config = {
       useQuickCss = false;
-      themeLinks = [
-        "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"
-      ];
       plugins = {
         volumeBooster = {
           enable = true;

@@ -27,7 +27,7 @@
         diagnostics = false;
         metrics = false;
       };
-      laod_direnv = "shell_hook";
+      load_direnv = "shell_hook";
       # visual
       icon_theme = "Warm Charmed Icons";
       ui_font_family = lib.mkForce config.stylix.fonts.monospace.name;

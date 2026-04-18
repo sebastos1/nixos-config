@@ -22,7 +22,16 @@
     nautilus
     mpv
     # oculante # images
+
+    # fallback fonts
+    font-awesome
+    noto-fonts # latin, greek, cyrillic, etc
+    noto-fonts-cjk-sans # chinese, japanese, korean
   ];
+
+  programs.fish.shellAliases = {
+    copy = "wl-copy"; # copy < file.txt
+  };
 
   programs.tofi = {
     enable = true;
@@ -56,5 +65,78 @@
         resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       }
     ];
+  };
+
+  services.wlsunset = {
+    enable = true;
+    temperature = {
+      night = 4500;
+    };
+    sunrise = "05:00";
+    sunset = "21:00";
+  };
+
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = {
+      main = {
+        dpi-aware = lib.mkForce "yes";
+        pad = "10x10";
+      };
+      scrollback = {
+        lines = 10000;
+        multiplier = 5.0;
+      };
+      cursor = {
+        blink = "yes";
+        style = "beam";
+      };
+      mouse.hide-when-typing = "yes";
+      # colors-dark = { # todo: wait for blur :)
+      #   alpha = lib.mkForce "0.9";
+      #   blur = "yes"; # coming to niri soon I heard
+      # };
+      desktop-notifications.inhibit-when-focused = "yes";
+    };
+  };
+
+  xdg.userDirs = {
+    enable = true;
+    music = "$HOME/music/";
+    pictures = "$HOME/pics/";
+    videos = "$HOME/vids/";
+    documents = "$HOME/other/";
+    download = "$HOME/other/";
+    desktop = "$HOME/other/";
+    publicShare = "$HOME/other/";
+    templates = "$HOME/other/";
+  };
+
+  fonts.fontconfig = {
+    enable = true;
+    antialiasing = true;
+    hinting = "slight";
+    subpixelRendering = "none";
+    defaultFonts = {
+      monospace = [
+        "JetBrainsMono Nerd Font"
+        "Noto Sans CJK"
+        "Twitter Color Emoji"
+      ];
+      sansSerif = [
+        "IBM Plex Sans"
+        "Noto Sans CJK"
+        "Twitter Color Emoji"
+      ];
+      serif = [
+        "IBM Plex Serif"
+        "Noto Serif CJK"
+        "Twitter Color Emoji"
+      ];
+      emoji = [
+        "Twitter Color Emoji"
+      ];
+    };
   };
 }

@@ -1,6 +1,7 @@
 {
   inputs,
   username,
+  configPath,
   nixosModules,
   homeModules,
   ...
@@ -16,10 +17,11 @@ let
           inputs
           username
           mkImports
+          configPath
           ;
       };
       modules = nixosModules ++ [
-        ./system
+        ./system # shared system
         ./hosts/${name}
         ./hosts/${name}/hardware.nix
         {
@@ -27,11 +29,12 @@ let
             useGlobalPkgs = true;
             backupFileExtension = "backup";
             users.${username}.imports = [
-              ./home
+              ./home # shared home
             ];
             extraSpecialArgs = {
               inherit inputs username mkImports;
               hostProfile = name;
+              configPath = configPath;
             };
             sharedModules = homeModules;
           };

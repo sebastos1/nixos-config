@@ -39,7 +39,6 @@
           Cryptomining = true;
           Fingerprinting = true;
         };
-
         ExtensionSettings = mkExtensionSettings {
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
           "uBlock0@raymondhill.net" = "ublock-origin";
@@ -85,25 +84,6 @@
               id = "787d0fd7-5d70-4dbc-801d-3dfae851658b";
               container = containers."Personal".id;
               position = 1000;
-              theme = {
-                type = "gradient";
-                colors = [
-                  {
-                    red = 97;
-                    green = 122;
-                    blue = 184;
-                    algorithm = "floating";
-                  }
-                  {
-                    red = 96;
-                    green = 184;
-                    blue = 174;
-                    algorithm = "complementary";
-                  }
-                ];
-                opacity = 0.4;
-                texture = 0.5;
-              };
             };
           };
       };

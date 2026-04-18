@@ -2,15 +2,15 @@
   mkImports,
   username,
   pkgs,
+  inputs,
   ...
 }:
 {
   imports = mkImports ../../system [
-    /desktop.nix
+    /client
+    /client/gaming.nix
     /firejail.nix
     /vpn.nix
-    /gaming.nix
-    /boot.nix
     /services/glance
     /services/forgejo.nix
     /services/beszel.nix
@@ -20,14 +20,14 @@
     /desktop
     /cli
     /cli/tools.nix
-    /editors/zed.nix
+    /editor/zed.nix
     /browser/brave.nix
     /apps
     /apps/minecraft
     /apps/music.nix
+    /apps/claude.nix
     /browser/zen.nix
-    /ai
-    /editors/helix.nix
+    /editor/helix.nix
   ];
 
   networking.hostName = "CarPlay_9814";
