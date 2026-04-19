@@ -8,6 +8,8 @@
     ./niri
   ];
 
+  theme.client = true;
+
   home.packages = with pkgs; [
     cliphist
     wl-clipboard # copy/paste
@@ -21,11 +23,6 @@
     nautilus
     mpv
     # oculante # images
-
-    # fallback fonts
-    font-awesome
-    noto-fonts # latin, greek, cyrillic, etc
-    noto-fonts-cjk-sans # chinese, japanese, korean
   ];
 
   programs.fish.shellAliases = {
@@ -48,13 +45,6 @@
     };
   };
 
-  home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 20;
-    gtk.enable = true;
-  };
-
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -64,13 +54,6 @@
         resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       }
     ];
-  };
-
-  dconf.settings = lib.mkForce {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      gtk-theme = "adw-gtk3-dark";
-    };
   };
 
   services.wlsunset = {
@@ -117,32 +100,5 @@
     desktop = "$HOME/other/";
     publicShare = "$HOME/other/";
     templates = "$HOME/other/";
-  };
-
-  fonts.fontconfig = {
-    enable = true;
-    antialiasing = true;
-    hinting = "slight";
-    subpixelRendering = "none";
-    defaultFonts = {
-      monospace = [
-        "JetBrainsMono Nerd Font"
-        "Noto Sans CJK"
-        "Twitter Color Emoji"
-      ];
-      sansSerif = [
-        "IBM Plex Sans"
-        "Noto Sans CJK"
-        "Twitter Color Emoji"
-      ];
-      serif = [
-        "IBM Plex Serif"
-        "Noto Serif CJK"
-        "Twitter Color Emoji"
-      ];
-      emoji = [
-        "Twitter Color Emoji"
-      ];
-    };
   };
 }

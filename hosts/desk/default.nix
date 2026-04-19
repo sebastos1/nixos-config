@@ -2,7 +2,6 @@
   mkImports,
   username,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -16,19 +15,21 @@
     /services/beszel.nix
   ];
 
-  home-manager.users.${username}.imports = mkImports ../../home [
-    /desktop
-    /cli
-    /cli/tools.nix
-    /editor/zed.nix
-    /browser/brave.nix
-    /apps
-    /apps/minecraft
-    /apps/music.nix
-    /apps/claude.nix
-    /browser/zen.nix
-    /editor/helix.nix
-  ];
+  home-manager.users.${username} = {
+    imports = mkImports ../../home [
+      /desktop
+      /cli
+      /cli/tools.nix
+      /editor/zed.nix
+      /browser/brave.nix
+      /apps
+      /apps/minecraft
+      /apps/music.nix
+      /apps/claude.nix
+      /browser/zen.nix
+      /editor/helix.nix
+    ];
+  };
 
   networking.hostName = "CarPlay_9814";
 
@@ -41,9 +42,8 @@
     };
   };
 
+  # might be better i havent done ANY research
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
-  # scheduler
   services.scx = {
     enable = true;
     scheduler = "scx_bpfland";
