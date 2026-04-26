@@ -35,7 +35,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  # remove defaults
   environment = {
     defaultPackages = [ ];
     systemPackages = with pkgs; [

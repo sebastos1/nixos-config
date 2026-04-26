@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    ./niri
-  ];
+  xdg.configFile."niri/config.kdl".source = ./config.kdl;
 
   theme.client = true;
 

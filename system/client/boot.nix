@@ -4,6 +4,8 @@
   ...
 }:
 {
+  # enables the waving cat on boot
+  # https://github.com/sebastos1/ello-plymouth
   boot = {
     plymouth = {
       enable = true;

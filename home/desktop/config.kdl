@@ -3,16 +3,14 @@ spawn-at-startup "sh" "-c" "swaybg -i $(ls ~/pics/wallpapers/* | shuf -n1) -m fi
 
 screenshot-path "~/pics/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-// main, 2560x1440@280
 output "DP-3" {
     mode "2560x1440@280"
     position x=1920 y=0
     scale 1.333333
-    // vrr is not working for me and im not troubleshooting ts
 }
 
-// 1920x1080
 output "DP-2" {
+    mode "1920x1080@120"
     position x=0 y=0
     focus-at-startup
 }

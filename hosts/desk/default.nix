@@ -25,7 +25,7 @@
       /apps
       /apps/minecraft
       /apps/music.nix
-      /apps/claude.nix
+      # /apps/claude.nix
       /browser/zen.nix
       /editor/helix.nix
     ];

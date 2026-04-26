@@ -1,10 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
+  home.packages = [
+    inputs.brave-previews.packages.${pkgs.system}.brave-origin-nightly
+  ];
+
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
     extensions = [
-      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
+      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # dark reader
       # libredirect?
     ];
   };
