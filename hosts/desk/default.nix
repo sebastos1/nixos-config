@@ -10,10 +10,17 @@
     /client/gaming.nix
     /firejail.nix
     /vpn.nix
-    /services/glance
-    /services/forgejo.nix
-    /services/beszel.nix
+    # /services/glance
+    # /services/forgejo.nix
+    # /services/beszel.nix
+    /services/searxng.nix
   ];
+
+  users.users.${username} = {
+    packages = with pkgs; [
+      lmstudio
+    ];
+  };
 
   home-manager.users.${username} = {
     imports = mkImports ../../home [
@@ -25,9 +32,10 @@
       /apps
       /apps/minecraft
       /apps/music.nix
-      # /apps/claude.nix
       /browser/zen.nix
       /editor/helix.nix
+      /ai/claude.nix
+      /ai/mcp.nix
     ];
   };
 
