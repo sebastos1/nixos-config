@@ -105,7 +105,7 @@ in
           color-scheme = "prefer-${polarity}";
           gtk-theme = "adw-gtk3-${polarity}";
         };
-      });
+      }) otherwise { };
 
       stylix.fonts = with pkgs; {
         inherit (theme.fonts)
