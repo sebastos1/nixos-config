@@ -100,12 +100,17 @@ in
         targets.gtk.enable = theme.client;
       };
 
-      dconf.settings = mkIf theme.client (mkForce {
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-${polarity}";
-          gtk-theme = "adw-gtk3-${polarity}";
-        };
-      }) otherwise { };
+      dconf.settings = mkForce (
+        if theme.client then
+          {
+            "org/gnome/desktop/interface" = {
+              color-scheme = "prefer-${polarity}";
+              gtk-theme = "adw-gtk3-${polarity}";
+            };
+          }
+        else
+          { }
+      );
 
       stylix.fonts = with pkgs; {
         inherit (theme.fonts)
