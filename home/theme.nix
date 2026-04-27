@@ -97,6 +97,7 @@ in
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${theme.name}.yaml";
         inherit polarity;
         targets.zen-browser.profileNames = [ "default" ];
+        targets.gtk.enable = theme.client;
       };
 
       dconf.settings = mkIf theme.client (mkForce {

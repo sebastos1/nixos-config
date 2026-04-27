@@ -89,7 +89,7 @@ in
 
   server.vms = {
     enable = true;
-    vms = vms;
+    inherit vms;
   };
 
   networking = {
@@ -126,7 +126,7 @@ in
     enable = true;
     tunnelId = "3c4839a0-a5ff-4da1-8512-e00428fd24a5";
     secretsFile = config.age.secrets.cf-tunnel-json.path;
-    zones = zones;
+    inherit zones;
   };
 
   system.stateVersion = "25.11";
