@@ -6,7 +6,7 @@
     redisCreateLocally = true;
     settings = {
       server = {
-        bind_address = "::1";
+        bind_address = "::";
         port = 6767;
         secret_key = "devkey";
         image_proxy = true;

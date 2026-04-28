@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.server.disko;
+  impermanenceCfg = config.server.impermanence;
   mountOptions = [
     "compress=zstd"
     "noatime"
@@ -12,14 +13,7 @@ in
     device = lib.mkOption {
       type = lib.types.str;
     };
-    fsType = lib.mkOption {
-      type = lib.types.str;
-    };
     swapSize = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-    };
-    persistenceDir = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
     };
@@ -46,8 +40,9 @@ in
           root = {
             size = "100%";
             content = {
-              type = "btrfs";
+              type = "btrfs"; # -> subvolumes
               extraArgs = [
+                # labels it nixos
                 "-L"
                 "nixos"
                 "-f"
@@ -61,15 +56,16 @@ in
                   mountpoint = "/nix";
                   inherit mountOptions;
                 };
+              }
+              // lib.optionalAttrs impermanenceCfg.enable {
+                # keep logs on wipe
                 "/log" = {
                   mountpoint = "/var/log";
                   inherit mountOptions;
                 };
-              }
-              // lib.optionalAttrs (cfg.persistenceDir != null) {
                 "/root-blank" = { };
-                ${cfg.persistenceDir} = {
-                  mountpoint = cfg.persistenceDir;
+                ${impermanenceCfg.dir} = {
+                  mountpoint = impermanenceCfg.dir;
                   inherit mountOptions;
                 };
               };

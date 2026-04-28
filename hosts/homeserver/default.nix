@@ -26,6 +26,10 @@ let
         }
       ];
     };
+    searxng = {
+      ip = "10.0.0.5";
+      services = [ ../../system/services/searxng.nix ];
+    };
   };
 
   zones = {
@@ -40,8 +44,6 @@ let
     "sjallabong.com" = {
       id = "71fc4efd9ff85d6e65f7bac4f1f8f91d";
       services = {
-        # "pool" = "http://localhost:8080";
-        # "account" = "http://localhost:3001";
         "matrix" = "http://${vms.matrix.ip}:6167";
         "@" = "http://${vms.matrix.ip}:8080";
       };
@@ -49,12 +51,9 @@ let
   };
 in
 {
-  imports = [
-    ./hardware.nix
-    ../../system/services/glance
-  ]
-  ++ mkImports ../../system [
+  imports = mkImports ../../system [
     /server
+    /services/glance
   ];
 
   home-manager.users.${username}.imports = mkImports ../../home [
@@ -63,28 +62,23 @@ in
     /editor/helix.nix
   ];
 
-  server.impermanence = {
+  services.avahi = {
     enable = true;
-    rootDir = "/persist";
-    directories = [
-      "/var/lib/microvms"
-    ];
-  };
-
-  server.backups = {
-    enable = true;
-    target = "/mnt/backups/diorite";
-    subvolume = {
-      "persist" = { };
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+      addresses = true;
     };
   };
 
-  server.disko = {
+  server.impermanence = {
     enable = true;
-    device = "/dev/sda";
-    fsType = "btrfs";
-    swapSize = "8G";
-    persistenceDir = "/persist";
+    dir = "/persist";
+    directories = [
+      "/var/lib/microvms"
+    ];
   };
 
   server.vms = {
@@ -100,7 +94,21 @@ in
       22
       80
       443
+      6767 # searxng
     ];
+
+    nat = {
+      enable = true;
+      externalInterface = "en+"; # might be diff ?
+      internalInterfaces = [ "vm-searxng" ]; # or your bridge, e.g. "br0"
+      forwardPorts = [
+        {
+          sourcePort = 6767;
+          destination = "10.0.0.5:6767";
+          proto = "tcp";
+        }
+      ];
+    };
   };
 
   systemd.network = {
@@ -127,6 +135,14 @@ in
     tunnelId = "3c4839a0-a5ff-4da1-8512-e00428fd24a5";
     secretsFile = config.age.secrets.cf-tunnel-json.path;
     inherit zones;
+  };
+
+  server.backups = {
+    enable = true;
+    target = "/mnt/backups/diorite";
+    subvolume = {
+      "persist" = { };
+    };
   };
 
   system.stateVersion = "25.11";

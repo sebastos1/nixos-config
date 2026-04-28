@@ -9,6 +9,12 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  server.disko = {
+    enable = true;
+    device = "/dev/sda";
+    swapSize = "8G";
+  };
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ehci_pci"

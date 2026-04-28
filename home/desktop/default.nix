@@ -54,15 +54,6 @@
     ];
   };
 
-  services.wlsunset = {
-    enable = true;
-    temperature = {
-      night = 4500;
-    };
-    sunrise = "05:00";
-    sunset = "21:00";
-  };
-
   programs.foot = {
     enable = true;
     server.enable = true;

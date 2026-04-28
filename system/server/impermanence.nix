@@ -10,7 +10,7 @@ in
 {
   options.server.impermanence = {
     enable = lib.mkEnableOption "server impermanence";
-    rootDir = lib.mkOption {
+    dir = lib.mkOption {
       type = lib.types.str;
       default = "/persist";
     };
@@ -52,8 +52,8 @@ in
       };
     };
 
-    fileSystems.${cfg.rootDir}.neededForBoot = true;
-    environment.persistence.${cfg.rootDir} = {
+    fileSystems.${cfg.dir}.neededForBoot = true;
+    environment.persistence.${cfg.dir} = {
       hideMounts = true;
       directories = [
         "/var/lib/nixos"
@@ -67,7 +67,7 @@ in
       ++ cfg.files;
     };
     age.identityPaths = [
-      "${cfg.rootDir}/etc/ssh/ssh_host_ed25519_key"
+      "${cfg.dir}/etc/ssh/ssh_host_ed25519_key"
     ];
   };
 }
