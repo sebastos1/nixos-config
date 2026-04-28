@@ -99,8 +99,8 @@ in
 
     nat = {
       enable = true;
-      externalInterface = "en+"; # might be diff ?
-      internalInterfaces = [ "vm-searxng" ]; # or your bridge, e.g. "br0"
+      externalInterface = "en*";
+      internalInterfaces = [ "microvm" ];
       forwardPorts = [
         {
           sourcePort = 6767;
