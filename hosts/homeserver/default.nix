@@ -62,17 +62,6 @@ in
     /editor/helix.nix
   ];
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-    publish = {
-      enable = true;
-      userServices = true;
-      addresses = true;
-    };
-  };
-
   server.impermanence = {
     enable = true;
     dir = "/persist";

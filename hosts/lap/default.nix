@@ -14,7 +14,7 @@
       /cli
       /cli/tools.nix
       /editor/zed.nix
-      /browser/brave.nix
+      /browser/zen.nix
     ];
     theme = {
       light = true;

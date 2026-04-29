@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   networking.resolvconf.enable = false;
   services.resolved = {
@@ -6,7 +6,11 @@
     settings.Resolve.DNSOverTLS = true;
   };
 
-  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn = {
+    enable = true;
+    enableExcludeWrapper = true;
+    package = pkgs.mullvad-vpn;
+  };
   systemd.services."mullvad-daemon".postStart =
     let
       mullvad = config.services.mullvad-vpn.package;
