@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   services.forgejo = {
     enable = true;
@@ -17,10 +22,8 @@
         ROOT_URL = "https://git.shlb.ng";
         HTTP_ADDR = "0.0.0.0";
         HTTP_PORT = 3000;
-        # START_SSH_SERVER = true;
-        # BUILTIN_SSH_SERVER_USER = "git";
-        # SSH_DOMAIN = "git.shlb.ng";
-        # SSH_LISTEN_PORT = 2222;
+        SSH_DOMAIN = "git.shlb.ng";
+        SSH_PORT = lib.head config.services.openssh.ports;
       };
 
       # service = {
