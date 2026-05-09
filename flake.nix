@@ -122,9 +122,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    brave-previews = {
-      url = "github:sebastos1/brave-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

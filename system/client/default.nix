@@ -16,6 +16,20 @@
     ];
   };
 
+  hardware.keyboard.qmk.enable = true;
+  services.udev = {
+    packages = with pkgs; [
+      qmk
+      qmk-udev-rules
+      qmk_hid
+      via
+      vial
+    ];
+    extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f5", ATTRS{idProduct}=="32f5", OWNER="1000", GROUP="100", MODE="0666"
+    '';
+  };
+
   services.greetd = {
     enable = true;
     settings.default_session = {
@@ -62,6 +76,8 @@
   # highly recommended apparently
   environment.systemPackages = with pkgs; [
     xwayland-satellite # xwayland support
+    qmk
+    vial
   ];
 
   nix.settings.trusted-users = [ username ];

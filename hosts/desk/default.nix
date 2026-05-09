@@ -16,9 +16,19 @@
     /services/searxng.nix
   ];
 
+  # someone broke lutris
+  nixpkgs.overlays = [
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (_: {
+        doCheck = false;
+      });
+    })
+  ];
+
   users.users.${username} = {
     packages = with pkgs; [
       lmstudio
+      mullvad-browser
     ];
   };
 
@@ -51,7 +61,7 @@
   };
 
   # might be better i havent done ANY research
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
   services.scx = {
     enable = true;
     scheduler = "scx_bpfland";

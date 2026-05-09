@@ -5,15 +5,15 @@
     wineWow64Packages.stable
     winetricks
     protonup-qt
-    # lutris
+    lutris
     # heroic
     osu-lazer-bin
   ];
 
-  programs.obs-studio = {
-    enable = true;
-    package = pkgs.obs-studio.override { cudaSupport = true; };
-  };
+  # programs.obs-studio = {
+  #   enable = true;
+  #   package = pkgs.obs-studio.override { cudaSupport = true; };
+  # };
 
   programs.nixcord = {
     enable = true;
@@ -44,8 +44,8 @@
         serverListIndicators.enable = true;
         showMeYourName.enable = true;
         spotifyCrack.enable = true;
-        typingIndicator.enable = true;
-        typingTweaks.enable = true;
+        # typingIndicator.enable = true;
+        # typingTweaks.enable = true;
         whoReacted.enable = true;
         userVoiceShow.enable = true;
         ClearURLs.enable = true;

@@ -15,7 +15,8 @@ output "DP-2" {
     focus-at-startup
 }
 
-output "Samsung Electric Company S24C650 Unknown" {
+output "DP-1" {
+    mode "1920x1200@59.950"
     position x=3840 y=-840
     transform "90"
 }

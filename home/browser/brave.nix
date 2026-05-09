@@ -1,9 +1,5 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
-  home.packages = [
-    inputs.brave-previews.packages.${pkgs.system}.brave-origin-nightly
-  ];
-
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
