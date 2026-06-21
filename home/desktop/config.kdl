@@ -31,9 +31,9 @@ input {
     keyboard {
         numlock
         xkb {
-            layout "no"
-            variant "nodeadkeys"
-            options "caps:escape"
+            layout "no,gallium"
+            variant "nodeadkeys,"
+            options "caps:escape,grp:win_space_toggle"
         }
     }
 
@@ -160,8 +160,8 @@ binds {
     Mod+Shift+W repeat=false { close-window; }
 
     // Move focus
-    //   I
-    // J K L
+    //   I      O
+    // J K L  H A E
     Mod+I     { focus-window-or-workspace-up; }
     Mod+J     { focus-column-or-monitor-left; }
     Mod+K     { focus-window-or-workspace-down; }

@@ -13,15 +13,21 @@
     wl-clipboard # copy/paste
 
     # pws
-    bitwarden-desktop
+    # bitwarden-desktop
     rbw
 
     adwaita-icon-theme
     swaybg
     nautilus
-    mpv
     # oculante # images
   ];
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      loop-file = "inf";
+    };
+  };
 
   programs.fish.shellAliases = {
     copy = "wl-copy"; # copy < file.txt

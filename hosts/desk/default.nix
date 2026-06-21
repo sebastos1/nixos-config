@@ -25,13 +25,6 @@
     })
   ];
 
-  users.users.${username} = {
-    packages = with pkgs; [
-      lmstudio
-      mullvad-browser
-    ];
-  };
-
   home-manager.users.${username} = {
     imports = mkImports ../../home [
       /desktop

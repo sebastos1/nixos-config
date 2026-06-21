@@ -84,5 +84,14 @@
       LC_NAME = "nb_NO.UTF-8";
     };
   };
-  console.keyMap = "no-latin1";
+  # console.keyMap = "no-latin1";
+
+  services.xserver.xkb.extraLayouts.gallium = {
+    description = "Gallium";
+    languages = [ "eng" ];
+    symbolsFile = builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/sebastos1/Gallium/main/Linux/xkb/gallium_colstag";
+      sha256 = "sha256:155clai4wb4ny4scp0390712gnv9rpb49wi04m6bcpfhlqfjixr9";
+    };
+  };
 }

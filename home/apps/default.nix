@@ -10,10 +10,10 @@
     osu-lazer-bin
   ];
 
-  # programs.obs-studio = {
-  #   enable = true;
-  #   package = pkgs.obs-studio.override { cudaSupport = true; };
-  # };
+  programs.obs-studio = {
+    enable = true;
+    package = pkgs.obs-studio.override { cudaSupport = true; };
+  };
 
   programs.nixcord = {
     enable = true;
@@ -48,20 +48,20 @@
         # typingTweaks.enable = true;
         whoReacted.enable = true;
         userVoiceShow.enable = true;
-        ClearURLs.enable = true;
+        clearUrls.enable = true;
         anonymiseFileNames.enable = true;
-        fakeNitro = {
-          enable = true;
-          enableEmojiBypass = false;
-          enableStickerBypass = false;
-          enableStreamQualityBypass = true; # only using for this
-        };
+        # fakeNitro = { borken :(
+        #   enable = true;
+        #   enableEmojiBypass = false;
+        #   enableStickerBypass = false;
+        #   enableStreamQualityBypass = true; # only using for this
+        # };
         webScreenShareFixes.enable = true;
         # == DISABLE USELESS
-        customIdle = {
-          enable = true;
-          idleTimeout = 0.0; # never idle
-        };
+        # customIdle = {
+        #   enable = true;
+        #   idleTimeout = 0.0; # never idle
+        # };
         newGuildSettings = {
           # mute servers by default >:)
           enable = true;
