@@ -14,17 +14,9 @@ let
   };
 in
 {
-  home.packages = with pkgs; [
-    # mcp-nixos
-    uv
-  ];
-
   programs.mcp = {
     enable = true;
     servers = {
-      # nixos = {
-      #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-      # };
       searxng = {
         command = "${mcp-searxng}/bin/mcp-searxng";
         env.SEARXNG_URL = "http://[::1]:6767";

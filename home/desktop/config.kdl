@@ -28,6 +28,8 @@ layer-rule {
 }
 
 input {
+    workspace-auto-back-and-forth // return to prev workspace by clicking own workspace bind
+
     keyboard {
         numlock
         xkb {
@@ -51,34 +53,25 @@ input {
         // disabled-on-external-mouse
     }
 
-    workspace-auto-back-and-forth // return to prev workspace by clicking own workspace bind
+    tablet {
+        map-to-focused-output
+    }
 }
 
 overview {
     workspace-shadow {
-        off
+        off // looks bad with windows and the static wallpaper
     }
 }
 
 clipboard {
-    disable-primary
+    disable-primary // no paste on middle click
 }
 
-// https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     gaps 20
     background-color "transparent"
     center-focused-column "never"
-
-    //  for Mod+R (switch-preset-column-width)
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
-        // proportion 1.0
-    }
-
-    default-column-width { proportion 0.5; }
 
     focus-ring {
         width 4
@@ -108,19 +101,18 @@ layout {
         gaps-between-tabs 6
         corner-radius 8
     }
-}
 
-hotkey-overlay {
-    // disable the goofy popup
-    skip-at-startup
+    default-column-width { proportion 0.5; }
+    preset-column-widths {
+        // for Mod+R (switch-preset-column-width)
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
 }
-
-prefer-no-csd // client side decorations >:(
 
 animations {
-    off
-    // values below 1 speed up anims
-    // slowdown 0.75
+    off // slowdown 0.75 // values below 1 speed up anims
 }
 
 // rounded corners for everything
@@ -142,8 +134,8 @@ window-rule {
     open-focused false
 }
 
-// Use 'wev' to find XKB key names
 binds {
+    // use 'wev' to find XKB key names
     Mod+T            { spawn "footclient"; }
     Mod+Shift+T      { spawn "footclient"; }
     Mod+Return       { spawn "footclient"; }
@@ -151,11 +143,9 @@ binds {
     Mod+D            { spawn "tofi-drun" "--drun-launch=true"; }
     // Mod+B      { spawn "browser"; }
     // Mod+E      { spawn "file manager?"; }
-    // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
-    // zoomed-out view of workspaces and windows.
-    // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
+    // or: four-finger swipe up on touchpad
 
     Mod+Shift+W repeat=false { close-window; }
 
@@ -291,3 +281,9 @@ gestures {
         off
     }
 }
+
+hotkey-overlay {
+    skip-at-startup // disable the goofy popup
+}
+
+prefer-no-csd // client side decorations >:(

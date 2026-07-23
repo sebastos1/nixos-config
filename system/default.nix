@@ -25,7 +25,8 @@
 
   security.protectKernelImage = true;
   boot.tmp.cleanOnBoot = true;
-  systemd.coredump.enable = false;
+  systemd.coredump.enable = true;
+  services.gvfs.enable = true;
 
   boot.loader = {
     systemd-boot = {

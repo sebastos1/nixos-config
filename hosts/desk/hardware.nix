@@ -17,7 +17,7 @@
     kernelParams = [
       "initcall_blacklist=amd_pstate_init"
     ];
-    extraModulePackages = [ ];
+    extraModulePackages = [ config.boot.kernelPackages.it87 ];
     initrd = {
       kernelModules = [ ];
       availableKernelModules = [
@@ -27,12 +27,13 @@
         "usbhid"
         "usb_storage"
         "sd_mod"
+        "it87"
       ];
     };
     kernel = {
       # for zram
       sysctl = {
-        "vm.swappiness" = 100;
+        "vm.swappiness" = 10;
         "vm.page-cluster" = 0;
       };
       sysfs.kernel.mm.transparent_hugepage = {
@@ -41,6 +42,15 @@
       };
     };
   };
+
+  zramSwap.enable = true;
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB
+      priority = 0; # last resort
+    }
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e8c5251b-d52b-400b-8a75-0870d734b868";
@@ -62,22 +72,13 @@
     powerManagement.enable = true;
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
     nvidiaSettings = true;
-    open = false;
+    open = true;
   };
   environment.variables = {
     GBM_BACKEND = "nvidia-drm";
     LIBVA_DRIVER_NAME = "nvidia";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
-
-  zramSwap.enable = true;
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-      priority = 0; # last resort
-    }
-  ];
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

@@ -18,6 +18,7 @@
 
     adwaita-icon-theme
     swaybg
+    ffmpegthumbnailer
     nautilus
     # oculante # images
   ];

@@ -1,12 +1,6 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    uv
-  ];
-
   programs.claude-code = {
     enable = true;
-    # package = pkgs.claude-code-bin;
     enableMcpIntegration = true;
     settings = {
       model = "claude-sonnet-4-6";

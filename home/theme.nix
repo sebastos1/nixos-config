@@ -160,6 +160,7 @@ in
 
       # static for now
       home.pointerCursor = mkIf theme.client {
+        enable = true;
         name = "Bibata-Modern-Ice";
         package = pkgs.bibata-cursors;
         size = 20;

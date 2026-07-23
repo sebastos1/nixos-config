@@ -16,15 +16,6 @@
     /services/searxng.nix
   ];
 
-  # someone broke lutris
-  nixpkgs.overlays = [
-    (final: prev: {
-      openldap = prev.openldap.overrideAttrs (_: {
-        doCheck = false;
-      });
-    })
-  ];
-
   home-manager.users.${username} = {
     imports = mkImports ../../home [
       /desktop
@@ -38,7 +29,7 @@
       /browser/zen.nix
       /editor/helix.nix
       /ai/claude.nix
-      /ai/mcp.nix
+      # /ai/mcp.nix
     ];
   };
 

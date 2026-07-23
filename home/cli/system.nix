@@ -12,7 +12,10 @@
     procs # ps
     duf # df
     dust # du
-    btop # htop
+    # btop # htop
+    (pkgs.btop.override {
+      cudaSupport = true;
+    })
     fastfetch
   ];
 
