@@ -48,7 +48,8 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
   services.scx = {
     enable = true;
-    scheduler = "scx_bpfland";
+    # scheduler = "scx_bpfland";
+    scheduler = "scx_lavd";
   };
 
   system.stateVersion = "25.05";

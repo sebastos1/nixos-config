@@ -61,15 +61,16 @@
   programs.fish = {
     enable = true;
     shellAliases = {
-      ls = "eza --icons";
-      ll = "eza --icons -l";
-      la = "eza --icons -la";
-      tree = "eza --icons --tree";
+      ls = "eza --icons always";
+      ll = "eza --icons always -l";
+      la = "eza --icons always -la";
+      tree = "eza --icons always --tree";
       cd = "z";
       cat = "bat";
       cats = "bat --style=numbers,changes,header";
       grep = "rg";
       find = "fd";
+      use = "nix-shell -p";
     };
     functions = {
       fish_greeting = "";

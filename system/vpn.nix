@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   networking.resolvconf.enable = false;
   services.resolved = {
@@ -9,7 +9,6 @@
   services.mullvad-vpn = {
     enable = true;
     enableExcludeWrapper = true;
-    package = pkgs.mullvad-vpn;
   };
   systemd.services."mullvad-daemon".postStart =
     let

@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   modulesPath,
   ...
@@ -12,22 +11,15 @@
   boot = {
     kernelModules = [
       "kvm-amd"
-      "acpi-cpufreq" # mobo doesnt support the apic pstate control that gamemode uses
     ];
-    kernelParams = [
-      "initcall_blacklist=amd_pstate_init"
-    ];
-    extraModulePackages = [ config.boot.kernelPackages.it87 ];
+    extraModulePackages = [ ];
     initrd = {
-      kernelModules = [ ];
+      kernelModules = [ "amdgpu" ];
       availableKernelModules = [
         "nvme"
         "xhci_pci"
         "ahci"
         "usbhid"
-        "usb_storage"
-        "sd_mod"
-        "it87"
       ];
     };
     kernel = {
@@ -66,21 +58,10 @@
     ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
-    nvidiaSettings = true;
-    open = true;
-  };
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
+  # hardware.amdgpu.overdrive.enable = true;
+  # services.lact.enable = true;
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = true;
 }

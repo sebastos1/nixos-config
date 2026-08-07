@@ -3,7 +3,7 @@ spawn-at-startup "sh" "-c" "swaybg -i $(ls ~/pics/wallpapers/* | shuf -n1) -m fi
 
 screenshot-path "~/pics/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-output "DP-3" {
+output "DP-1" {
     mode "2560x1440@280"
     position x=1920 y=0
     scale 1.333333
@@ -15,11 +15,11 @@ output "DP-2" {
     focus-at-startup
 }
 
-output "DP-1" {
-    mode "1920x1200@59.950"
-    position x=3840 y=-840
-    transform "90"
-}
+// output "DP-1" {
+//     mode "1920x1200@59.950"
+//     position x=3840 y=-840
+//     transform "90"
+// }
 
 // makes background remain still in overview
 layer-rule {

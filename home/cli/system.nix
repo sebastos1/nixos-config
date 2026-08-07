@@ -14,7 +14,7 @@
     dust # du
     # btop # htop
     (pkgs.btop.override {
-      cudaSupport = true;
+      rocmSupport = true;
     })
     fastfetch
   ];

@@ -7,12 +7,10 @@
     lutris
     # heroic
     osu-lazer-bin
-  ];
 
-  programs.obs-studio = {
-    enable = true;
-    package = pkgs.obs-studio.override { cudaSupport = true; };
-  };
+    obs-studio
+    pkgsRocm.blender
+  ];
 
   programs.nixcord = {
     enable = true;
